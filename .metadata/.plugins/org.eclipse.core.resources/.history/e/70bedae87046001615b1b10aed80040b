@@ -1,0 +1,16 @@
+package testService;
+
+import org.junit.Test;
+import DataBaseConnection.dbConnection;
+
+public class DataBaseConectionTest {
+
+	
+@Test
+
+public void dbConnectionTrue(){
+	
+}
+	
+	
+}
