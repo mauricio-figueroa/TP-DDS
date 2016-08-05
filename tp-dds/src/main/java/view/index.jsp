@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>P.O.I </title>
+<link rel="shortcut icon" href="icon.png" type="image/png">
 <link rel="stylesheet" type="text/css" href="bootstrap/ss/bootstrap.css">
 <link rel="stylesheet" type="text/css"
 	href="bootstrap/css/bootstrap.min.css">
@@ -104,7 +105,7 @@
  <script>
  	function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -33.8688, lng: 151.2195},
+    center: {lat: -34.616606, lng: -58.416803},
     zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
@@ -168,7 +169,6 @@
  function openModal(){
  var modal = document.getElementById("modal");
 	 modal.style.display = "block";
-	 console.log("test");
 
  }
 
