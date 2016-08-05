@@ -35,7 +35,7 @@
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 searchPoi">
 			<form action="">
 				<p>INGRESE POI POR DISPONIBILIDAD</p>
-				<input id="pac-input" class="functionBox" class="controls" type="text" placeholder="Search Box"><br>
+				<input id="pac-input" class="functionBox" class="controls" type="text" placeholder="Buscar"><br>
 
 
 				<button type="submit" value="Submit">BUSCAR</button>
@@ -71,10 +71,18 @@
 		<p>
 			Modo Administrador
 		</p>
-		<input class="log-input" type="button" name="name" value="">
-	<button class="log-button" type="button" name="button">Enviar</button>
-	<input class="log-input"  type="button" name="name" value="">
+		<form class="" action="" method="post">
+			<input class="log-input" type="text" name="name" value="">
 		<button class="log-button" type="button" name="button">Enviar</button>
+		<input class="log-input"  type="text" name="name" value="">
+			<button class="log-button" type="button" name="button">Enviar</button>
+		</form>
+
+		<div class="modal-footer">
+						 <button type="button" class="btn btn-default" onclick="closeModal()" data-dismiss="modal">Close</button>
+					 </div>
+
+
 
 	</div>
 
@@ -97,19 +105,17 @@
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
 
-  // Create the search box and link it to the UI element.
+
   var input = document.getElementById('pac-input');
   var searchBox = new google.maps.places.SearchBox(input);
 
-  // Bias the SearchBox results towards current map's viewport.
+
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
   });
 
   var markers = [];
-  // [START region_getplaces]
-  // Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
+
   searchBox.addListener('places_changed', function() {
     var places = searchBox.getPlaces();
 
@@ -117,12 +123,12 @@
       return;
     }
 
-    // Clear out the old markers.
+
     markers.forEach(function(marker) {
       marker.setMap(null);
     });
     markers = [];
-    // For each place, get the icon, name and location.
+
     var bounds = new google.maps.LatLngBounds();
     places.forEach(function(place) {
       var icon = {
@@ -133,7 +139,7 @@
         scaledSize: new google.maps.Size(25, 25)
       };
 
-      // Create a marker for each place.
+
       markers.push(new google.maps.Marker({
         map: map,
         icon: icon,
@@ -142,7 +148,7 @@
       }));
 
       if (place.geometry.viewport) {
-        // Only geocodes have viewport.
+
         bounds.union(place.geometry.viewport);
       } else {
         bounds.extend(place.geometry.location);
@@ -156,14 +162,19 @@
 
  <script >
  function openModal(){
- var modal = document.getElementById("modal")
+ var modal = document.getElementById("modal");
 	 modal.style.display = "block";
 	 console.log("test");
 
-	 if (event.target == modal) {
-			 modal.style.display = "none";
-	 }
  }
+
+ function closeModal(){
+	 var modalC = document.getElementById("modal");
+	 modalC.style.display="none";
+
+ }
+
+
 
  </script>
 
