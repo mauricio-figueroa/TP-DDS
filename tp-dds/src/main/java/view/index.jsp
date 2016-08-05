@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>0_1_test</title>
+<title>P.O.I </title>
 <link rel="stylesheet" type="text/css" href="bootstrap/ss/bootstrap.css">
 <link rel="stylesheet" type="text/css"
 	href="bootstrap/css/bootstrap.min.css">
@@ -72,15 +72,20 @@
 			Modo Administrador
 		</p>
 		<form class="" action="" method="post">
+			<p>
+				Usuario
+			</p>
 			<input class="log-input" type="text" name="name" value="">
-		<button class="log-button" type="button" name="button">Enviar</button>
+				<p>
+					Contraseña
+				</p>
 		<input class="log-input"  type="text" name="name" value="">
 			<button class="log-button" type="button" name="button">Enviar</button>
 		</form>
 
 		<div class="modal-footer">
-						 <button type="button" class="btn btn-default" onclick="closeModal()" data-dismiss="modal">Close</button>
-					 </div>
+						 <button type="button" class="btn btn-default" onclick="closeModal()" data-dismiss="modal">X</button>
+		</div>
 
 
 
@@ -96,7 +101,6 @@
 
  </script>
 
-<!-- COPY PASTE  - PRUEBA CON NUEVO FRONT -->
  <script>
  	function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
