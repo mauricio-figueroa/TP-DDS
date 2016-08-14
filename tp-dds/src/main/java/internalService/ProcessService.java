@@ -12,8 +12,17 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import org.apache.http.client.ClientProtocolException;
+
+import json.JsonFactory;
+import Dto.bankDto.BankDTO;
+import Dto.trashPoi.TrashPoi;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
 import poi.ComercialShop;
 import poi.Poi;
+import reader.URLReader;
 import domain.Address;
 import domain.ProcessStory;
 
@@ -68,5 +77,18 @@ public class ProcessService {
 
 	}
 
+	public void turnOffAPoi() throws ClientProtocolException, IOException{
+		JsonFactory jsonFactory = new JsonFactory();
+		URLReader urlReader = new URLReader();
+		String url= "http://demo3537367.mockable.io/trash/pois";
+		List<TrashPoi> pois_to_turn_off= jsonFactory.fromJson(urlReader.getStringFromURL(url),
+					new TypeReference<ArrayList<TrashPoi>>() {});
+
+		
+		pois_to_turn_off.forEach(poi_trashed -> poiService.getAllPois().stream().filter(poi -> poi.getId()==poi_trashed.getId()));
+		
+		
+		
+	}
 
 }

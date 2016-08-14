@@ -11,6 +11,7 @@ import internalService.AvailabilityService;
 
 public abstract class Poi implements PoiInterface {
 
+	protected long id;
 	protected String name;
 	protected Address address;
 	protected Coordinate coordinate;
@@ -87,6 +88,14 @@ public abstract class Poi implements PoiInterface {
 
 	public boolean isAvailable() {
 		return false;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }
