@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -80,7 +81,15 @@ public class ProcessService {
 	public void turnOffAPoi() throws ClientProtocolException, IOException{
 		JsonFactory jsonFactory = new JsonFactory();
 		URLReader urlReader = new URLReader();
-		String url= "http://demo3537367.mockable.io/trash/pois";
+		Random random= new Random();
+		int randomNumber= random.nextInt(10);
+		String url;
+		if (randomNumber<5){
+			
+			url= "http://demo3537367.mockable.io/trash/pois";
+		}else{
+			url= "http://demo3537367.mockable.io/trash/pois_bad";
+		}
 		List<TrashPoi> poisToTurnOff = jsonFactory.fromJson(urlReader.getStringFromURL(url),
 					new TypeReference<ArrayList<TrashPoi>>() {});
 

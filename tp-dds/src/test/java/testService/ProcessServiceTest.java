@@ -12,7 +12,9 @@ import internalService.ProcessService;
 
 import org.apache.http.client.ClientProtocolException;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import domain.Address;
 import domain.Coordinate;
@@ -29,6 +31,8 @@ public class ProcessServiceTest {
 	private Bank santander;
 	private Bank icbc;
 	private BusStation stop114;
+	@Rule
+	public final ExpectedException exception = ExpectedException.none();
 
 	@Before
 	public void setUp() {
@@ -50,18 +54,25 @@ public class ProcessServiceTest {
 	}
 	
 	@Test
-	public void turnOffPoisTest() throws ClientProtocolException, IOException{
+	public void turnOffPoisTest() throws IOException {
 		poiService.removeAllPois();
 		List<Poi> poisTest = new ArrayList<Poi>();
 		poisTest.add(icbc);
 		poisTest.add(santander);
 		poisTest.add(stop114);
 		poiService.getAllPois().addAll(poisTest);
-		processService.turnOffAPoi();
 		
-		List<Poi> toCheck= poiService.getAllPois().stream().filter(poi -> poi.isActived()).collect(Collectors.toList());
-		System.out.println(toCheck.size());
+		List<Poi> toCheck=null;
+		
+		try {
+		processService.turnOffAPoi();
+		toCheck= poiService.getAllPois().stream().filter(poi -> poi.isActived()).collect(Collectors.toList());
 		assertTrue(toCheck.size()==1);
+		}catch(ClientProtocolException exception){
+			exception.printStackTrace();
+			assertTrue(exception instanceof ClientProtocolException);
+		}
+		
 	}
 
 }
