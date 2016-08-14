@@ -12,6 +12,15 @@ import internalService.AvailabilityService;
 public abstract class Poi implements PoiInterface {
 
 	protected long id;
+	protected boolean actived;
+	public boolean isActived() {
+		return actived;
+	}
+
+	public void setActived(boolean actived) {
+		this.actived = actived;
+	}
+
 	protected String name;
 	protected Address address;
 	protected Coordinate coordinate;
@@ -23,6 +32,7 @@ public abstract class Poi implements PoiInterface {
 		this.name = name;
 		this.address = address;
 		this.coordinate = coordinate;
+		this.actived=true;
 	}
 
 	@Override

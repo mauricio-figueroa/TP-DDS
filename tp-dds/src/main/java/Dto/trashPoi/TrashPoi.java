@@ -5,9 +5,8 @@ public class TrashPoi {
 	private long id;
 	private String deletedAt;
 	
-	public TrashPoi(long id, String deletedAt) {
-		this.id = id;
-		this.deletedAt = deletedAt;
+	public TrashPoi() {
+
 	}
 	public long getId() {
 		return id;

@@ -81,11 +81,17 @@ public class ProcessService {
 		JsonFactory jsonFactory = new JsonFactory();
 		URLReader urlReader = new URLReader();
 		String url= "http://demo3537367.mockable.io/trash/pois";
-		List<TrashPoi> pois_to_turn_off= jsonFactory.fromJson(urlReader.getStringFromURL(url),
+		List<TrashPoi> poisToTurnOff = jsonFactory.fromJson(urlReader.getStringFromURL(url),
 					new TypeReference<ArrayList<TrashPoi>>() {});
 
 		
-		pois_to_turn_off.forEach(poi_trashed -> poiService.getAllPois().stream().filter(poi -> poi.getId()==poi_trashed.getId()));
+		poisToTurnOff.forEach(poi_trashed -> poiService.getAllPois().forEach(poi ->{ 
+		
+		if(poi.getId()==poi_trashed.getId()){
+			poi.setActived(false);
+		}
+	
+		}));
 		
 		
 		
