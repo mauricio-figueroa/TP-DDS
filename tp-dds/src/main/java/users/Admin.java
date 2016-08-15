@@ -13,6 +13,47 @@ import poi.Poi;
 
 public class Admin {
 
+	private long id;
+	private List<String> actions;
+	private String nombre;
+
+
+	public Admin(List<String> actions, String nombre, PoiService poiService) {
+		super();
+		this.actions = actions;
+		this.nombre = nombre;
+		this.poiService = poiService;
+	}
+
+
+
+
+	public List<String> getActions() {
+		return actions;
+	}
+
+
+
+
+	public void setActions(List<String> actions) {
+		this.actions = actions;
+	}
+
+
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
 	private PoiService poiService;
 	
 
@@ -20,6 +61,8 @@ public class Admin {
 		poiService = PoiService.getInstance();
 		
 	}
+	
+	
 	
 	
 	public boolean addTerminal(Terminal terminal){
@@ -121,6 +164,15 @@ public class Admin {
 		}
 		return false;
 
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 }

@@ -1,5 +1,6 @@
 package testService;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
@@ -46,8 +47,8 @@ public class ReportTest {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 		this.date = sdf.format(fecha);
 
-		terminal  = new Terminal("terminalAbasto", new Coordinate(53.54,12.54));
-		terminal2 =new Terminal("terminalPalermo", new Coordinate(54.14,45.54));
+		terminal  = new Terminal("terminalAbasto", new Coordinate(53.54,12.54),new ArrayList<String>());
+		terminal2 =new Terminal("terminalPalermo", new Coordinate(54.14,45.54),new ArrayList<String>());
 
 	}
 

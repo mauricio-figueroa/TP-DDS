@@ -16,6 +16,7 @@ import externalServices.BankService.BankService;
 import observers.subjectBusqueda.SubjectBusquedas;
 import poi.Bank;
 import poi.Poi;
+import users.Admin;
 import users.Terminal;
 
 
@@ -27,6 +28,7 @@ public class PoiService {
 	private SubjectBusquedas subjectBusquedas = SubjectBusquedas.getInstance();
 	private static ReportService reportService;
 	private static List<Terminal> terminales;
+	private static List<Admin> admins;
 
 	
 	public Terminal searchTerminal(String terminalName){

@@ -15,18 +15,42 @@ import poi.Poi;
 
 public class Terminal {
 	
+	private long id ;
 	private String nombre;
 	private Coordinate coordinates;
 	private PoiService poiService;
+	private List<String> actions;
 	
-	
-	
-	
-	public Terminal(String nombre,Coordinate coordinate) {
+	public Terminal(String nombre,Coordinate coordinate,List<String> actions) {
 		this.nombre = nombre;
 		this.coordinates=coordinate;
 		this.poiService = PoiService.getInstance();
 	}
+
+	
+
+	public long getId() {
+		return id;
+	}
+
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+
+
+	public List<String> getActions() {
+		return actions;
+	}
+
+
+
+	public void setActions(List<String> actions) {
+		this.actions = actions;
+	}
+
 
 
 	public String getNombre() {

@@ -24,7 +24,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import poi.ComercialShop;
 import poi.Poi;
 import reader.URLReader;
+import users.Admin;
+import users.Terminal;
 import domain.Address;
+import domain.ProcessSearchAdmin;
+import domain.ProcessSearchInterfaz;
+import domain.ProcessSearchTerminal;
 import domain.ProcessStory;
 
 public class ProcessService {
@@ -32,7 +37,7 @@ public class ProcessService {
 
 	private List<ProcessStory> processStories= new ArrayList<ProcessStory>();
 	private PoiService poiService= PoiService.getInstance();
-
+	
 
 	public void updateComercialShops(String path){
 
@@ -106,4 +111,19 @@ public class ProcessService {
 		
 	}
 
+	public void addActionsToUser(String nombre,String type,List actions){
+		
+		if (type =="Terminal"){
+				ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
+				List<Terminal> terminales = (List<Terminal>) searchTerminal.search(nombre);
+				terminales.get(0).setActions(actions);
+		}else{
+			ProcessSearchInterfaz searchAdmin= new ProcessSearchAdmin();
+			List<Admin> admins =(List<Admin>) searchAdmin.search(nombre);
+			
+		}
+		
+		
+		
+	}
 }
