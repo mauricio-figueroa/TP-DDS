@@ -1,7 +1,9 @@
 package users;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.omg.CORBA.Current;
 
@@ -14,33 +16,25 @@ import poi.Poi;
 public class Admin {
 
 	private long id;
-	private List<String> actions;
+	private List<List<String>> actions;
 	private String nombre;
 
 
-	public Admin(List<String> actions, String nombre, PoiService poiService) {
+
+	public Admin(List<List<String>> actions, String nombre, PoiService poiService) {
 		super();
 		this.actions = actions;
 		this.nombre = nombre;
 		this.poiService = poiService;
 	}
 
-
-
-
-	public List<String> getActions() {
+	public List<List<String>> getActions() {
 		return actions;
 	}
 
-
-
-
-	public void setActions(List<String> actions) {
+	public void setActions(List<List<String>> actions) {
 		this.actions = actions;
 	}
-
-
-
 
 	public String getNombre() {
 		return nombre;
@@ -61,9 +55,6 @@ public class Admin {
 		poiService = PoiService.getInstance();
 		
 	}
-	
-	
-	
 	
 	public boolean addTerminal(Terminal terminal){
 		poiService.getTerminales().add(terminal);

@@ -30,7 +30,6 @@ public class PoiService {
 	private static List<Terminal> terminales;
 	private static List<Admin> admins;
 
-	
 	public Terminal searchTerminal(String terminalName){
 		Terminal searchTerminal= null;
 		for(Terminal currentTerminal: terminales){
@@ -164,11 +163,15 @@ public class PoiService {
 	
 	public void resetReports(){
 		reportService.resetReports();
-		
 	}
 
 	public void resetAllPois() {
 		allPois=new ArrayList<Poi>();
+		
+	}
+	
+	public void resetAllTerminals() {
+		terminales= new ArrayList<Terminal>();
 		
 	}
 }

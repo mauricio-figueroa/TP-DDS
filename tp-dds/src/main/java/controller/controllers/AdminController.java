@@ -1,9 +1,11 @@
 package controller.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.EnumUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import domain.Address;
 import domain.Coordinate;
+import domain.EnumActions;
 import domain.RangeOfAtention;
 import internalService.PoiService;
 import poi.Bank;
@@ -33,17 +36,25 @@ public class AdminController {
 		admin = new Admin();
 	}
 	
-	
 	@RequestMapping(value = ("/terminal-add"), method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity addTerminal(
 			@RequestParam(value = "name", required = true) String name,
 			@RequestParam(value = "lat", required = true) double lat,
-			@RequestParam(value = "lon", required = true) double lon) {
+			@RequestParam(value = "lon", required = true) double lon,
+			@RequestParam(value="action", required=false) List<String> actions) {
 
-		boolean state = admin.addTerminal(new Terminal(name,new Coordinate(lat,lon)));
-		return new ResponseEntity(state, HttpStatus.OK);
+		 if (actions.stream().allMatch(action -> EnumUtils.isValidEnum(EnumActions.class, action))){
+			 List<List<String>> listOfActions= new ArrayList<List<String>>();
+			 listOfActions.add(actions);
+			 boolean state = admin.addTerminal(new Terminal(name,new Coordinate(lat,lon),listOfActions));
+			 return new ResponseEntity(state, HttpStatus.OK);
+		 }else{
+			 String error= "ACTIONS MUST BE " +  EnumActions.values();
+			 return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+		 }
 	}
+	
 	
 	@RequestMapping(value = ("/show-terminal"), method = RequestMethod.GET)
 	@ResponseBody

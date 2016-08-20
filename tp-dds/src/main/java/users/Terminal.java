@@ -1,7 +1,9 @@
 package users;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -15,15 +17,16 @@ import poi.Poi;
 
 public class Terminal {
 	
-	private long id ;
+	private long id;
 	private String nombre;
 	private Coordinate coordinates;
 	private PoiService poiService;
-	private List<String> actions;
+	private List<List<String>> actions;
 	
-	public Terminal(String nombre,Coordinate coordinate,List<String> actions) {
+	public Terminal(String nombre,Coordinate coordinate,List<List<String>> actions) {
 		this.nombre = nombre;
 		this.coordinates=coordinate;
+		this.actions=actions;
 		this.poiService = PoiService.getInstance();
 	}
 
@@ -41,13 +44,22 @@ public class Terminal {
 
 
 
-	public List<String> getActions() {
+
+
+
+
+
+
+
+
+
+	public List<List<String>> getActions() {
 		return actions;
 	}
 
 
 
-	public void setActions(List<String> actions) {
+	public void setActions(List<List<String>> actions) {
 		this.actions = actions;
 	}
 

@@ -114,16 +114,33 @@ public class ProcessService {
 	public void addActionsToUser(String nombre,String type,List actions){
 		
 		if (type =="Terminal"){
-				ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
-				List<Terminal> terminales = (List<Terminal>) searchTerminal.search(nombre);
-				terminales.get(0).setActions(actions);
+			ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
+			List<Terminal> terminales = (List<Terminal>) searchTerminal.search(nombre);
+			terminales.get(0).getActions().add( actions);
 		}else{
 			ProcessSearchInterfaz searchAdmin= new ProcessSearchAdmin();
 			List<Admin> admins =(List<Admin>) searchAdmin.search(nombre);
-			
+			admins.get(0).getActions().add(actions);
 		}
+		
+	}
+	
+	public void undoAddActionToUser(String nombre,String type){
+		if (type =="Terminal"){
+			ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
+			List<Terminal> terminales = (List<Terminal>) searchTerminal.search(nombre);
+			int indexToErase=terminales.get(0).getActions().size()-1;
+			terminales.get(0).getActions().remove(indexToErase);
+			
+	}else{
+		ProcessSearchInterfaz searchAdmin= new ProcessSearchAdmin();
+		List<Admin> admins =(List<Admin>) searchAdmin.search(nombre);
+		int indexToErase=admins.get(0).getActions().size()-1;
+		admins.get(0).getActions().remove(indexToErase);
+	}
 		
 		
 		
 	}
+		
 }

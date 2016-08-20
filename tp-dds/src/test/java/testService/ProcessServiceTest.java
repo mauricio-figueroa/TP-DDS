@@ -18,10 +18,12 @@ import org.junit.rules.ExpectedException;
 
 import domain.Address;
 import domain.Coordinate;
+import domain.EnumActions;
 import poi.Bank;
 import poi.BusStation;
 import poi.Poi;
 import users.Admin;
+import users.Terminal;
 
 public class ProcessServiceTest {
 	
@@ -51,6 +53,7 @@ public class ProcessServiceTest {
 	public void updateTest(){
 		processService.updateComercialShops("/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/resources/ComercialsShopsEnviados.txt");
 		assertFalse(poiService.getAllPois().isEmpty());
+		poiService.removeAllPois();
 	}
 	
 	@Test
@@ -61,7 +64,6 @@ public class ProcessServiceTest {
 		poisTest.add(santander);
 		poisTest.add(stop114);
 		poiService.getAllPois().addAll(poisTest);
-		
 		List<Poi> toCheck=null;
 		
 		try {
@@ -74,5 +76,29 @@ public class ProcessServiceTest {
 		}
 		
 	}
+	
+	
+	@Test
+	public void addActionToUser(){
+	List<String> actionInitialize= new ArrayList<String>();
+	actionInitialize.add(EnumActions.ADDPOI.toString());
+	List<List<String>> actions= new ArrayList<List<String>>();
+	actions.add(actionInitialize);
+	poiService.getTerminales().add(new Terminal("Terminal Gabo", new Coordinate(43.23,54.23),actions));
+	List<String> actionValidate= new ArrayList<String>();
+	actionInitialize.add(EnumActions.ADDTERMINAL.toString());
+	processService.addActionsToUser("Terminal Gabo", "Terminal",actionValidate );
+	assertTrue(poiService.getTerminales().get(0).getActions().size()==2);
 
+	}
+	
+	@Test
+	public void undoAddedAction(){
+		poiService.resetAllTerminals();
+		addActionToUser();
+		processService.undoAddActionToUser("Terminal Gabo", "Terminal");
+		assertTrue(poiService.getTerminales().get(0).getActions().size()==1);
+	}
+	
+	
 }
