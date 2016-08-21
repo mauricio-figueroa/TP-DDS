@@ -31,12 +31,28 @@ import domain.ProcessSearchAdmin;
 import domain.ProcessSearchInterfaz;
 import domain.ProcessSearchTerminal;
 import domain.ProcessStory;
+import externalServices.BankService.BankService;
 
 public class ProcessService {
 
 
-	private List<ProcessStory> processStories= new ArrayList<ProcessStory>();
-	private PoiService poiService= PoiService.getInstance();
+	private static List<ProcessStory> processStories;
+	private static PoiService poiService;
+	private static ProcessService instance;
+	
+	
+	public static ProcessService getInstance() {
+		if (instance == null) {
+			instance = new ProcessService();
+			processStories= new ArrayList<ProcessStory>();
+			poiService = PoiService.getInstance();
+		}
+		return instance;
+	}
+	
+	public ProcessService(){
+		
+	}
 	
 
 	public void updateComercialShops(String path){
@@ -83,7 +99,7 @@ public class ProcessService {
 
 	}
 
-	public void turnOffAPoi() throws ClientProtocolException, IOException{
+	public void turnOffAPoi(){
 		JsonFactory jsonFactory = new JsonFactory();
 		URLReader urlReader = new URLReader();
 		Random random= new Random();
@@ -95,24 +111,34 @@ public class ProcessService {
 		}else{
 			url= "http://demo3537367.mockable.io/trash/pois_bad";
 		}
-		List<TrashPoi> poisToTurnOff = jsonFactory.fromJson(urlReader.getStringFromURL(url),
-					new TypeReference<ArrayList<TrashPoi>>() {});
+		List<TrashPoi> poisToTurnOff;
+		try {
+			poisToTurnOff = jsonFactory.fromJson(urlReader.getStringFromURL(url),
+						new TypeReference<ArrayList<TrashPoi>>() {});
+
+			poisToTurnOff.forEach(poi_trashed -> poiService.getAllPois().forEach(poi ->{ 
+			
+			if(poi.getId()==poi_trashed.getId()){
+				poi.setActived(false);
+			}
+		
+			}));
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		
-		poisToTurnOff.forEach(poi_trashed -> poiService.getAllPois().forEach(poi ->{ 
-		
-		if(poi.getId()==poi_trashed.getId()){
-			poi.setActived(false);
-		}
-	
-		}));
 		
 		
 		
 	}
 
 	public void addActionsToUser(String nombre,String type,List actions){
-		
+		System.out.println("ADD ");
 		if (type =="Terminal"){
 			ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
 			List<Terminal> terminales = (List<Terminal>) searchTerminal.search(nombre);
@@ -126,6 +152,7 @@ public class ProcessService {
 	}
 	
 	public void undoAddActionToUser(String nombre,String type){
+		System.out.println("UNDO AAAAAAAAADD");
 		if (type =="Terminal"){
 			ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
 			List<Terminal> terminales = (List<Terminal>) searchTerminal.search(nombre);

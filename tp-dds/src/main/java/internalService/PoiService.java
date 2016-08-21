@@ -29,6 +29,37 @@ public class PoiService {
 	private static ReportService reportService;
 	private static List<Terminal> terminales;
 	private static List<Admin> admins;
+	private static ProcessService processService;
+	
+	
+	public static PoiService getInstance() {
+		if (instance == null) {
+			instance = new PoiService();
+			allPois = new ArrayList<Poi>();
+			bankService = BankService.getInstance();
+			reportService=ReportService.getInstance();
+			terminales=new ArrayList<Terminal>();
+			processService= ProcessService.getInstance();
+			
+		}
+		return instance;
+	}
+
+	public static List<Admin> getAdmins() {
+		return admins;
+	}
+
+	public static void setAdmins(List<Admin> admins) {
+		PoiService.admins = admins;
+	}
+
+	public static ProcessService getProcessService() {
+		return processService;
+	}
+
+	public static void setProcessService(ProcessService processService) {
+		PoiService.processService = processService;
+	}
 
 	public Terminal searchTerminal(String terminalName){
 		Terminal searchTerminal= null;
@@ -78,17 +109,7 @@ public class PoiService {
 		PoiService.instance = instance;
 	}
 
-	public static PoiService getInstance() {
-		if (instance == null) {
-			instance = new PoiService();
-			allPois = new ArrayList<Poi>();
-			bankService = BankService.getInstance();
-			reportService=ReportService.getInstance();
-			terminales=new ArrayList<Terminal>();
-			
-		}
-		return instance;
-	}
+
 
 	public void removeAllPois() {
 		allPois.clear();

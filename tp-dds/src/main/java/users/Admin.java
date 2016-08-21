@@ -1,11 +1,7 @@
 package users;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.omg.CORBA.Current;
 
 import domain.Schedule;
 import internalService.PoiService;
@@ -18,15 +14,37 @@ public class Admin {
 	private long id;
 	private List<List<String>> actions;
 	private String nombre;
+	private PoiService poiService;
 
 
 
-	public Admin(List<List<String>> actions, String nombre, PoiService poiService) {
+	public Admin(List<List<String>> actions, String nombre) {
 		super();
 		this.actions = actions;
 		this.nombre = nombre;
-		this.poiService = poiService;
+		this.poiService = PoiService.getInstance();
 	}
+	
+	public void turnOffAPoi(){
+
+		new Thread(() -> poiService.getProcessService().turnOffAPoi()).start();
+	}
+	
+	
+	public void updateComercialShops(String path){
+		new Thread(() -> poiService.getProcessService().updateComercialShops(path)).start();
+		
+	}
+	
+	public void addActionsToUser(String nombre,String type,List actions){
+		new Thread(() -> poiService.getProcessService().addActionsToUser(nombre,type,actions)).start();
+	}
+	
+	public void multiplyProcess(List<Runnable> process ){
+		process.forEach(methods -> methods.run() );
+	}
+	
+	
 
 	public List<List<String>> getActions() {
 		return actions;
@@ -48,7 +66,7 @@ public class Admin {
 	}
 
 
-	private PoiService poiService;
+
 	
 
 	public Admin() {

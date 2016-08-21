@@ -33,6 +33,7 @@ public class ProcessServiceTest {
 	private Bank santander;
 	private Bank icbc;
 	private BusStation stop114;
+	private Admin admin;
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
 
@@ -45,6 +46,7 @@ public class ProcessServiceTest {
 		stop114= new BusStation("Parada 114", new Address("Mozart 2300"),  new Coordinate(2,4),"114");
 		icbc.setId(122);
 		santander.setId(123);
+		admin= new Admin(null,"Gabriel");
 		
 		
 	}
@@ -70,7 +72,8 @@ public class ProcessServiceTest {
 		processService.turnOffAPoi();
 		toCheck= poiService.getAllPois().stream().filter(poi -> poi.isActived()).collect(Collectors.toList());
 		assertTrue(toCheck.size()==1);
-		}catch(ClientProtocolException exception){
+		//VERIFICAR QUE EL CAMPO DE REPORTES DE PROCESOS TENGA UN REGISTRO CON MENSAJE DE ERROR EN CASO DE EXCEPTION
+		}catch(Exception exception){
 			exception.printStackTrace();
 			assertTrue(exception instanceof ClientProtocolException);
 		}
@@ -86,7 +89,7 @@ public class ProcessServiceTest {
 	actions.add(actionInitialize);
 	poiService.getTerminales().add(new Terminal("Terminal Gabo", new Coordinate(43.23,54.23),actions));
 	List<String> actionValidate= new ArrayList<String>();
-	actionInitialize.add(EnumActions.ADDTERMINAL.toString());
+	actionValidate.add(EnumActions.ADDTERMINAL.toString());
 	processService.addActionsToUser("Terminal Gabo", "Terminal",actionValidate );
 	assertTrue(poiService.getTerminales().get(0).getActions().size()==2);
 
@@ -98,6 +101,31 @@ public class ProcessServiceTest {
 		addActionToUser();
 		processService.undoAddActionToUser("Terminal Gabo", "Terminal");
 		assertTrue(poiService.getTerminales().get(0).getActions().size()==1);
+	}
+	
+	@Test
+	public void multiplyProcess(){
+		List<String> actionInitialize= new ArrayList<String>();
+		actionInitialize.add(EnumActions.ADDPOI.toString());
+		List<List<String>> actions= new ArrayList<List<String>>();
+		actions.add(actionInitialize);
+		poiService.getTerminales().add(new Terminal("Terminal Gabo", new Coordinate(43.23,54.23),actions));
+
+		List<String> actionValidate= new ArrayList<String>();
+		actionValidate.add(EnumActions.ADDTERMINAL.toString());
+		
+		Runnable run1= () -> { processService.addActionsToUser("Terminal Gabo", "Terminal", actionValidate);
+	};
+		Runnable run2= () -> { processService.undoAddActionToUser("Terminal Gabo", "Terminal");
+	};
+	
+	List<Runnable> runnables= new ArrayList<Runnable>();
+	runnables.add(run1);
+	runnables.add(run2);
+	admin.multiplyProcess(runnables);
+	
+	
+	
 	}
 	
 	
