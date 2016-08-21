@@ -68,8 +68,9 @@ public class ProcessServiceTest {
 		List<Poi> toCheck=null;
 		admin.turnOffAPoi();
 		toCheck= poiService.getAllPois().stream().filter(poi -> poi.isActived()).collect(Collectors.toList());
-		assertTrue(!toCheck.isEmpty() || !processService.getProcessStories().stream().filter(story -> story.getResult()=="Error").collect(Collectors.toList()).isEmpty());
-		
+		assertTrue(toCheck.isEmpty() || !processService.getProcessStories().stream().filter(story -> story.getResult()=="Error").collect(Collectors.toList()).isEmpty());
+		admin= new Admin(null,"Gabo","gabriel.dyck@despegar.com","Repeat");
+		admin.turnOffAPoi();
 		
 	}
 	

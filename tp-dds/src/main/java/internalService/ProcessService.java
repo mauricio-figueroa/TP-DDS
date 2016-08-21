@@ -133,7 +133,7 @@ public class ProcessService {
 		int randomNumber= random.nextInt(10);
 		String url;
 		System.out.println(randomNumber);
-		if (randomNumber<5){
+		if (randomNumber<0){
 			System.out.println("aavaba");
 			url= "http://demo3537367.mockable.io/trash/pois";
 		}else{

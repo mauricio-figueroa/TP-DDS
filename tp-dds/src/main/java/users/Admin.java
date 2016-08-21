@@ -1,9 +1,11 @@
 package users;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import domain.EmailErrorProcessResolution;
 import domain.ErrorProcessResolution;
+import domain.RepeatErrorProcessResolution;
 import domain.Schedule;
 import internalService.PoiService;
 import poi.CGP;
@@ -29,24 +31,48 @@ public class Admin {
 		this.poiService = PoiService.getInstance();
 	
 	
-		if (resolutionType=="Email")
+		if (resolutionType=="Email"){
 			errorResolution=new EmailErrorProcessResolution();
+		}else if(resolutionType=="Repeat") {
+			errorResolution=new RepeatErrorProcessResolution();
+			
+		}
 	}
 	
 	
 	public void turnOffAPoi(){
-		errorResolution.errorResolution(poiService.getProcessService().turnOffAPoi(this),this,() -> {poiService.getProcessService().turnOffAPoi(this);});
+		Admin admin=this;
+		errorResolution.errorResolution(poiService.getProcessService().turnOffAPoi(this),this,new Callable<String>(){
+			
+			@Override
+			public String call(){
+			return	poiService.getProcessService().turnOffAPoi(admin);}
+		});
 	}
 	
+	
 	public void updateComercialShops(String path){
+		Admin admin=this;
 		new Thread(() -> 
-		errorResolution.errorResolution(poiService.getProcessService().updateComercialShops(path,this),this,() -> {poiService.getProcessService().updateComercialShops(path,this); })).start();
+		errorResolution.errorResolution(poiService.getProcessService().updateComercialShops(path,this),this,new Callable<String>(){
+			
+			@Override
+			public String call(){
+			return poiService.getProcessService().updateComercialShops(path,admin);
+			}
+			})).start();
 		
 	}
 	
 	public void addActionsToUser(String nombre,String type,List actions){
+		Admin admin=this;
 		new Thread(() -> 
-		errorResolution.errorResolution(poiService.getProcessService().addActionsToUser(nombre,type,actions,this),this,() -> { poiService.getProcessService().addActionsToUser(nombre,type,actions,this);})).start();
+		errorResolution.errorResolution(poiService.getProcessService().addActionsToUser(nombre,type,actions,this),this,new Callable<String>(){
+			@Override
+			public String call(){
+			return poiService.getProcessService().addActionsToUser(nombre,type,actions,admin);
+			}
+		})).start();
 
 		}
 	
