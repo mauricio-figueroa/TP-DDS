@@ -40,7 +40,7 @@ public class ProcessServiceTest {
 	@Before
 	public void setUp() {
 		this.poiService = PoiService.getInstance();
-		processService = new ProcessService();
+		processService =  ProcessService.getInstance();
 		santander= new Bank("Santander",new Address("Cordoba 1"), new Coordinate(54,32));
 		icbc= new Bank("ICBC",new Address("Corrientes 1"), new Coordinate(52,42));
 		stop114= new BusStation("Parada 114", new Address("Mozart 2300"),  new Coordinate(2,4),"114");
@@ -53,7 +53,7 @@ public class ProcessServiceTest {
 	
 	@Test
 	public void updateTest(){
-		processService.updateComercialShops("/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/resources/ComercialsShopsEnviados.txt");
+		processService.updateComercialShops("/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/resources/ComercialsShopsEnviados.txt",admin.getNombre());
 		assertFalse(poiService.getAllPois().isEmpty());
 		poiService.removeAllPois();
 	}
@@ -69,7 +69,7 @@ public class ProcessServiceTest {
 		List<Poi> toCheck=null;
 		
 		try {
-		processService.turnOffAPoi();
+		processService.turnOffAPoi(admin.getNombre());
 		toCheck= poiService.getAllPois().stream().filter(poi -> poi.isActived()).collect(Collectors.toList());
 		assertTrue(toCheck.size()==1);
 		//VERIFICAR QUE EL CAMPO DE REPORTES DE PROCESOS TENGA UN REGISTRO CON MENSAJE DE ERROR EN CASO DE EXCEPTION
@@ -90,7 +90,7 @@ public class ProcessServiceTest {
 	poiService.getTerminales().add(new Terminal("Terminal Gabo", new Coordinate(43.23,54.23),actions));
 	List<String> actionValidate= new ArrayList<String>();
 	actionValidate.add(EnumActions.ADDTERMINAL.toString());
-	processService.addActionsToUser("Terminal Gabo", "Terminal",actionValidate );
+	processService.addActionsToUser("Terminal Gabo", "Terminal",actionValidate,admin.getNombre());
 	assertTrue(poiService.getTerminales().get(0).getActions().size()==2);
 
 	}
@@ -99,7 +99,7 @@ public class ProcessServiceTest {
 	public void undoAddedAction(){
 		poiService.resetAllTerminals();
 		addActionToUser();
-		processService.undoAddActionToUser("Terminal Gabo", "Terminal");
+		processService.undoAddActionToUser("Terminal Gabo", "Terminal",admin.getNombre());
 		assertTrue(poiService.getTerminales().get(0).getActions().size()==1);
 	}
 	
@@ -114,15 +114,17 @@ public class ProcessServiceTest {
 		List<String> actionValidate= new ArrayList<String>();
 		actionValidate.add(EnumActions.ADDTERMINAL.toString());
 		
-		Runnable run1= () -> { processService.addActionsToUser("Terminal Gabo", "Terminal", actionValidate);
+		Runnable run1= () -> { processService.addActionsToUser("Terminal Gabo", "Terminal", actionValidate,admin.getNombre());
 	};
-		Runnable run2= () -> { processService.undoAddActionToUser("Terminal Gabo", "Terminal");
+		Runnable run2= () -> { processService.undoAddActionToUser("Terminal Gabo", "Terminal",admin.getNombre());
 	};
 	
 	List<Runnable> runnables= new ArrayList<Runnable>();
 	runnables.add(run1);
 	runnables.add(run2);
 	admin.multiplyProcess(runnables);
+	processService.getProcessStories().forEach(story -> System.out.println(story.toString()));
+	assertTrue(processService.getProcessStories().size()==2);
 	
 	
 	

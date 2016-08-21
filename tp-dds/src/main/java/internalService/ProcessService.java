@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -55,7 +56,13 @@ public class ProcessService {
 	}
 	
 
-	public void updateComercialShops(String path){
+	public void updateComercialShops(String path,Admin admin){
+		Calendar initDate= Calendar.getInstance();
+		Calendar endDate=null;
+		String processName="updateCommecial";
+		String userRan= admin.getNombre();
+		String result=null;
+		String errorMessage=null;
 
 		try {
 			BufferedReader reader= new BufferedReader(new FileReader((path)));
@@ -63,7 +70,6 @@ public class ProcessService {
 
 			while((line=reader.readLine()) != null)
 			{
-
 				System.out.println(line);
 				boolean alreadyModify=false;
 				String [] splited= line.split(";");
@@ -91,15 +97,30 @@ public class ProcessService {
 					newShop.setData(newData);
 					poiService.getAllPois().add(newShop);
 				}
+				endDate=Calendar.getInstance();
+				result="SUCCESS";
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			endDate=Calendar.getInstance();
+			result="Error";
+			errorMessage=e.getMessage();
+			
 		}
+		ProcessStory story = new ProcessStory(initDate, endDate, processName, userRan, result, errorMessage);
+		processStories.add(story);
 
 
 	}
 
-	public void turnOffAPoi(){
+	public void turnOffAPoi(Admin admin){
+		Calendar initDate= Calendar.getInstance();
+		Calendar endDate=null;
+		String processName="turnOffAPoi";
+		String userRan= admin.getNombre();
+		String result=null;
+		String errorMessage=null;
+		
 		JsonFactory jsonFactory = new JsonFactory();
 		URLReader urlReader = new URLReader();
 		Random random= new Random();
@@ -123,22 +144,30 @@ public class ProcessService {
 			}
 		
 			}));
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
+			endDate=Calendar.getInstance();
+			result="SUCCESS";
+		} catch (IOException e ) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			endDate=Calendar.getInstance();
+			errorMessage=e.getMessage();
+			result="Error";
+			
 		}
-
-		
-		
+		ProcessStory story = new ProcessStory(initDate, endDate, processName, userRan, result, errorMessage);
+		processStories.add(story);
 		
 		
 	}
 
-	public void addActionsToUser(String nombre,String type,List actions){
-		System.out.println("ADD ");
+	public void addActionsToUser(String nombre,String type,List<String> actions,Admin admin){
+		Calendar initDate= Calendar.getInstance();
+		Calendar endDate=null;
+		String processName="AddActions";
+		String userRan= admin.getNombre();
+		String result=null;
+		String errorMessage=null;
+		
+		System.out.println("ADD");
 		if (type =="Terminal"){
 			ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
 			List<Terminal> terminales = (List<Terminal>) searchTerminal.search(nombre);
@@ -149,9 +178,41 @@ public class ProcessService {
 			admins.get(0).getActions().add(actions);
 		}
 		
+		endDate=Calendar.getInstance();
+		result="SUCCESS";
+		ProcessStory story = new ProcessStory(initDate, endDate, processName, userRan, result, errorMessage);
+		processStories.add(story);
+		
 	}
 	
-	public void undoAddActionToUser(String nombre,String type){
+	public static List<ProcessStory> getProcessStories() {
+		return processStories;
+	}
+
+	public static void setProcessStories(List<ProcessStory> processStories) {
+		ProcessService.processStories = processStories;
+	}
+
+	public static PoiService getPoiService() {
+		return poiService;
+	}
+
+	public static void setPoiService(PoiService poiService) {
+		ProcessService.poiService = poiService;
+	}
+
+	public static void setInstance(ProcessService instance) {
+		ProcessService.instance = instance;
+	}
+
+	public void undoAddActionToUser(String nombre,String type,Admin admin){
+		Calendar initDate= Calendar.getInstance();
+		Calendar endDate=null;
+		String processName="AddActions";
+		String userRan= admin.getNombre();
+		String result=null;
+		String errorMessage=null;
+		
 		System.out.println("UNDO AAAAAAAAADD");
 		if (type =="Terminal"){
 			ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
@@ -165,6 +226,11 @@ public class ProcessService {
 		int indexToErase=admins.get(0).getActions().size()-1;
 		admins.get(0).getActions().remove(indexToErase);
 	}
+		endDate=Calendar.getInstance();
+		result="SUCCESS";
+		ProcessStory story = new ProcessStory(initDate, endDate, processName, userRan, result, errorMessage);
+		processStories.add(story);
+		
 		
 		
 		

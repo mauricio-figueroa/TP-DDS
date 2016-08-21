@@ -27,17 +27,17 @@ public class Admin {
 	
 	public void turnOffAPoi(){
 
-		new Thread(() -> poiService.getProcessService().turnOffAPoi()).start();
+		new Thread(() -> poiService.getProcessService().turnOffAPoi(this)).start();
 	}
 	
 	
 	public void updateComercialShops(String path){
-		new Thread(() -> poiService.getProcessService().updateComercialShops(path)).start();
+		new Thread(() -> poiService.getProcessService().updateComercialShops(path,this)).start();
 		
 	}
 	
 	public void addActionsToUser(String nombre,String type,List actions){
-		new Thread(() -> poiService.getProcessService().addActionsToUser(nombre,type,actions)).start();
+		new Thread(() -> poiService.getProcessService().addActionsToUser(nombre,type,actions,this)).start();
 	}
 	
 	public void multiplyProcess(List<Runnable> process ){

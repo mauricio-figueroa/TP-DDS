@@ -25,6 +25,14 @@ public class ProcessStory {
 	}
 	
 	
+	@Override
+	public String toString() {
+		return "ProcessStory [initDate=" + initDate + ", endDate=" + endDate
+				+ ", processName=" + processName + ", userRan=" + userRan
+				+ ", result=" + result + ", errorMessage=" + errorMessage + "]";
+	}
+
+
 	public Calendar getInitDate() {
 		return initDate;
 	}
