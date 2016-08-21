@@ -46,37 +46,30 @@ public class ProcessServiceTest {
 		stop114= new BusStation("Parada 114", new Address("Mozart 2300"),  new Coordinate(2,4),"114");
 		icbc.setId(122);
 		santander.setId(123);
-		admin= new Admin(null,"Gabriel");
+		admin= new Admin(null,"Gabo","gabriel.dyck@despegar.com","Email");
 		
 		
 	}
 	
 	@Test
 	public void updateTest(){
-		processService.updateComercialShops("/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/resources/ComercialsShopsEnviados.txt",admin.getNombre());
+		processService.updateComercialShops("/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/resources/ComercialsShopsEnviados.txt",admin);
 		assertFalse(poiService.getAllPois().isEmpty());
 		poiService.removeAllPois();
 	}
 	
 	@Test
-	public void turnOffPoisTest() throws IOException {
+	public void turnOffPoisTest() {
 		poiService.removeAllPois();
 		List<Poi> poisTest = new ArrayList<Poi>();
 		poisTest.add(icbc);
 		poisTest.add(santander);
-		poisTest.add(stop114);
 		poiService.getAllPois().addAll(poisTest);
 		List<Poi> toCheck=null;
-		
-		try {
-		processService.turnOffAPoi(admin.getNombre());
+		admin.turnOffAPoi();
 		toCheck= poiService.getAllPois().stream().filter(poi -> poi.isActived()).collect(Collectors.toList());
-		assertTrue(toCheck.size()==1);
-		//VERIFICAR QUE EL CAMPO DE REPORTES DE PROCESOS TENGA UN REGISTRO CON MENSAJE DE ERROR EN CASO DE EXCEPTION
-		}catch(Exception exception){
-			exception.printStackTrace();
-			assertTrue(exception instanceof ClientProtocolException);
-		}
+		assertTrue(!toCheck.isEmpty() || !processService.getProcessStories().stream().filter(story -> story.getResult()=="Error").collect(Collectors.toList()).isEmpty());
+		
 		
 	}
 	
@@ -90,7 +83,7 @@ public class ProcessServiceTest {
 	poiService.getTerminales().add(new Terminal("Terminal Gabo", new Coordinate(43.23,54.23),actions));
 	List<String> actionValidate= new ArrayList<String>();
 	actionValidate.add(EnumActions.ADDTERMINAL.toString());
-	processService.addActionsToUser("Terminal Gabo", "Terminal",actionValidate,admin.getNombre());
+	processService.addActionsToUser("Terminal Gabo", "Terminal",actionValidate,admin);
 	assertTrue(poiService.getTerminales().get(0).getActions().size()==2);
 
 	}
@@ -99,7 +92,7 @@ public class ProcessServiceTest {
 	public void undoAddedAction(){
 		poiService.resetAllTerminals();
 		addActionToUser();
-		processService.undoAddActionToUser("Terminal Gabo", "Terminal",admin.getNombre());
+		processService.undoAddActionToUser("Terminal Gabo", "Terminal",admin);
 		assertTrue(poiService.getTerminales().get(0).getActions().size()==1);
 	}
 	
@@ -114,9 +107,9 @@ public class ProcessServiceTest {
 		List<String> actionValidate= new ArrayList<String>();
 		actionValidate.add(EnumActions.ADDTERMINAL.toString());
 		
-		Runnable run1= () -> { processService.addActionsToUser("Terminal Gabo", "Terminal", actionValidate,admin.getNombre());
+		Runnable run1= () -> { processService.addActionsToUser("Terminal Gabo", "Terminal", actionValidate,admin);
 	};
-		Runnable run2= () -> { processService.undoAddActionToUser("Terminal Gabo", "Terminal",admin.getNombre());
+		Runnable run2= () -> { processService.undoAddActionToUser("Terminal Gabo", "Terminal",admin);
 	};
 	
 	List<Runnable> runnables= new ArrayList<Runnable>();

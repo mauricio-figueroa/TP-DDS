@@ -2,7 +2,8 @@ package users;
 
 import java.util.List;
 
-
+import domain.EmailErrorProcessResolution;
+import domain.ErrorProcessResolution;
 import domain.Schedule;
 import internalService.PoiService;
 import poi.CGP;
@@ -15,34 +16,61 @@ public class Admin {
 	private List<List<String>> actions;
 	private String nombre;
 	private PoiService poiService;
+	private String mail;
+	private ErrorProcessResolution errorResolution;
 
 
 
-	public Admin(List<List<String>> actions, String nombre) {
-		super();
+	public Admin(List<List<String>> actions, String nombre,String mail,String resolutionType) {
+		
 		this.actions = actions;
 		this.nombre = nombre;
+		this.mail=mail;
 		this.poiService = PoiService.getInstance();
+	
+	
+		if (resolutionType=="Email")
+			errorResolution=new EmailErrorProcessResolution();
 	}
+	
 	
 	public void turnOffAPoi(){
-
-		new Thread(() -> poiService.getProcessService().turnOffAPoi(this)).start();
+		errorResolution.errorResolution(poiService.getProcessService().turnOffAPoi(this),this,() -> {poiService.getProcessService().turnOffAPoi(this);});
 	}
 	
-	
 	public void updateComercialShops(String path){
-		new Thread(() -> poiService.getProcessService().updateComercialShops(path,this)).start();
+		new Thread(() -> 
+		errorResolution.errorResolution(poiService.getProcessService().updateComercialShops(path,this),this,() -> {poiService.getProcessService().updateComercialShops(path,this); })).start();
 		
 	}
 	
 	public void addActionsToUser(String nombre,String type,List actions){
-		new Thread(() -> poiService.getProcessService().addActionsToUser(nombre,type,actions,this)).start();
-	}
+		new Thread(() -> 
+		errorResolution.errorResolution(poiService.getProcessService().addActionsToUser(nombre,type,actions,this),this,() -> { poiService.getProcessService().addActionsToUser(nombre,type,actions,this);})).start();
+
+		}
 	
 	public void multiplyProcess(List<Runnable> process ){
 		process.forEach(methods -> methods.run() );
 	}
+	
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public ErrorProcessResolution getErrorResolution() {
+		return errorResolution;
+	}
+
+	public void setErrorResolution(ErrorProcessResolution errorResolution) {
+		this.errorResolution = errorResolution;
+	}
+
+	
 	
 	
 

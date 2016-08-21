@@ -15,6 +15,15 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 public class JsonFactory {
 
 	private ObjectMapper objectMapper;
+	
+	private static JsonFactory instance;
+	
+	public static JsonFactory getInstance(){
+		if (instance==null){
+			instance=new JsonFactory();
+		}
+		return instance;
+	}
 
 	@SuppressWarnings("deprecation")
 	public JsonFactory() {

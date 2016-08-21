@@ -40,6 +40,8 @@ public class ProcessService {
 	private static List<ProcessStory> processStories;
 	private static PoiService poiService;
 	private static ProcessService instance;
+	private static JsonFactory jsonFactory;
+	private static URLReader urlReader;
 	
 	
 	public static ProcessService getInstance() {
@@ -47,6 +49,8 @@ public class ProcessService {
 			instance = new ProcessService();
 			processStories= new ArrayList<ProcessStory>();
 			poiService = PoiService.getInstance();
+			jsonFactory= JsonFactory.getInstance();
+			urlReader = new URLReader();
 		}
 		return instance;
 	}
@@ -56,7 +60,7 @@ public class ProcessService {
 	}
 	
 
-	public void updateComercialShops(String path,Admin admin){
+	public String updateComercialShops(String path,Admin admin){
 		Calendar initDate= Calendar.getInstance();
 		Calendar endDate=null;
 		String processName="updateCommecial";
@@ -71,7 +75,7 @@ public class ProcessService {
 			while((line=reader.readLine()) != null)
 			{
 				System.out.println(line);
-				boolean alreadyModify=false;
+
 				String [] splited= line.split(";");
 				String [] data= splited[1].split(" ");
 				List<String> newData= new ArrayList<String>();
@@ -101,6 +105,7 @@ public class ProcessService {
 				result="SUCCESS";
 			}
 		} catch (IOException e) {
+
 			e.printStackTrace();
 			endDate=Calendar.getInstance();
 			result="Error";
@@ -109,31 +114,34 @@ public class ProcessService {
 		}
 		ProcessStory story = new ProcessStory(initDate, endDate, processName, userRan, result, errorMessage);
 		processStories.add(story);
+		return result;
 
 
 	}
 
-	public void turnOffAPoi(Admin admin){
+	public String turnOffAPoi(Admin admin){
+		System.out.println("aaaaa");
 		Calendar initDate= Calendar.getInstance();
 		Calendar endDate=null;
 		String processName="turnOffAPoi";
 		String userRan= admin.getNombre();
 		String result=null;
 		String errorMessage=null;
+
 		
-		JsonFactory jsonFactory = new JsonFactory();
-		URLReader urlReader = new URLReader();
 		Random random= new Random();
 		int randomNumber= random.nextInt(10);
 		String url;
+		System.out.println(randomNumber);
 		if (randomNumber<5){
-			
+			System.out.println("aavaba");
 			url= "http://demo3537367.mockable.io/trash/pois";
 		}else{
 			url= "http://demo3537367.mockable.io/trash/pois_bad";
 		}
 		List<TrashPoi> poisToTurnOff;
 		try {
+			System.out.println(url);
 			poisToTurnOff = jsonFactory.fromJson(urlReader.getStringFromURL(url),
 						new TypeReference<ArrayList<TrashPoi>>() {});
 
@@ -147,6 +155,7 @@ public class ProcessService {
 			endDate=Calendar.getInstance();
 			result="SUCCESS";
 		} catch (IOException e ) {
+			System.out.println("AAA");
 			e.printStackTrace();
 			endDate=Calendar.getInstance();
 			errorMessage=e.getMessage();
@@ -155,11 +164,12 @@ public class ProcessService {
 		}
 		ProcessStory story = new ProcessStory(initDate, endDate, processName, userRan, result, errorMessage);
 		processStories.add(story);
+		return result;
 		
 		
 	}
 
-	public void addActionsToUser(String nombre,String type,List<String> actions,Admin admin){
+	public String addActionsToUser(String nombre,String type,List<String> actions,Admin admin){
 		Calendar initDate= Calendar.getInstance();
 		Calendar endDate=null;
 		String processName="AddActions";
@@ -182,6 +192,7 @@ public class ProcessService {
 		result="SUCCESS";
 		ProcessStory story = new ProcessStory(initDate, endDate, processName, userRan, result, errorMessage);
 		processStories.add(story);
+		return result;
 		
 	}
 	
@@ -205,7 +216,7 @@ public class ProcessService {
 		ProcessService.instance = instance;
 	}
 
-	public void undoAddActionToUser(String nombre,String type,Admin admin){
+	public String undoAddActionToUser(String nombre,String type,Admin admin){
 		Calendar initDate= Calendar.getInstance();
 		Calendar endDate=null;
 		String processName="AddActions";
@@ -232,7 +243,7 @@ public class ProcessService {
 		processStories.add(story);
 		
 		
-		
+		return result;
 		
 	}
 		

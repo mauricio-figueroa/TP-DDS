@@ -23,20 +23,25 @@ public class NotificarAdmin implements ObserverBusqueda{
 		System.out.println("\n\n ===> Your Java Program has just sent an Email successfully. Check your email..");
 	}
  
-	public static void generateAndSendEmail(String stringBuscado, String nombreTerminal) throws AddressException, MessagingException {
- 
+	
+	private static void generateServerProperties(){
 		// Step1
-
 		mailServerProperties = System.getProperties();
 		mailServerProperties.put("mail.smtp.port", "587");
 		mailServerProperties.put("mail.smtp.auth", "true");
 		mailServerProperties.put("mail.smtp.starttls.enable", "true");
 		System.out.println("Mail Server Properties have been setup successfully..");
- 
-		// Step2
-	
-		getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+		
 		generateMailMessage = new MimeMessage(getMailSession);
+		getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+		
+		// Step2
+		
+		
+	}
+	public static void generateAndSendEmail(String stringBuscado, String nombreTerminal) throws AddressException, MessagingException {
+		generateServerProperties();
+		
 		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("figueroa.a.mj@gmail.com"));
 		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("gabriel.dyck@despegar.com"));
 		generateMailMessage.setSubject("Excesp de tiempo de busqueda");
@@ -58,6 +63,24 @@ public class NotificarAdmin implements ObserverBusqueda{
 		if(segundosQueTardo>5){
 			generateAndSendEmail(stringBuscado, nombreTerminal);			
 		}		
+	}
+	
+	public static void processExecutionError(String mail,String process) throws AddressException, MessagingException{
+		generateServerProperties();
+		getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
+		generateMailMessage.setSubject("Error en proceso" + process);
+		String emailBody = "El proceso " + process + "no pudo ejecutarse correctamente";
+		generateMailMessage.setContent(emailBody, "text/html");
+		System.out.println("Mail Session has been created successfully..");
+ 
+		//Step3
+		System.out.println("Enviando Email ==========>>>>");
+		Transport transport = getMailSession.getTransport("smtp");
+		transport.connect("smtp.gmail.com", "figueroa.a.mj@gmail.com", "seven15868");
+		transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
+		transport.close();
+		
 	}
 	
 	
