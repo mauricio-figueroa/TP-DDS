@@ -3,26 +3,20 @@ package externalServices.BankService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import poi.Bank;
 import com.fasterxml.jackson.core.type.TypeReference;
 import Dto.bankDto.BankDTO;
 import reader.URLReader;
 import json.JsonFactory;
 
+@Service
 public class BankService {
 
-	private static BankService instance = null;
-	private static BankExternalConvertToJson bankConverter;
-
-	public static BankService getInstance() {
-		if (instance == null) {
-			instance = new BankService();
-			bankConverter = new BankExternalConvertToJson();
-			return instance;
-		} else {
-			return instance;
-		}
-	}
+	@Autowired
+	private BankExternalConvertToJson bankConverter;
 
 	public List<Bank> getBanksFromService(String bank, String service) {
 		List<BankDTO> banks = null;

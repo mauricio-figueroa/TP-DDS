@@ -8,6 +8,7 @@ import domain.Address;
 import domain.Coordinate;
 import externalServices.GoogleDistanceService.GoogleDistanceService;
 import internalService.AvailabilityService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class Poi implements PoiInterface {
 
@@ -24,8 +25,10 @@ public abstract class Poi implements PoiInterface {
 	protected String name;
 	protected Address address;
 	protected Coordinate coordinate;
-	protected GoogleDistanceService googleService = GoogleDistanceService.getInstance();
-	protected AvailabilityService availabilityService = AvailabilityService.getInstance();
+	@Autowired
+	protected GoogleDistanceService googleService;
+	@Autowired
+	private AvailabilityService availabilityServices;
 	private List<String> data=new ArrayList<String>();
 
 	public Poi(String name, Address address, Coordinate coordinate) {
@@ -57,11 +60,11 @@ public abstract class Poi implements PoiInterface {
 	}
 
 	public AvailabilityService getAvailabilityService() {
-		return availabilityService;
+		return this.availabilityServices;
 	}
 
 	public void setAvailabilityService(AvailabilityService availabilityService) {
-		this.availabilityService = availabilityService;
+		this.availabilityServices = availabilityService;
 	}
 
 	public String getName() {

@@ -6,8 +6,10 @@ import java.util.List;
 import Dto.bankDto.BankDTO;
 import domain.Address;
 import domain.Coordinate;
+import org.springframework.stereotype.Component;
 import poi.Bank;
 
+@Component
 public class BankExternalConvertToJson {
 	
 	public List<Bank> convertToDomain( List<BankDTO> response){

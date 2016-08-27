@@ -19,6 +19,7 @@ import domain.Schedule;
 import internalService.AvailabilityService;
 import internalService.PoiService;
 import junit.framework.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
 import poi.Bank;
 import poi.BusStation;
 import poi.CGP;
@@ -33,6 +34,7 @@ public class PoiDistanceTest {
 
 	
 	private final static Logger LOGGER= LoggerFactory.getLogger(PoiDistanceTest.class);
+	@Autowired
 	private PoiService poiService;
 	private CGP cgp;
 	private BusStation busStation;
@@ -57,7 +59,6 @@ public class PoiDistanceTest {
 		cordinate2 = new Coordinate(lat2, lon2);
 		cordinate3 = new Coordinate(0, 0);
 		poiMachine= new Terminal(cordinate1);
-		poiService = PoiService.getInstance();
 		newspapers= Newspaper.getInstance(700);
 		newsPapersShop= new ComercialShop("Diarios Sistemas", new Address(""), cordinate1, newspapers);
 		cgp = new CGP("CGP", new Address(""), cordinate2, 700.0, new ArrayList<CGPService>());

@@ -1,198 +1,142 @@
 package internalService;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-
-import org.apache.http.client.ClientProtocolException;
-
 import domain.Coordinate;
 import domain.Reloj;
 import externalServices.BankService.BankService;
 import observers.subjectBusqueda.SubjectBusquedas;
+import org.apache.http.client.ClientProtocolException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import poi.Bank;
 import poi.Poi;
 import users.Admin;
 import users.Terminal;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+@Service
 public class PoiService {
 
-	private static PoiService instance = null;
-	private static List<Poi> allPois;
-	private static BankService bankService;
-	private SubjectBusquedas subjectBusquedas = SubjectBusquedas.getInstance();
-	private static ReportService reportService;
-	private static List<Terminal> terminales;
-	private static List<Admin> admins;
-	private static ProcessService processService;
-	
-	
-	public static PoiService getInstance() {
-		if (instance == null) {
-			instance = new PoiService();
-			allPois = new ArrayList<Poi>();
-			bankService = BankService.getInstance();
-			reportService=ReportService.getInstance();
-			terminales=new ArrayList<Terminal>();
-			processService= ProcessService.getInstance();
-			
-		}
-		return instance;
-	}
+    @Autowired
+    private BankService bankService;
+    @Autowired
+    private SubjectBusquedas subjectBusquedas;
+    @Autowired
+    private ReportService reportService;
+    @Autowired
+    private ProcessService processService;
 
-	public static List<Admin> getAdmins() {
-		return admins;
-	}
-
-	public static void setAdmins(List<Admin> admins) {
-		PoiService.admins = admins;
-	}
-
-	public static ProcessService getProcessService() {
-		return processService;
-	}
-
-	public static void setProcessService(ProcessService processService) {
-		PoiService.processService = processService;
-	}
-
-	public Terminal searchTerminal(String terminalName){
-		Terminal searchTerminal= null;
-		for(Terminal currentTerminal: terminales){
-			if (currentTerminal.getNombre().equalsIgnoreCase(terminalName)){
-				searchTerminal= currentTerminal;
-			}
-		}
-		return searchTerminal;
-		
-	}
-	
-	
-	public static BankService getBankService() {
-		return bankService;
-	}
-
-	public static void setBankService(BankService bankService) {
-		PoiService.bankService = bankService;
-	}
-
-	public SubjectBusquedas getSubjectBusquedas() {
-		return subjectBusquedas;
-	}
-
-	public void setSubjectBusquedas(SubjectBusquedas subjectBusquedas) {
-		this.subjectBusquedas = subjectBusquedas;
-	}
-
-	public static ReportService getReportService() {
-		return reportService;
-	}
-
-	public static void setReportService(ReportService reportService) {
-		PoiService.reportService = reportService;
-	}
-
-	public static List<Terminal> getTerminales() {
-		return terminales;
-	}
-
-	public static void setTerminales(List<Terminal> terminales) {
-		PoiService.terminales = terminales;
-	}
-
-	public static void setInstance(PoiService instance) {
-		PoiService.instance = instance;
-	}
+    private List<Terminal> terminales = new ArrayList<Terminal>();
+    private List<Admin> admins = new ArrayList<Admin>();
+    private List<Poi> allPois = new ArrayList<Poi>();
 
 
+    public Terminal searchTerminal(String terminalName) {
+        Terminal searchTerminal = null;
+        for (Terminal currentTerminal : terminales) {
+            if (currentTerminal.getNombre().equalsIgnoreCase(terminalName)) {
+                searchTerminal = currentTerminal;
+            }
+        }
+        return searchTerminal;
 
-	public void removeAllPois() {
-		allPois.clear();
-	}
+    }
 
-	public List<Poi> getAllPois() {
-		return allPois;
-	}
 
-	public void setAllPois(List<Poi> allPois) {
-		this.allPois = allPois;
-	}
+    public void removeAllPois() {
+        allPois.clear();
+    }
 
-	public String poiType(Poi poi) {
-		return poi.getType();
-	}
+    public List<Poi> getAllPois() {
+        return allPois;
+    }
 
-	public boolean isNearby(Poi poi1, Coordinate coordinates) throws ClientProtocolException, IOException {
-		return poi1.isNearby(coordinates);
-	}
+    public void setAllPois(List<Poi> allPois) {
+        this.allPois = allPois;
+    }
 
-	public boolean isAvailable(Poi poi) {
-		return poi.isAvailable();
-	}
+    public String poiType(Poi poi) {
+        return poi.getType();
+    }
 
-	public List<Poi> searchPois(String string, String nombreTerminal) throws AddressException, MessagingException, InterruptedException {
-		Reloj reloj=new Reloj();
-		reloj.Contar();
-		List<Poi> pois = new ArrayList<Poi>();
-		for (Poi poi : allPois) {
-			
-			for (String text : poi.getData()) {
-				if (text.contains(string)) {
-					pois.add(poi);
-					break;
-				}
-			}
-		}
-		System.out.println(pois.size());
-		//Thread.sleep(6000);
-		reloj.Detener();
-		int segundosQueTardo=reloj.getSegundos();
-		System.out.println("Segundoooos: "+segundosQueTardo);
-		this.subjectBusquedas.notificarObservador(string, nombreTerminal, pois,segundosQueTardo);
-		return pois;
-	}
+    public boolean isNearby(Poi poi1, Coordinate coordinates) throws ClientProtocolException, IOException {
+        return poi1.isNearby(coordinates);
+    }
 
-	public List<Bank> searchBank(String bank, String service) {
-		return getBanksFromExternalService(bank, service);
+    public boolean isAvailable(Poi poi) {
+        return poi.isAvailable();
+    }
 
-	}
-	
-	public Map<String,Integer> getReportesTotalesPorFecha(){
-		return reportService.getReportesTotalesPorFecha();
-	}
-	
-	public Map<String, Integer> getParcialesPorTerminal(String nombreTerminal){
-		return reportService.getParcialesPorTerminal(nombreTerminal);
-	}
+    public List<Poi> searchPois(String string, String nombreTerminal) throws AddressException, MessagingException, InterruptedException {
+        Reloj reloj = new Reloj();
+        reloj.Contar();
+        List<Poi> pois = new ArrayList<Poi>();
+        for (Poi poi : allPois) {
 
-	public Map<String, Integer> getReportesTodasLasTerminales(){
-		return this.reportService.getReportesTotalesTodasLasTerminales();
-	}
-	
-	
-	
+            for (String text : poi.getData()) {
+                if (text.contains(string)) {
+                    pois.add(poi);
+                    break;
+                }
+            }
+        }
+        System.out.println(pois.size());
+        //Thread.sleep(6000);
+        reloj.Detener();
+        int segundosQueTardo = reloj.getSegundos();
+        System.out.println("Segundoooos: " + segundosQueTardo);
+        this.subjectBusquedas.notificarObservador(string, nombreTerminal, pois, segundosQueTardo);
+        return pois;
+    }
 
-	public List<Bank> getBanksFromExternalService(String bank, String service) {
-		return bankService.getBanksFromService(bank, service);
-	}
-	
-	
-	public void resetReports(){
-		reportService.resetReports();
-	}
+    public List<Bank> searchBank(String bank, String service) {
+        return getBanksFromExternalService(bank, service);
 
-	public void resetAllPois() {
-		allPois=new ArrayList<Poi>();
-		
-	}
-	
-	public void resetAllTerminals() {
-		terminales= new ArrayList<Terminal>();
-		
-	}
+    }
+
+    public Map<String, Integer> getReportesTotalesPorFecha() {
+        return reportService.getReportesTotalesPorFecha();
+    }
+
+    public Map<String, Integer> getParcialesPorTerminal(String nombreTerminal) {
+        return reportService.getParcialesPorTerminal(nombreTerminal);
+    }
+
+    public Map<String, Integer> getReportesTodasLasTerminales() {
+        return this.reportService.getReportesTotalesTodasLasTerminales();
+    }
+
+
+    public List<Bank> getBanksFromExternalService(String bank, String service) {
+        return bankService.getBanksFromService(bank, service);
+    }
+
+
+    public void resetReports() {
+        reportService.resetReports();
+    }
+
+    public void resetAllPois() {
+        allPois = new ArrayList<Poi>();
+
+    }
+
+    public void resetAllTerminals() {
+        terminales = new ArrayList<Terminal>();
+
+    }
+
+    public void addTerminal(Terminal terminal) {
+        this.terminales.add(terminal);
+    }
+
+    public List<Terminal> getTerminales() {
+        return terminales;
+    }
 }

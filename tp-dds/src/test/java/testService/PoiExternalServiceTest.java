@@ -6,11 +6,13 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import internalService.PoiService;
+import org.springframework.beans.factory.annotation.Autowired;
 import poi.Bank;
 
 public class PoiExternalServiceTest {
-	
-	PoiService poiService= PoiService.getInstance();
+
+	@Autowired
+	PoiService poiService;
 	
 	@SuppressWarnings("deprecation")
 	@Test

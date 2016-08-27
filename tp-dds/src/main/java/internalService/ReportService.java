@@ -10,31 +10,20 @@ import java.util.Map;
 
 import domain.LineaReporte;
 import domain.ReportePorTerminal;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReportService {
 
-	private static ReportService instance;
-	private static List<ReportePorTerminal> reportes;
+	private static List<ReportePorTerminal> reportes=new ArrayList<>();
 
 
-	public static ReportService getInstance() {
-		if (instance == null) {
-			reportes = new ArrayList<ReportePorTerminal>();
-			
-			
-			
-			return new ReportService();
-		}
-		return instance;
-	}
 
 	public List<ReportePorTerminal> getReportes() {
 		return reportes;
 	}
 
-	public void setReportes(List<ReportePorTerminal> reportes) {
-		this.reportes = reportes;
-	}
 
 	public void addReporte(String nombreTerminal, String palabraBuscada, Integer cantPoisBusqueda) {
 		int i = 0;

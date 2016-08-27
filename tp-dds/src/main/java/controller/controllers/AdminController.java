@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import internalService.ReportService;
 import org.apache.commons.lang3.EnumUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,11 +32,12 @@ import users.Terminal;
 @Controller
 public class AdminController {
 
-	private Admin admin;
+	private Admin admin=new Admin();
 
-	public AdminController() {
-		admin = new Admin();
-	}
+	@Autowired
+	private ReportService reportService;
+
+
 	
 	@RequestMapping(value = ("/terminal-add"), method = RequestMethod.GET)
 	@ResponseBody
@@ -47,7 +50,7 @@ public class AdminController {
 		 if (actions.stream().allMatch(action -> EnumUtils.isValidEnum(EnumActions.class, action))){
 			 List<List<String>> listOfActions= new ArrayList<List<String>>();
 			 listOfActions.add(actions);
-			 boolean state = admin.addTerminal(new Terminal(name,new Coordinate(lat,lon),listOfActions));
+			 boolean state = admin.addTerminal(new Terminal("name",new Coordinate(lat,lon),listOfActions));
 			 return new ResponseEntity(state, HttpStatus.OK);
 		 }else{
 			 String error= "ACTIONS MUST BE " +  EnumActions.values();
@@ -81,7 +84,7 @@ public class AdminController {
 	@ResponseBody
 	public ResponseEntity reportByDate() {
 
-		Map<String, Integer> reportsByDate= PoiService.getReportService().getReportesTotalesPorFecha();
+		Map<String, Integer> reportsByDate= this.reportService.getReportesTotalesPorFecha();
 		return new ResponseEntity(reportsByDate, HttpStatus.OK);
 	}
 	
@@ -91,14 +94,14 @@ public class AdminController {
 	public ResponseEntity reportByTerminal(
 			@RequestParam(value = "name", required = true) String name) {
 
-		Map<String, Integer> reportsByDate= PoiService.getReportService().getParcialesPorTerminal(name);
+		Map<String, Integer> reportsByDate= this.reportService.getParcialesPorTerminal(name);
 		return new ResponseEntity(reportsByDate, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = ("/all-reports"), method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity allReports() {
-		Map<String, Integer> reportsByDate= PoiService.getReportService().getReportesTotalesTodasLasTerminales();
+		Map<String, Integer> reportsByDate= this.reportService.getReportesTotalesTodasLasTerminales();
 		return new ResponseEntity(reportsByDate, HttpStatus.OK);
 	}
 	

@@ -2,31 +2,31 @@
 
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-        
-        
-        
-    
 
-<bean id="poiController" class="controller.controllers.PoiController"></bean>
-        <bean id="terminalController" class="controller.controllers.TerminalController"></bean>
-        <bean id="jsonFactory" class="json.JsonFactory" /> 
-        
-        <bean id="adminController" class="controller.controllers.AdminController"></bean>
-        
-        
-        <bean id="webConfig" class="webConfig.WebConfig">
-		<constructor-arg ref="jsonFactory" />
-	</bean> 
-	
-	<context:annotation-config />
-	    <context:component-scan base-package="controller.controllers.PoiController" />
-<!--    <mvc:default-servlet-handler /> -->
-	
+
+    <context:annotation-config/>
+    <context:component-scan base-package="controller.controllers"/>
+    <context:component-scan base-package="DataBaseConnection"/>
+    <context:component-scan base-package="domain"/>
+    <context:component-scan base-package="Dto"/>
+    <context:component-scan base-package="externalServices"/>
+    <context:component-scan base-package="http"/>
+    <context:component-scan base-package="internalService"/>
+    <context:component-scan base-package="json"/>
+    <context:component-scan base-package="mainApplication"/>
+    <context:component-scan base-package="observers"/>
+    <context:component-scan base-package="poi"/>
+    <context:component-scan base-package="reader"/>
+    <context:component-scan base-package="users"/>
+    <context:component-scan base-package="utils"/>
+    <context:component-scan base-package="view"/>
+    <context:component-scan base-package="webConfig"/>
 
 </beans>

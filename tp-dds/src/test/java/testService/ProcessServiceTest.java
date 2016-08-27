@@ -19,6 +19,7 @@ import org.junit.rules.ExpectedException;
 import domain.Address;
 import domain.Coordinate;
 import domain.EnumActions;
+import org.springframework.beans.factory.annotation.Autowired;
 import poi.Bank;
 import poi.BusStation;
 import poi.Poi;
@@ -26,8 +27,10 @@ import users.Admin;
 import users.Terminal;
 
 public class ProcessServiceTest {
-	
+
+	@Autowired
 	private PoiService poiService;
+	@Autowired
 	private ProcessService processService;
 	private List<Poi> pois;
 	private Bank santander;
@@ -39,8 +42,6 @@ public class ProcessServiceTest {
 
 	@Before
 	public void setUp() {
-		this.poiService = PoiService.getInstance();
-		processService =  ProcessService.getInstance();
 		santander= new Bank("Santander",new Address("Cordoba 1"), new Coordinate(54,32));
 		icbc= new Bank("ICBC",new Address("Corrientes 1"), new Coordinate(52,42));
 		stop114= new BusStation("Parada 114", new Address("Mozart 2300"),  new Coordinate(2,4),"114");

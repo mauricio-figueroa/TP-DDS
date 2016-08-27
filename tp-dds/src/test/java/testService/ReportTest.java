@@ -16,6 +16,7 @@ import domain.Coordinate;
 import internalService.PoiService;
 import internalService.ReportService;
 import junit.framework.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
 import poi.Bank;
 import poi.ComercialShop;
 import poi.Newspaper;
@@ -25,6 +26,10 @@ import users.Terminal;
 
 @SuppressWarnings("deprecation")
 public class ReportTest {
+	@Autowired
+	private ReportService reportService;
+
+	@Autowired
 	private PoiService poiService;
 	private Admin admin;
 	private String date;
@@ -34,7 +39,6 @@ public class ReportTest {
 
 	@Before
 	public void setup() {
-		this.poiService = PoiService.getInstance();
 		this.admin = new Admin();
 		this.poiService.resetReports();
 		this.poiService.resetAllPois();
@@ -59,11 +63,11 @@ public class ReportTest {
 		this.poiService.searchPois("al lado de la utn", "terminalPalermo");
 		terminal.searchPoi("BancoNAcion");
 		
-		ReportService report= poiService.getReportService();
+		ReportService reportService= this.reportService;
 		
 		
 
-		Map<String, Integer> resultadosTotales =report.getReportesTotalesPorFecha();
+		Map<String, Integer> resultadosTotales =reportService.getReportesTotalesPorFecha();
 System.out.println(resultadosTotales.get(date));
 System.out.println(resultadosTotales);
 		Assert.assertEquals( (Integer)3, resultadosTotales.get(date));

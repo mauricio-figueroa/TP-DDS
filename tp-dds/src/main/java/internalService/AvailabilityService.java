@@ -7,10 +7,11 @@ import org.slf4j.LoggerFactory;
 import domain.Holidays;
 import domain.RangeOfAtention;
 import domain.Schedule;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AvailabilityService {
 
-	private static AvailabilityService instance = null;
 	private static final Logger LOGGER= LoggerFactory.getLogger(AvailabilityService.class);
 	private static Holidays holidays;
 
@@ -25,14 +26,7 @@ public class AvailabilityService {
 	protected AvailabilityService() {
 	}
 
-	public static AvailabilityService getInstance() {
-		if (instance == null) {
-			instance = new AvailabilityService();
-			holidays=new Holidays();
-		}
-		return instance;
-	}
-	
+
 	@SuppressWarnings("deprecation")
 	public boolean isAvailability(RangeOfAtention range) {
 		Date date= new Date();

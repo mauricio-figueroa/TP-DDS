@@ -9,6 +9,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
 import org.apache.http.client.ClientProtocolException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,12 +26,9 @@ import internalService.PoiService;
 @Controller
 public class TerminalController {
 	
-	//TODO 
+	@Autowired
 	private PoiService poiService;
 	
-	public TerminalController(){
-	poiService= PoiService.getInstance();	
-	}
 	
 	@RequestMapping(value = ("/search-poi-from"), method = RequestMethod.GET)
 	@ResponseBody

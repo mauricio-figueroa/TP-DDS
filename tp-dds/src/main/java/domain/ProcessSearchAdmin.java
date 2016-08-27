@@ -5,12 +5,18 @@ import internalService.PoiService;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import users.Terminal;
-
+@Component
 public class ProcessSearchAdmin implements ProcessSearchInterfaz{
+
+	@Autowired
+	private PoiService poiService;
+
 	
 	public List<?> search(String nombre){
-		return PoiService.getInstance().getTerminales().stream().filter(terminal -> terminal.getNombre()== nombre).map(terminal -> (Terminal) terminal).collect(Collectors.toList());
+		return this.poiService.getTerminales().stream().filter(terminal -> terminal.getNombre()== nombre).map(terminal -> (Terminal) terminal).collect(Collectors.toList());
 	}
 
 }

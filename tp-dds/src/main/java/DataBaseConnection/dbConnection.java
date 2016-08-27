@@ -1,6 +1,10 @@
 package DataBaseConnection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 
+@Component
 public class dbConnection {
 	 static String bd = "registros";
 	 static String user = "root";
@@ -9,7 +13,6 @@ public class dbConnection {
 	 
 	   Connection connection = null;
 	 
-
 public dbConnection() {
     try{
        

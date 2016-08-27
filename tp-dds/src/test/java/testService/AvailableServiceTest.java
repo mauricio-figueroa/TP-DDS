@@ -17,6 +17,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import poi.Bank;
 import poi.BusStation;
 import poi.CGP;
@@ -37,12 +39,17 @@ import internalService.PoiService;
 public class AvailableServiceTest {
 
 	private final static Logger LOGGER = LoggerFactory.getLogger(AvailableServiceTest.class);
+
+	@Autowired
 	private PoiService poiService;
+
+	@Autowired
+	private AvailabilityService availabilityService;
+
 	private Bank bank;
 	private Coordinate cordinate1;
 	private Coordinate cordinate2;
 	private CGPService rentas;
-	private AvailabilityService availabilityService;
 	private ComercialShop newsPapersShop;
 	private ComercialShop schoolLibraryShop;
 	private Newspaper newspapers;
@@ -72,7 +79,6 @@ public class AvailableServiceTest {
 
 		cordinate1 = new Coordinate(lat1, lon1);
 		cordinate2 = new Coordinate(lat2, lon2);
-		poiService = PoiService.getInstance();
 
 		bank = new Bank("Bank", new Address(""), cordinate2);
 		busStation = new BusStation("Parada de Bus", new Address(""), cordinate2, "114");
@@ -84,7 +90,6 @@ public class AvailableServiceTest {
 
 		// schedules1.add(new Schedule("05:23", "06:37"));
 		schedules1.add(new Schedule("03:00", "19:00"));
-		availabilityService = AvailabilityService.getInstance();
 		schoolLibrary = Library.getInstance(500);
 
 		newsPapersShop = new ComercialShop("Diarios Sistemas", new Address(""), cordinate1, newspapers);
@@ -105,7 +110,6 @@ public class AvailableServiceTest {
 
 		cgpService = new CGPService("cualquiera", range1);
 
-		availabilityService = AvailabilityService.getInstance();
 		cgpServices = new ArrayList<CGPService>();
 		cgpServices.add(rentas);
 		cgpServices.add(cgpService);

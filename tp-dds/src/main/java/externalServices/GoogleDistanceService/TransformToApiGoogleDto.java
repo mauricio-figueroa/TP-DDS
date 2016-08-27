@@ -6,8 +6,9 @@ import json.JsonFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import Dto.appiGoogleDTO.ApiDirectionsGoogleDTO;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class TransformToApiGoogleDto {
 	
 	

@@ -7,20 +7,13 @@ import javax.mail.internet.AddressException;
 import observers.busqueda.AlmacenarResultado;
 import observers.busqueda.NotificarAdmin;
 import observers.busqueda.ObserverBusqueda;
+import org.springframework.stereotype.Component;
 import poi.Poi;
 
+@Component
 public class SubjectBusquedas implements Subject {
 	
-	private static SubjectBusquedas instance;
 	private List<ObserverBusqueda> observers=this.getObservers();
-	
-	public static SubjectBusquedas getInstance(){
-		if(instance==null){
-			return new SubjectBusquedas();
-		}
-			
-		return instance;		
-	}
 
 	private List<ObserverBusqueda> getObservers() {
 		List<ObserverBusqueda> observers=new ArrayList<ObserverBusqueda>();

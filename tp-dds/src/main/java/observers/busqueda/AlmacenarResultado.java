@@ -1,10 +1,12 @@
 package observers.busqueda;
 
 import internalService.ReportService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class AlmacenarResultado implements ObserverBusqueda {
-	
-	private ReportService reportService=ReportService.getInstance();
+
+	@Autowired
+	private ReportService reportService;
 
 
 
