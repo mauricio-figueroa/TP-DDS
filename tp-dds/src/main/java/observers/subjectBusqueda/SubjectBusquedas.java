@@ -33,21 +33,14 @@ public class SubjectBusquedas implements Subject {
 		observers.add(observer);
 	}
 
-	
-
 	@Override
 	public void eliminarObservador() {
 		// TODO Auto-generated method stub
-		
 	}
-
 	@Override
 	public void notificarObservador(String stringBuscado, String nombreTerminal, List<Poi> poisEncontrados,int segundosQueTardo) throws AddressException, MessagingException {
 		for (ObserverBusqueda currentObserver : observers) {
 			currentObserver.update(stringBuscado,nombreTerminal,poisEncontrados.size(),segundosQueTardo);
-			
 		}
-		
 	}
-
 }
