@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.http.client.ClientProtocolException;
 
 import domain.Address;
+import domain.ClosedSchedule;
 import domain.Coordinate;
 import domain.RangeOfAtention;
 import domain.Schedule;
@@ -61,6 +62,13 @@ public class Bank extends Poi {
 	@Override
 	public boolean isAvailable() {
 		return this.getAvailabilityService().isAvailability( this.getRangeOfAtention());
+	}
+
+
+
+	@Override
+	public void addClosedSchedule(ClosedSchedule closedSchedule) {
+		this.rangeOfAtention.addClosedSchedule(closedSchedule);
 	}
 	
 	

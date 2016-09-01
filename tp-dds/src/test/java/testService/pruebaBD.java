@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 public class pruebaBD {
-
+/*
 
     @Test
     public void test1() {
@@ -26,6 +26,6 @@ public class pruebaBD {
         entityManager.persist(bankDTO);
         tx.commit();
     }
-
+*/
 
 }

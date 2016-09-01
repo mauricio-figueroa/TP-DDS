@@ -2,6 +2,7 @@ package poi;
 
 import java.util.Date;
 
+import domain.ClosedSchedule;
 import domain.RangeOfAtention;
 import internalService.AvailabilityService;
 
@@ -35,6 +36,10 @@ public class CGPService {
 	public boolean isAvailable(Date date, AvailabilityService availabilityService){
 		boolean available=availabilityService.isAvailability(this.getRangeOfAtention());
 		return available;		
+	}
+
+	public void addClosedSchedule(ClosedSchedule closedSchedule) {
+		this.rangeOfAtention.addClosedSchedule(closedSchedule);
 	}
 
 }

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import domain.Address;
+import domain.ClosedSchedule;
 import domain.Coordinate;
 
 public class CGP extends Poi {
@@ -87,6 +88,21 @@ public class CGP extends Poi {
 	
 	public void addService(CGPService cgpService){
 		services.add(cgpService);
+	}
+
+
+	@Override
+	public void addClosedSchedule(ClosedSchedule closedSchedule) {
+	}
+	
+	@Override 
+	public void addClosedScheduleToService(ClosedSchedule closedSchedule, String serviceName) {
+		for (CGPService currentCgpService : services) {
+			if(currentCgpService.getServiceName().equalsIgnoreCase(serviceName)){
+				currentCgpService.addClosedSchedule(closedSchedule);
+			}
+			
+		}
 	}
 
 }

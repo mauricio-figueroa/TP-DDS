@@ -3,6 +3,7 @@ package poi;
 import java.io.IOException;
 import org.apache.http.client.ClientProtocolException;
 import domain.Address;
+import domain.ClosedSchedule;
 import domain.Coordinate;
 
 public class BusStation extends Poi {
@@ -44,6 +45,11 @@ public class BusStation extends Poi {
 	@Override
 	public boolean isAvailable() {
 		return true;
+	}
+
+	@Override
+	public void addClosedSchedule(ClosedSchedule closedSchedule) {
+
 	}
 
 }

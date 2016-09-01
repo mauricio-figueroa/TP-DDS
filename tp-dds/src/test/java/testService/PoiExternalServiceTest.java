@@ -9,7 +9,7 @@ import internalService.PoiService;
 import poi.Bank;
 
 public class PoiExternalServiceTest {
-	
+/*	
 	PoiService poiService= PoiService.getInstance();
 	
 	@SuppressWarnings("deprecation")
@@ -18,5 +18,6 @@ public class PoiExternalServiceTest {
 		List<Bank> banks= poiService.getBanksFromExternalService("banco","servicio");
 		Assert.assertTrue(banks!=null);
 	}
+	*/
 
 }

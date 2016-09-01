@@ -3,6 +3,9 @@ package users;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import org.joda.time.LocalDateTime;
+
+import domain.ClosedSchedule;
 import domain.EmailErrorProcessResolution;
 import domain.ErrorProcessResolution;
 import domain.RepeatErrorProcessResolution;
@@ -236,6 +239,17 @@ public class Admin {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+
+	public void addClosedSchedule(String poiName, ClosedSchedule closedSchedule) {
+		this.poiService.addClosedScheduleToPoi(poiName,closedSchedule);
+	}
+
+
+	public void addClosedScheduletoCgp(String poiName, ClosedSchedule closedSchedule, String serviceName) {
+		this.poiService.addClosedScheduleToCgpService(poiName, closedSchedule,serviceName);
+		
 	}
 
 }

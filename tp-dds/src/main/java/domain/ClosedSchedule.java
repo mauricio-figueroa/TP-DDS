@@ -1,31 +1,33 @@
 package domain;
 
+import java.util.Date;
+
 import org.joda.time.LocalDateTime;
 
 public class ClosedSchedule {
 
-	private LocalDateTime dateClosed;
+	private Date dateClosed;
 	private boolean allDay;
 	private Schedule schedule;
 
-	public ClosedSchedule(LocalDateTime dateClosed, boolean allDay) {
+	public ClosedSchedule(Date dateClosed, boolean allDay) {
 		super();
 		this.dateClosed = dateClosed;
 		this.allDay = allDay;
 	}
 
-	public ClosedSchedule(LocalDateTime dateClosed, boolean allDay, Schedule schedule) {
+	public ClosedSchedule(Date dateClosed, boolean allDay, Schedule schedule) {
 		super();
 		this.dateClosed = dateClosed;
 		this.allDay = allDay;
 		this.schedule = schedule;
 	}
 
-	public LocalDateTime getDateClosed() {
+	public Date getDateClosed() {
 		return dateClosed;
 	}
 
-	public void setDateClosed(LocalDateTime dateClosed) {
+	public void setDateClosed(Date dateClosed) {
 		this.dateClosed = dateClosed;
 	}
 

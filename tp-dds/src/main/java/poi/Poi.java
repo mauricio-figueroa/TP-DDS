@@ -112,4 +112,7 @@ public abstract class Poi implements PoiInterface {
 		this.id = id;
 	}
 
+	public void addClosedScheduleToService(ClosedSchedule closedSchedule, String serviceName) {
+	}
+
 }
