@@ -35,6 +35,8 @@ public class AvailabilityService {
 		return instance;
 	}
 	
+	
+	//TODO Closed Dates FIXME!!!!!!!!!!!!!1 
 	@SuppressWarnings("deprecation")
 	public boolean isAvailability(RangeOfAtention rangeOfAtention) {
 		Date date= new Date();
