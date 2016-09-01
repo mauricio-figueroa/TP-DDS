@@ -1,8 +1,9 @@
 *~
 
 *.index
-
+/.RemoteSystemTempFiles/*
 *.gen
-
+/.recommenders/
+/.metadata/
 /target/
 /.idea/*
