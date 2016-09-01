@@ -1,6 +1,7 @@
 package poi;
 
 import domain.Address;
+import domain.ClosedSchedule;
 import domain.Coordinate;
 import externalServices.GoogleDistanceService.GoogleDistanceService;
 import internalService.AvailabilityService;
@@ -12,102 +13,103 @@ import java.util.List;
 
 public abstract class Poi implements PoiInterface {
 
-    protected long id;
-    protected boolean actived;
+	protected long id;
+	protected boolean actived;
 
-    public boolean isActived() {
-        return actived;
-    }
+	public boolean isActived() {
+		return actived;
+	}
 
-    public void setActived(boolean actived) {
-        this.actived = actived;
-    }
+	public void setActived(boolean actived) {
+		this.actived = actived;
+	}
 
-    protected String name;
-    protected Address address;
-    protected Coordinate coordinate;
-    protected GoogleDistanceService googleService = GoogleDistanceService.getInstance();
-    protected AvailabilityService availabilityService = AvailabilityService.getInstance();
-    private List<String> data = new ArrayList<String>();
+	protected String name;
+	protected Address address;
+	protected Coordinate coordinate;
+	protected GoogleDistanceService googleService = GoogleDistanceService.getInstance();
+	protected AvailabilityService availabilityService = AvailabilityService.getInstance();
 
-    public Poi(String name, Address address, Coordinate coordinate) {
-        this.name = name;
-        this.address = address;
-        this.coordinate = coordinate;
-        this.actived = true;
-    }
+	private List<String> data = new ArrayList<String>();
 
-    @Override
-    public String toString() {
-        return "Poi [name=" + name + ", coordinate=" + coordinate + "]";
-    }
+	public Poi(String name, Address address, Coordinate coordinate) {
+		this.name = name;
+		this.address = address;
+		this.coordinate = coordinate;
+		this.actived = true;
+	}
 
-    public List<String> getData() {
-        return data;
-    }
+	@Override
+	public String toString() {
+		return "Poi [name=" + name + ", coordinate=" + coordinate + "]";
+	}
 
-    public void setData(List<String> data) {
-        this.data = data;
-    }
+	public List<String> getData() {
+		return data;
+	}
 
-    public GoogleDistanceService getGoogleService() {
-        return googleService;
-    }
+	public void setData(List<String> data) {
+		this.data = data;
+	}
 
-    public void setGoogleService(GoogleDistanceService googleService) {
-        this.googleService = googleService;
-    }
+	public GoogleDistanceService getGoogleService() {
+		return googleService;
+	}
 
-    public AvailabilityService getAvailabilityService() {
-        return availabilityService;
-    }
+	public void setGoogleService(GoogleDistanceService googleService) {
+		this.googleService = googleService;
+	}
 
-    public void setAvailabilityService(AvailabilityService availabilityService) {
-        this.availabilityService = availabilityService;
-    }
+	public AvailabilityService getAvailabilityService() {
+		return availabilityService;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setAvailabilityService(AvailabilityService availabilityService) {
+		this.availabilityService = availabilityService;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Poi() {
-        super();
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Address getAddress() {
-        return address;
-    }
+	public Poi() {
+		super();
+	}
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+	public Address getAddress() {
+		return address;
+	}
 
-    public Coordinate getCoordinate() {
-        return coordinate;
-    }
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
-    public void setCoordinate(Coordinate cordinate) {
-        this.coordinate = cordinate;
-    }
+	public Coordinate getCoordinate() {
+		return coordinate;
+	}
 
-    public boolean isNearby(Coordinate cordinate) throws ClientProtocolException, IOException {
-        return this.googleService.getDistance(this.coordinate, cordinate) < 500;
-    }
+	public void setCoordinate(Coordinate cordinate) {
+		this.coordinate = cordinate;
+	}
 
-    public boolean isAvailable() {
-        return false;
-    }
+	public boolean isNearby(Coordinate cordinate) throws ClientProtocolException, IOException {
+		return this.googleService.getDistance(this.coordinate, cordinate) < 500;
+	}
 
-    public long getId() {
-        return id;
-    }
+	public boolean isAvailable() {
+		return false;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 }

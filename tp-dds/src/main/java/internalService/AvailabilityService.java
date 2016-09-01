@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import domain.ClosedSchedule;
 import domain.Holidays;
 import domain.RangeOfAtention;
 import domain.Schedule;
@@ -34,7 +36,7 @@ public class AvailabilityService {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public boolean isAvailability(RangeOfAtention range) {
+	public boolean isAvailability(RangeOfAtention rangeOfAtention) {
 		Date date= new Date();
 		boolean isAvailability=false;
 		String today= (date.getDate()) + "/" + (date.getMonth() + 1);
@@ -44,8 +46,8 @@ public class AvailabilityService {
 		
 		
 
-		if ((range.getDaysOfAttention().contains(date.getDay()) && (!holidaysDays.contains(today)))) {
-			for (Schedule schedule : range.getSchedules()) {
+		if ((rangeOfAtention.getDaysOfAttention().contains(date.getDay()) && (!holidaysDays.contains(today)))) {
+			for (Schedule schedule : rangeOfAtention.getSchedules()) {
 				if(date.before(schedule.getHourMax()) && (date.after(schedule.getHourMin()))) {
 					isAvailability= true;
 				}
@@ -53,7 +55,6 @@ public class AvailabilityService {
 		}
 		return isAvailability;
 	}
-	
-	
+
 
 }
