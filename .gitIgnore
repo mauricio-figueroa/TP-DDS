@@ -3,3 +3,6 @@
 *.index
 
 *.gen
+
+/target/
+/.idea/*
