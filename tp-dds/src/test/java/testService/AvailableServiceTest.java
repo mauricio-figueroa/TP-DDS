@@ -17,21 +17,21 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import poi.Bank;
-import poi.BusStation;
-import poi.CGP;
-import poi.CGPService;
-import poi.ComercialShop;
-import poi.Library;
-import poi.Newspaper;
-import poi.Poi;
-import users.Terminal;
-import domain.Address;
-import domain.Coordinate;
-import domain.RangeOfAtention;
-import domain.Schedule;
-import internalService.AvailabilityService;
-import internalService.PoiService;
+import tp.dds.domain.common.Address;
+import tp.dds.domain.common.Coordinate;
+import tp.dds.domain.common.RangeOfAtention;
+import tp.dds.domain.common.Schedule;
+import tp.dds.domain.poi.Bank;
+import tp.dds.domain.poi.BusStation;
+import tp.dds.domain.poi.CGP;
+import tp.dds.domain.poi.CGPService;
+import tp.dds.domain.poi.ComercialShop;
+import tp.dds.domain.poi.Library;
+import tp.dds.domain.poi.Newspaper;
+import tp.dds.domain.poi.Poi;
+import tp.dds.domain.users.Terminal;
+import tp.dds.services.internalService.AvailabilityService;
+import tp.dds.services.internalService.PoiService;
 
 @SuppressWarnings("deprecation")
 public class AvailableServiceTest {

@@ -10,12 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 
-import domain.Address;
-import domain.Coordinate;
-import internalService.PoiService;
-import poi.BusStation;
-import poi.Poi;
-import users.Admin;
+import tp.dds.domain.common.Address;
+import tp.dds.domain.common.Coordinate;
+import tp.dds.domain.poi.BusStation;
+import tp.dds.domain.poi.Poi;
+import tp.dds.domain.users.Admin;
+import tp.dds.services.internalService.PoiService;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AdminTest {

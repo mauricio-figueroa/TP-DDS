@@ -5,8 +5,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import internalService.PoiService;
-import poi.Bank;
+import tp.dds.domain.poi.Bank;
+import tp.dds.services.internalService.PoiService;
 
 public class PoiExternalServiceTest {
 /*	

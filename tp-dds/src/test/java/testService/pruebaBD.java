@@ -1,13 +1,14 @@
 package testService;
 
-import Dto.bankDto.BankDTO;
-import dao.EntityManagerProvider;
-import domain.Address;
-import domain.Coordinate;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
-import poi.Bank;
-import poi.Poi;
+
+import tp.dds.api.bankDto.BankDTO;
+import tp.dds.domain.common.Address;
+import tp.dds.domain.common.Coordinate;
+import tp.dds.domain.dao.utils.EntityManagerProvider;
+import tp.dds.domain.poi.Bank;
+import tp.dds.domain.poi.Poi;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

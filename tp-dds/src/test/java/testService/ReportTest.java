@@ -11,16 +11,16 @@ import javax.mail.internet.AddressException;
 import org.junit.Before;
 import org.junit.Test;
 
-import domain.Address;
-import domain.Coordinate;
-import internalService.PoiService;
-import internalService.ReportService;
 import junit.framework.Assert;
-import poi.Bank;
-import poi.ComercialShop;
-import poi.Newspaper;
-import users.Admin;
-import users.Terminal;
+import tp.dds.domain.common.Address;
+import tp.dds.domain.common.Coordinate;
+import tp.dds.domain.poi.Bank;
+import tp.dds.domain.poi.ComercialShop;
+import tp.dds.domain.poi.Newspaper;
+import tp.dds.domain.users.Admin;
+import tp.dds.domain.users.Terminal;
+import tp.dds.services.internalService.PoiService;
+import tp.dds.services.internalService.ReportService;
 
 
 @SuppressWarnings("deprecation")

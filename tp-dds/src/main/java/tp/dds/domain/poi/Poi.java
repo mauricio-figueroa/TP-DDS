@@ -1,0 +1,119 @@
+package tp.dds.domain.poi;
+
+import org.apache.http.client.ClientProtocolException;
+
+import tp.dds.domain.common.Address;
+import tp.dds.domain.common.ClosedSchedule;
+import tp.dds.domain.common.Coordinate;
+import tp.dds.services.externalServices.GoogleDistanceService.GoogleDistanceService;
+import tp.dds.services.internalService.AvailabilityService;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Poi implements PoiInterface {
+
+	protected long id;
+	protected boolean actived;
+
+	public boolean isActived() {
+		return actived;
+	}
+
+	public void setActived(boolean actived) {
+		this.actived = actived;
+	}
+
+	protected String name;
+	protected Address address;
+	protected Coordinate coordinate;
+	protected GoogleDistanceService googleService = GoogleDistanceService.getInstance();
+	protected AvailabilityService availabilityService = AvailabilityService.getInstance();
+
+	private List<String> data = new ArrayList<String>();
+
+	public Poi(String name, Address address, Coordinate coordinate) {
+		this.name = name;
+		this.address = address;
+		this.coordinate = coordinate;
+		this.actived = true;
+	}
+
+	@Override
+	public String toString() {
+		return "Poi [name=" + name + ", coordinate=" + coordinate + "]";
+	}
+
+	public List<String> getData() {
+		return data;
+	}
+
+	public void setData(List<String> data) {
+		this.data = data;
+	}
+
+	public GoogleDistanceService getGoogleService() {
+		return googleService;
+	}
+
+	public void setGoogleService(GoogleDistanceService googleService) {
+		this.googleService = googleService;
+	}
+
+	public AvailabilityService getAvailabilityService() {
+		return availabilityService;
+	}
+
+	public void setAvailabilityService(AvailabilityService availabilityService) {
+		this.availabilityService = availabilityService;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Poi() {
+		super();
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Coordinate getCoordinate() {
+		return coordinate;
+	}
+
+	public void setCoordinate(Coordinate cordinate) {
+		this.coordinate = cordinate;
+	}
+
+	public boolean isNearby(Coordinate cordinate) throws ClientProtocolException, IOException {
+		return this.googleService.getDistance(this.coordinate, cordinate) < 500;
+	}
+
+	public boolean isAvailable() {
+		return false;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void addClosedScheduleToService(ClosedSchedule closedSchedule, String serviceName) {
+	}
+
+}
