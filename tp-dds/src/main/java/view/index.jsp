@@ -5,16 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>P.O.I </title>
 <link rel="shortcut icon" href="icon.png" type="image/png">
-<link rel="stylesheet" type="text/css" href="bootstrap/ss/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css"
 	href="bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="bootstrap/css/bootstrap-theme.css">
 <link rel="stylesheet" type="text/css"
 	href="bootstrap/css/bootstrap-theme.min.css">
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/npm.js"></script>
+	<script src="bootstrap/js/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+
+</script>
+
 <link rel="stylesheet" href="stylesheet_java.css">
 </head>
 
@@ -24,11 +27,12 @@
 
 
 
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 map">
+	<!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 map">
 
-		<div id="map" class="mapSites"></div>
+			<div id="map" class="mapSites"></div>
 
 	</div>
+
 
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 selector">
 
@@ -65,6 +69,70 @@
 
 	</div>
 
+	-->
+
+	<div class="busqueda">
+
+			<div class="">
+					<h1>BUSQUEDA</h1>
+			</div>
+
+			<div class="first-block">
+					<h2>Criterio de búsqueda</h2>
+
+					<p>	</p>
+
+					<div id="content">
+						<input type="text" name="name" value="">
+					</div>
+
+					<button  type="button" name="button" onclick="addInput()" >Agregar</button>
+					<button  type="button" name="button">Buscar</button>
+
+
+
+
+
+			</div>
+
+			<div class="second-block">
+					<h2>Resultado</h2>
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 nombre">
+										<p class=" namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											Nombre
+										</p>
+										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											saraza
+										</p>
+										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											saraza
+										</p>
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 direccion">
+										<p class="namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											Direcciòn
+										</p>
+										<p class="namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											saraza
+										</p>
+										<p class="namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											saraza
+										</p>
+								</div>
+
+					</div>
+
+
+
+
+
+
+			</div>
+
+	</div>
+
 
 <div id="modal" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modal">
 
@@ -94,7 +162,7 @@
 
 </div>
 
-
+ <footer> P.O.I Todos los derechos reservados. 2016 ®</footer>
 </body>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbx3ox75shr0gNruHyXzmV6CHOP275qIE&libraries=places&callback=initAutocomplete"
@@ -180,6 +248,14 @@
 
 
 
+
+ function addInput(){
+	 var d = document.getElementById("content");
+
+	 d.innerHTML += '<br /><input type="text" name="name" value="">';
+}
  </script>
+
+
 
 </html>

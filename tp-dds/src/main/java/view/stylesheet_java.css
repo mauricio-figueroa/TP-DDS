@@ -2,6 +2,7 @@ body {
 	background-image: url("bg.png");
 	background-size: 100% auto;
 	padding: 100px;
+	height: 100vh;
 }
 
 .selector, .map {
@@ -101,3 +102,21 @@ body {
 	border: 1px solid #8A4C4C;
 	border-radius: 2px;
 }
+
+footer{
+	position: absolute;
+	bottom:0;
+	color: white;
+	padding: 10px 10px;
+}
+
+.volver{
+	display: none;
+}
+
+#historial{
+	display: none;
+}
+ #acciones{
+	 display:none;
+ }
