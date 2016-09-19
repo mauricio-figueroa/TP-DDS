@@ -50,17 +50,17 @@
             <input type="text" name="name" value="">
             <input type="text" name="name" value="">
 
-            <button type="button" name="button">Buscar</button>
+            <button id="searchAc" type="button" name="button">Buscar</button>
 
 
 
           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
             <h2>Resultado</h2>
             <div class="">
-                  <p class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Fecha</p>
-                  <p class="col-lg-2 col-md-2 col-sm-2 col-xs-2">Usuario</p>
-                  <p class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Parámetros</p>
-                  <p class="col-lg-2 col-md-2 col-sm-2 col-xs-2">POIs</p>
+                  <p class="namecol col-lg-4 col-md-4 col-sm-4 col-xs-4">Fecha</p>
+                  <p class="namecol col-lg-2 col-md-2 col-sm-2 col-xs-2">Usuario</p>
+                  <p class=" namecol col-lg-4 col-md-4 col-sm-4 col-xs-4">Parámetros</p>
+                  <p class="namecol col-lg-2 col-md-2 col-sm-2 col-xs-2">POIs</p>
             </div>
 
 
@@ -91,13 +91,17 @@
         <div class="">
           <h2>Acciones</h2>
           <div class="">
-            <p>Totalizar por Fecha</p><button id="deletePermiso" type="button" name="button"> Eliminar</button>
+            <p class="permisoAdded">Totalizar por Fecha</p><button id="deletePermiso" type="button" name="button"> Eliminar</button>
           </div>
         </div>
 
-        <button id="submitHis" type="button" name="button">OK</button>
+        <div class="accept">
 
-        <button id="cancelHis" type="button" name="button">Cancelar</button>
+                  <button id="submitHis" type="button" name="button">OK</button>
+
+                  <button id="cancelHis" type="button" name="button">Cancelar</button>
+        </div>
+
 
 </div>
 
