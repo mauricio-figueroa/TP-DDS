@@ -8,25 +8,21 @@
         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-        
-        
-        
-    
 
-<bean id="poiController" class="controller.controllers.PoiController"></bean>
-        <bean id="terminalController" class="controller.controllers.TerminalController"></bean>
-        <bean id="jsonFactory" class="json.JsonFactory" /> 
-        
-        <bean id="adminController" class="controller.controllers.AdminController"></bean>
-        
-        
-        <bean id="webConfig" class="webConfig.WebConfig">
-		<constructor-arg ref="jsonFactory" />
-	</bean> 
-	
-	<context:annotation-config />
-	    <context:component-scan base-package="controller.controllers.PoiController" />
-<!--    <mvc:default-servlet-handler /> -->
-	
+
+
+
+
+
+
+
+	<context:annotation-config/>
+	<context:component-scan base-package="tp.dds.controllers"/>
+	<context:component-scan base-package="tp.dds.api"/>
+	<context:component-scan base-package="tp.dds.app"/>
+	<context:component-scan base-package="tp.dds.config"/>
+	<context:component-scan base-package="tp.dds.domain"/>
+	<context:component-scan base-package="tp.dds.services"/>
+	<context:component-scan base-package="tp.dds.utils"/>
 
 </beans>
