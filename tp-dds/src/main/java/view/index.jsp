@@ -145,12 +145,12 @@
 			<p>
 				Usuario
 			</p>
-			<input class="log-input" type="text" name="name" value="">
+			<input id="userid" class="log-input" type="text" name="name" value="">
 				<p>
 					Contraseña
 				</p>
-		<input class="log-input"  type="text" name="name" value="">
-			<button class="log-button" type="button" name="button">Enviar</button>
+		<input  id="psw"  class="log-input"  type="text" name="name" value="">
+			<button class="log-button" type="button" name="button" onclick="log()">Enviar</button>
 		</form>
 
 		<div class="modal-footer">
@@ -165,6 +165,8 @@
 
  <footer> P.O.I Todos los derechos reservados. 2016 ®</footer>
 </body>
+
+	<!--
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbx3ox75shr0gNruHyXzmV6CHOP275qIE&libraries=places&callback=initAutocomplete"
          async defer>
@@ -233,7 +235,7 @@
 }
  </script>
 
-
+	-->
  <script >
  function openModal(){
  var modal = document.getElementById("modal");
@@ -255,6 +257,30 @@
 
 	 d.innerHTML += '<br /><input type="text" name="name" value="">';
 }
+
+
+function log(){
+
+	var user= $('#userid').val();
+	var psw= $('#psw').val();
+
+    $.post("URL_PARA_EL_LOGUEO",
+    {
+        name: user,
+        city: psw
+    },
+    openAdminMode());
+
+
+//http://localhost:8080/diseno-de-sistemas/reportByTerminal?name=hola
+
+ console.log(name);
+}
+
+function openAdminMode(){
+	window.location = "file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp"
+}
+
  </script>
 
 
