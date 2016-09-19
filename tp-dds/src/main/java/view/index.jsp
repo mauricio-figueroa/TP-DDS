@@ -71,19 +71,19 @@
 
 	-->
 
-	<div class="busqueda">
+	<div class="busqueda col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 			<div class="">
 					<h1>BUSQUEDA</h1>
 			</div>
 
-			<div class="first-block">
+			<div class="first-block col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<h2>Criterio de búsqueda</h2>
 
 					<p>	</p>
 
-					<div id="content">
-						<input type="text" name="name" value="">
+					<div id="content" class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+						<input id="searchPoi" type="text" name="name" value="">
 					</div>
 
 					<button  type="button" name="button" onclick="addInput()" >Agregar</button>
@@ -95,7 +95,8 @@
 
 			</div>
 
-			<div class="second-block">
+			<div class="second-block col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
 					<h2>Resultado</h2>
 
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -114,10 +115,10 @@
 										<p class="namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											Direcciòn
 										</p>
-										<p class="namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											saraza
 										</p>
-										<p class="namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
+										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											saraza
 										</p>
 								</div>

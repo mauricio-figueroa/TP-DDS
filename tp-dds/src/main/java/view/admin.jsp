@@ -36,7 +36,7 @@
 
 
 <!-- Pantalla de historial -->
-<div id="historial" class="">
+<div id="acciones" class="">
         <div class="">
            <h1>ACCIONES ANTE LA BÚSQUEDA</h1>
         </div>
@@ -76,7 +76,7 @@
 <!-- Termina pantalla de historial -->
 
 <!-- Pantalla de acciones -->
-<div id="acciones" class="">
+<div id="historial" class="">
         <div class="">
            <h1>HISTORIAL DE BÚSQUEDAS REALIZADAS</h1>
         </div>
@@ -86,18 +86,18 @@
               <option value="">Option2</option>
         </select>
 
-        <button type="button" name="button">Agregar</button>
+        <button id="addPermiso" type="button" name="button">Agregar</button>
 
         <div class="">
           <h2>Acciones</h2>
           <div class="">
-            <p>Totalizar por Fecha</p><button type="button" name="button"> Eliminar</button>
+            <p>Totalizar por Fecha</p><button id="deletePermiso" type="button" name="button"> Eliminar</button>
           </div>
         </div>
 
-        <button type="button" name="button">OK</button>
+        <button id="submitHis" type="button" name="button">OK</button>
 
-        <button type="button" name="button">Cancelar</button>
+        <button id="cancelHis" type="button" name="button">Cancelar</button>
 
 </div>
 
