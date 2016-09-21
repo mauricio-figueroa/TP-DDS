@@ -5,16 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>P.O.I </title>
 <link rel="shortcut icon" href="icon.png" type="image/png">
-<link rel="stylesheet" type="text/css" href="bootstrap/ss/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 <link rel="stylesheet" type="text/css"
 	href="bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="bootstrap/css/bootstrap-theme.css">
 <link rel="stylesheet" type="text/css"
 	href="bootstrap/css/bootstrap-theme.min.css">
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/npm.js"></script>
+	<script src="bootstrap/js/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+
+</script>
+
 <link rel="stylesheet" href="stylesheet_java.css">
 </head>
 
@@ -24,11 +27,12 @@
 
 
 
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 map">
+	<!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 map">
 
-		<div id="map" class="mapSites"></div>
+			<div id="map" class="mapSites"></div>
 
 	</div>
+
 
 	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 selector">
 
@@ -65,6 +69,71 @@
 
 	</div>
 
+	-->
+
+	<div class="busqueda col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+			<div class="">
+					<h1>BUSQUEDA</h1>
+			</div>
+
+			<div class="first-block col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h2>Criterio de búsqueda</h2>
+
+					<p>	</p>
+
+					<div id="content" class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+						<input id="searchPoi" class="dataSearch" type="text" name="name" value="">
+					</div>
+
+					<button  type="button" name="button" onclick="addInput()" >Agregar</button>
+					<button  type="button" name="button" onclick="search()">Buscar</button>
+
+
+
+
+
+			</div>
+
+			<div class="second-block col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+					<h2>Resultado</h2>
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 nombre">
+										<p class=" namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											Nombre
+										</p>
+										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											saraza
+										</p>
+										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											saraza
+										</p>
+								</div>
+								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 direccion">
+										<p class="namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											Direcciòn
+										</p>
+										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											saraza
+										</p>
+										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											saraza
+										</p>
+								</div>
+
+					</div>
+
+
+
+
+
+
+			</div>
+
+	</div>
+
 
 <div id="modal" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modal">
 
@@ -73,15 +142,11 @@
 			Modo Administrador
 		</p>
 		<form class="" action="" method="post">
-			<p>
-				Usuario
-			</p>
-			<input class="log-input" type="text" name="name" value="">
-				<p>
-					Contraseña
-				</p>
-		<input class="log-input"  type="text" name="name" value="">
-			<button class="log-button" type="button" name="button">Enviar</button>
+
+			<input id="userid" class="log-input" type="text" name="name" value="" placeholder="Usuario">
+
+		<input  id="psw"  class="log-input"  type="text" name="name" value="" placeholder="Contraseña">
+			<button class="log-button" type="button" name="button" onclick="log()">Enviar</button>
 		</form>
 
 		<div class="modal-footer">
@@ -94,8 +159,10 @@
 
 </div>
 
-
+ <footer> P.O.I Todos los derechos reservados. 2016 ®</footer>
 </body>
+
+	<!--
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbx3ox75shr0gNruHyXzmV6CHOP275qIE&libraries=places&callback=initAutocomplete"
          async defer>
@@ -164,7 +231,7 @@
 }
  </script>
 
-
+	-->
  <script >
  function openModal(){
  var modal = document.getElementById("modal");
@@ -178,8 +245,54 @@
 
  }
 
+ function addInput(){
+	 var d = document.getElementById("content");
 
+	 d.innerHTML += '<br />	<input id="searchPoi" class="dataSearch" type="text" name="name" value="">';
+}
+
+
+function log(){
+	var dataSend={};
+
+	var dataSend["user"]=$('#userid').val();
+
+		var dataSend["pw"]= $('#psw').val();
+
+	//console.log(dataSend);
+
+	$.post("COMPLETAR URL", dataSend, function(dataReceived){
+		if(dataReceived){
+			$(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+		}else{
+			alert("Datos incorrectos");
+		};
+
+	});
+
+//http://localhost:8080/diseno-de-sistemas/validarUsuario?user=melania&pw=miranda
+}
+
+function search(){
+	 infoArray=[];
+			$( '.dataSearch' ).each(function() {
+		  infoArray.push($( this ).val());
+
+		});
+
+		var datSend=$.extend({}, infoArray);
+
+		$.post("COMPLETAR URL", dataSend, function(dataReceived){
+			 ///deberia hacer la magia dependiendo de lo q muestre.
+			 console.log(dataReceived);
+			};
+
+		});
+
+}
 
  </script>
+
+
 
 </html>

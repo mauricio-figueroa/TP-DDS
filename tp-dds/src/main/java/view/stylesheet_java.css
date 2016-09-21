@@ -2,6 +2,11 @@ body {
 	background-image: url("bg.png");
 	background-size: 100% auto;
 	padding: 100px;
+	height: 100vh;
+}
+
+button{
+	outline: none;
 }
 
 .selector, .map {
@@ -100,4 +105,106 @@ body {
 	margin: 10px 0px;
 	border: 1px solid #8A4C4C;
 	border-radius: 2px;
+}
+
+footer{
+	position: absolute;
+	bottom:0;
+	color: white;
+	padding: 10px 10px;
+}
+
+.volver{
+	display: none;
+	text-align: left;
+	background: rgba(41, 72, 125,1);
+	padding: 10px;
+	border-radius: 5px;
+	color: white;
+	font-size: 1em;
+	border: none;
+	margin: 10px;
+}
+
+#historial,  #acciones{
+	display: none;
+	background-color: rgba(00,00,00,.7);
+	padding: 20px;
+	color: white;
+}
+
+
+ h1, h2{
+	 color:white;
+ }
+
+ h2{
+	 font-size: 20px;
+ }
+
+.busqueda button{
+	background: rgba(150, 60, 70,1);
+	padding: 10px;
+	border-radius: 5px;
+	color: white;
+	font-size: 1em;
+	border: none;
+	display: inline-block;
+}
+
+.busqueda{
+	background-color: rgba(00,00,00,.7);
+	padding: 10px;
+}
+
+.namecol{
+	background-color: gray;
+	color: black !important;
+}
+
+.second-block p{
+	color:white;
+}
+
+.button-admin{
+	text-align: center;
+	padding-top: 10vw;
+}
+
+.button-admin button{
+	background: rgba(41, 72, 125,1);
+	padding: 20px;
+	border-radius: 5px;
+	color: white;
+	font-size: 1em;
+	border: none;
+	display: inline-block;
+	margin: 10px;
+
+}
+
+#addPermiso,  #deletePermiso, #submitHis, #cancelHis, #searchAc{
+
+	text-align: center;
+	background: rgba(41, 72, 125,1);
+	padding: 5px;
+	border-radius: 5px;
+	color: white;
+	font-size: 1em;
+	border: none;
+	margin: 10px;
+}
+
+.accept{
+	text-align: center;
+	padding-top: 20px;
+}
+
+.permisoAdded{
+	display: inline-block;
+}
+
+
+#initFecha, #finFecha, #nameUser{
+	color: black;
 }
