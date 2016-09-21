@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
@@ -19,11 +20,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import tp.dds.utils.json.JsonFactory;
 
 
-@EnableWebMvc
 @Component
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+	@Autowired
 	private JsonFactory jsonFactory;
+
+	public WebConfig(){
+		
+	}
 
 	public WebConfig(JsonFactory jsonFactory) {
 		this.jsonFactory = jsonFactory;
