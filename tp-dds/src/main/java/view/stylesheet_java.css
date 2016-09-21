@@ -203,3 +203,8 @@ footer{
 .permisoAdded{
 	display: inline-block;
 }
+
+
+#initFecha, #finFecha, #nameUser{
+	color: black;
+}

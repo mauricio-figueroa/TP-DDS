@@ -38,17 +38,17 @@
 <!-- Pantalla de historial -->
 <div id="acciones" class="">
         <div class="">
-           <h1>ACCIONES ANTE LA BÚSQUEDA</h1>
+           <h1>HISTORIAL DE BÚSQUEDAS REALIZADAS</h1>
         </div>
 
         <h2>Criterio de Busqueda</h2>
         <div class="">
           <p>Usuario</p>
-          <input type="text" name="name" value="">
+          <input id="nameUser" type="text" name="name" value="">
 
             <p>Fecha</p>
-            <input type="text" name="name" value="">
-            <input type="text" name="name" value="">
+            <input id="initFecha" type="text" name="name" value="">
+            <input id="finFecha" type="text" name="name" value="">
 
             <button id="searchAc" type="button" name="button">Buscar</button>
 
@@ -78,7 +78,7 @@
 <!-- Pantalla de acciones -->
 <div id="historial" class="">
         <div class="">
-           <h1>HISTORIAL DE BÚSQUEDAS REALIZADAS</h1>
+           <h1>ACCIONES ANTE LA BÚSQUEDA</h1>
         </div>
 
         <select>
@@ -115,16 +115,17 @@
 
 <script>
   function displayHistorial(){
-    $('.button-admin').hide();
-    $('#historial').show();
-    $('.volver').show();
+		$('.button-admin').hide();
+		$('#acciones').show();
+		$('.volver').show();
+
   }
 
   function displayAcciones(){
-      $('.button-admin').hide();
-      $('#acciones').show();
-      $('.volver').show();
 
+		    $('.button-admin').hide();
+		    $('#historial').show();
+		    $('.volver').show();
   }
 
   function volver(){
@@ -134,7 +135,21 @@
     $('.volver').hide();
   }
 
+	function searchHistorial(){
+		 	var datSend={};
 
+			dataSend["user"]=$( "#nameUser" ).val();
+			dataSend["initFecha"]=$( "#initFecha"  ).val();
+			dataSend["finFecha"]=$( "#finFecha" ).val();
+
+
+			$.post("COMPLETAR URL", dataSend, function(dataReceived){
+				 ///deberia hacer la magia dependiendo de lo q muestre.
+				};
+
+			});
+
+	}
 
 </script>
 

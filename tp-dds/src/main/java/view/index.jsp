@@ -83,11 +83,11 @@
 					<p>	</p>
 
 					<div id="content" class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-						<input id="searchPoi" type="text" name="name" value="">
+						<input id="searchPoi" class="dataSearch" type="text" name="name" value="">
 					</div>
 
 					<button  type="button" name="button" onclick="addInput()" >Agregar</button>
-					<button  type="button" name="button">Buscar</button>
+					<button  type="button" name="button" onclick="search()">Buscar</button>
 
 
 
@@ -142,14 +142,10 @@
 			Modo Administrador
 		</p>
 		<form class="" action="" method="post">
-			<p>
-				Usuario
-			</p>
-			<input id="userid" class="log-input" type="text" name="name" value="">
-				<p>
-					Contraseña
-				</p>
-		<input  id="psw"  class="log-input"  type="text" name="name" value="">
+
+			<input id="userid" class="log-input" type="text" name="name" value="" placeholder="Usuario">
+
+		<input  id="psw"  class="log-input"  type="text" name="name" value="" placeholder="Contraseña">
 			<button class="log-button" type="button" name="button" onclick="log()">Enviar</button>
 		</form>
 
@@ -249,36 +245,49 @@
 
  }
 
-
-
-
  function addInput(){
 	 var d = document.getElementById("content");
 
-	 d.innerHTML += '<br /><input type="text" name="name" value="">';
+	 d.innerHTML += '<br />	<input id="searchPoi" class="dataSearch" type="text" name="name" value="">';
 }
 
 
 function log(){
+	var dataSend={};
 
-	var user= $('#userid').val();
-	var psw= $('#psw').val();
+	var dataSend["user"]=$('#userid').val();
 
-    $.post("URL_PARA_EL_LOGUEO",
-    {
-        name: user,
-        city: psw
-    },
-    openAdminMode());
+		var dataSend["pw"]= $('#psw').val();
 
+	//console.log(dataSend);
 
-//http://localhost:8080/diseno-de-sistemas/reportByTerminal?name=hola
+	$.post("COMPLETAR URL", dataSend, function(dataReceived){
+		if(dataReceived){
+			$(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+		}else{
+			alert("Datos incorrectos");
+		};
 
- console.log(name);
+	});
+
+//http://localhost:8080/diseno-de-sistemas/validarUsuario?user=melania&pw=miranda
 }
 
-function openAdminMode(){
-	window.location = "file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp"
+function search(){
+	 infoArray=[];
+			$( '.dataSearch' ).each(function() {
+		  infoArray.push($( this ).val());
+
+		});
+
+		var datSend=$.extend({}, infoArray);
+
+		$.post("COMPLETAR URL", dataSend, function(dataReceived){
+			 ///deberia hacer la magia dependiendo de lo q muestre.
+			};
+
+		});
+
 }
 
  </script>
