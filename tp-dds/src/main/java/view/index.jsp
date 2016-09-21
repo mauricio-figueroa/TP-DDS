@@ -284,6 +284,7 @@ function search(){
 
 		$.post("COMPLETAR URL", dataSend, function(dataReceived){
 			 ///deberia hacer la magia dependiendo de lo q muestre.
+			 console.log(dataReceived);
 			};
 
 		});
