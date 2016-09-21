@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -38,6 +39,9 @@ public class PoiController {
 		LOGGER.info("--------------------------------------------------------");
 		List<PoiDTO> poisDTO= new ArrayList<PoiDTO>();
 		List<Poi> pois = poiService.getAllPois();
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "application/json");
 		
 		
 		/*
@@ -60,7 +64,7 @@ public class PoiController {
 		LOGGER.info("--------------------------------------------------------");
 		LOGGER.info("RESPONSE");
 		LOGGER.info("--------------------------------------------------------");
-		return new ResponseEntity<List<PoiDTO>>(poisDTO, HttpStatus.OK);
+		return new ResponseEntity<List<PoiDTO>>(poisDTO,responseHeaders, HttpStatus.OK);
 
 	}
 	
@@ -78,7 +82,9 @@ public class PoiController {
 		LOGGER.info("--------------------------------------------------------");
 		LOGGER.info("RESPONSE");
 		LOGGER.info("--------------------------------------------------------");
-		return new ResponseEntity<Integer>(size, HttpStatus.OK);
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "application/json");
+		return new ResponseEntity<Integer>(size,responseHeaders, HttpStatus.OK);
 
 	}
 

@@ -9,6 +9,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
 import org.apache.http.client.ClientProtocolException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -38,9 +39,13 @@ public class TerminalController {
             @RequestParam(value = "searchName", required = true) String searchName,
             @RequestParam(value = "terminalName", required = true) String terminalName) throws AddressException, MessagingException, InterruptedException {
 
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Content-Type", "application/json");
+
         Terminal terminal = poiService.searchTerminal(terminalName);
         List<Poi> pois = terminal.searchPoi(searchName);
-        return new ResponseEntity(pois, HttpStatus.OK);
+        return new ResponseEntity(pois,responseHeaders, HttpStatus.OK);
     }
 
     @RequestMapping(value = ("/is-near-by"), method = RequestMethod.GET)
@@ -53,9 +58,12 @@ public class TerminalController {
         List<Poi> pois = terminal.searchPoi(searchName);
         Map<String, Boolean> isNear = new HashMap<String, Boolean>();
 
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("Content-Type", "application/json");
+
         for (Poi poi : pois) {
             isNear.put(poi.getName(), terminal.isNearBy(poi));
         }
-        return new ResponseEntity(isNear, HttpStatus.OK);
+        return new ResponseEntity(isNear,responseHeaders, HttpStatus.OK);
     }
 }
