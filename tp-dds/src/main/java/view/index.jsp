@@ -192,7 +192,7 @@ var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 				 for (var i = 0; i < dataReceived.length; i++) {
 								 if(dataReceived.type="Banco"){
 											//dataReceived[i].name;
-											// dataReceived[i].icono;
+											// dataReceived[i].icon;
 											// dataReceived[i].servicios;
 											// dataReceived[i].sucursal;
 											var d = document.getElementById("testName");
