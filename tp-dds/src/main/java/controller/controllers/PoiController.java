@@ -24,22 +24,22 @@ import poi.Poi;
 @Controller
 public class PoiController {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(PoiController.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(PoiController.class);
 
-	private PoiService poiService;
+    private PoiService poiService;
 
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = ("/poi-show"), method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<List<PoiDTO>> showPois() {
-		poiService = PoiService.getInstance();
-		LOGGER.info("--------------------------------------------------------");
-		LOGGER.info("REQUEST");
-		LOGGER.info("--------------------------------------------------------");
-		List<PoiDTO> poisDTO = new ArrayList<PoiDTO>();
-		List<Poi> pois = poiService.getAllPois();
-		
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = ("/poi-show"), method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<PoiDTO>> showPois() {
+        poiService = PoiService.getInstance();
+        LOGGER.info("--------------------------------------------------------");
+        LOGGER.info("REQUEST");
+        LOGGER.info("--------------------------------------------------------");
+        List<PoiDTO> poisDTO = new ArrayList<PoiDTO>();
+        List<Poi> pois = poiService.getAllPois();
+
 		
 		/*
 		 * REFACTOR DE CODIGO SEGUN TIPO, HACER UN POIDTO Y EXTENER LAS DIFERENTES CLASES, LO MISMO CON ADDRESS Y EL RESTO DE MIERDAS
@@ -57,7 +57,7 @@ public class PoiController {
 
 				case "busStation":
 					BusStation busStation=(BusStation) currentPoi;
-					poisDTO.add(new PoiDTO());
+				//	poisDTO.add(new PoiDTO());
 					break;
 			}
 
@@ -85,5 +85,6 @@ public class PoiController {
 		return new ResponseEntity<Integer>(size, HttpStatus.OK);
 
 	}
+
 
 }

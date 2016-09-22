@@ -62,10 +62,7 @@ public class TerminalController {
 		return new ResponseEntity(isNear, HttpStatus.OK);
 	}
 
-
 	private UsuarioService usuarioService=new UsuarioService();
-
-
 
 
 	@RequestMapping(value = ("/crearUsuario"), method = RequestMethod.GET)
@@ -78,7 +75,6 @@ public class TerminalController {
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 
 	}
-
 
 	@RequestMapping(value = ("/validarUsuario"), method = RequestMethod.GET)
 	@ResponseBody

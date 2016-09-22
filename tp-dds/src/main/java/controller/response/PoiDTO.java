@@ -13,6 +13,7 @@ public class PoiDTO {
 	public String name;
 	public String activity;
 
+
 	public PoiDTO( int numberLine, String direccion, String zone, HashMap<String, String> cgpServices, List<String> bankServices, String name, String activity) {
 		this.icon = "https://i.ytimg.com/vi/ZELci4OhE-c/maxresdefault.jpg";
 		this.numberLine = numberLine;
@@ -20,12 +21,15 @@ public class PoiDTO {
 		this.zone = zone;
 		this.cgpServices = cgpServices;
 		this.bankServices = bankServices;
+
 		this.name = name;
 		this.activity = activity;
 	}
 
+
 	public int getNumberLine() {
 		return numberLine;
+
 	}
 
 	public void setNumberLine(int numberLine) {

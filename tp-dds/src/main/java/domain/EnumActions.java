@@ -9,6 +9,4 @@ public enum EnumActions {
 	MODIFYPOI,
 	REMOVETERMINAL,
 	REMOVEPOI
-	
-
 }
