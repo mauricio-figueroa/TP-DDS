@@ -15,28 +15,16 @@ Integrantes:
 ALGUNOS CONTROLLERS: 
 
 http://localhost:8080/diseno-de-sistemas/terminal-add?name=terminalGabo1&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL
-
 http://localhost:8080/diseno-de-sistemas/show-terminal
-
 http://localhost:8080/diseno-de-sistemas/reportByDate
-
 http://localhost:8080/diseno-de-sistemas/reportByTerminal?name=terminalGabo1
-
 http://localhost:8080/diseno-de-sistemas/all-reportshttp://localhost:8080/diseno-de-sistemas/search-poi-from?searchName=bank&terminalName=terminalGabo1
-
 http://localhost:8080/diseno-de-sistemas/poi-addBank?name=bank1&type=bank&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&services=aa
-
 http://localhost:8080/diseno-de-sistemas/is-near-by?terminalName=terminalGabo3&searchName=bank
-
 http://localhost:8080/diseno-de-sistemas/poi-addBusStation?name=114Parada&type=busStation&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&busNumber=114
-
 http://localhost:8080/diseno-de-sistemas/poi-addCGP?name=CGPGab0&type=CGP&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&communeRadius=%2043.56
-
 localhost:8080/diseno-de-sistemas/poi-addCGPServiceInTo?nameOfCGP=CGPGab0&serviceName=648053RV1C3&daysOfAttention=1
-
 http://localhost:8080/diseno-de-sistemas/poi-addComercial?name=gab0Library&type=library&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&rubro=Library&maxDistance=500
-
 http://localhost:8080/diseno-de-sistemas/poi-show
-
 http://localhost:8080/diseno-de-sistemas/poi-size
 
