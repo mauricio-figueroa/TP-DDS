@@ -10,7 +10,7 @@ public class PoiDTO {
 	public String type;
 	public String direccion;
 	public String zone;
-	public HashMap<String,String> cgpServices;
+	public HashMap<String,List<Integer>> cgpServices;
 	public List<String> bankServices;
 	public String name;
 	public String activity;
@@ -19,9 +19,18 @@ public class PoiDTO {
 	public PoiDTO(String icon, String type, String direccion, String zone, List<String> bankServices) {
 		this.icon = icon;
 		this.type = type;
-		direccion = direccion;
+		this.direccion = direccion;
 		this.zone = zone;
 		this.bankServices = bankServices;
+	}
+
+
+	public PoiDTO(String icon, String type, String direccion, String zone, HashMap<String,List<Integer>> cgpServices) {
+		this.icon = icon;
+		this.type = type;
+		this.direccion = direccion;
+		this.zone = zone;
+		this.cgpServices = cgpServices;
 	}
 
 	public PoiDTO(String icon, String type, int numberLine) {
@@ -64,11 +73,19 @@ public class PoiDTO {
 		this.zone = zone;
 	}
 
-	public HashMap<String, String> getCgpServices() {
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public HashMap<String, List<Integer>> getCgpServices() {
 		return cgpServices;
 	}
 
-	public void setCgpServices(HashMap<String, String> cgpServices) {
+	public void setCgpServices(HashMap<String, List<Integer>> cgpServices) {
 		this.cgpServices = cgpServices;
 	}
 

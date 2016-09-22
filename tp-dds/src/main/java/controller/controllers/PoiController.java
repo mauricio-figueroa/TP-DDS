@@ -1,6 +1,7 @@
 package controller.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import domain.RangeOfAtention;
 import internalService.PoiService;
 import poi.Bank;
 import poi.BusStation;
+import poi.CGP;
 import poi.Poi;
 
 @Controller
@@ -58,6 +60,12 @@ public class PoiController {
 				case "BusStation":
 					BusStation busStation=(BusStation) currentPoi;
 					poisDTO.add(new PoiDTO(busStation.getIcon(),busStation.getType(),busStation.getNumberBusStation()));
+					break;
+				case "CGP":
+					CGP cgp= (CGP) currentPoi;
+					HashMap<String, List<Integer>> cgpService= new HashMap<String, List<Integer>>();
+					cgp.getServices().forEach(service -> cgpService.put(service.getServiceName(),service.getRangeOfAtention().getDaysOfAttention()));
+					poisDTO.add(new PoiDTO (cgp.getIcon(),cgp.getType() , cgp.getAddress().getMainStreet(),  cgp.getAddress().getMainStreet(), cgpService));
 					break;
 			}
 
