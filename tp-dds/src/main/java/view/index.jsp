@@ -26,51 +26,6 @@
 <button class="icon-login" type="button" name="button" onclick="openModal()" >Iniciar Sesión</button>
 
 
-
-	<!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 map">
-
-			<div id="map" class="mapSites"></div>
-
-	</div>
-
-
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 selector">
-
-
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 searchPoi">
-			<form action="">
-				<p>INGRESE POI POR DISPONIBILIDAD</p>
-				<input id="pac-input" class="functionBox" class="controls" type="text" placeholder="Buscar"><br>
-
-
-				<button type="submit" value="Submit">BUSCAR</button>
-			</form>
-		</div>
-
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 searchPoi">
-			<form action="">
-				<p>INGRESE POI POR CERCANIA</p>
-				<input type="text" name="" value=""><br>
-
-				<button type="submit" value="Submit">BUSCAR</button>
-			</form>
-
-		</div>
-
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 searchPoi">
-			<form action="">
-				<p>INGRESE POI</p>
-				<input type="text" name="" value=""><br>
-
-				<button type="submit" value="Submit">BUSCAR</button>
-			</form>
-		</div>
-
-
-	</div>
-
-	-->
-
 	<div class="busqueda col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 			<div class="">
@@ -100,27 +55,24 @@
 					<h2>Resultado</h2>
 
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 nombre">
+								<div   class="col-lg-4 col-md-4 col-sm-4 col-xs-4 nombre">
 										<p class=" namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
 											Nombre
 										</p>
-										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											saraza
-										</p>
-										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											saraza
-										</p>
+										<div id="testName" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+										</div>
+
 								</div>
 								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 direccion">
 										<p class="namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											Direcciòn
+											Información
 										</p>
-										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											saraza
-										</p>
-										<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											saraza
-										</p>
+
+										<div id="testInfo" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+										</div>
+
 								</div>
 
 					</div>
@@ -162,76 +114,6 @@
  <footer> P.O.I Todos los derechos reservados. 2016 ®</footer>
 </body>
 
-	<!--
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbx3ox75shr0gNruHyXzmV6CHOP275qIE&libraries=places&callback=initAutocomplete"
-         async defer>
-
- </script>
-
- <script>
- 	function initAutocomplete() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.616606, lng: -58.416803},
-    zoom: 13,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  });
-
-
-  var input = document.getElementById('pac-input');
-  var searchBox = new google.maps.places.SearchBox(input);
-
-
-  map.addListener('bounds_changed', function() {
-    searchBox.setBounds(map.getBounds());
-  });
-
-  var markers = [];
-
-  searchBox.addListener('places_changed', function() {
-    var places = searchBox.getPlaces();
-
-    if (places.length == 0) {
-      return;
-    }
-
-
-    markers.forEach(function(marker) {
-      marker.setMap(null);
-    });
-    markers = [];
-
-    var bounds = new google.maps.LatLngBounds();
-    places.forEach(function(place) {
-      var icon = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
-
-
-      markers.push(new google.maps.Marker({
-        map: map,
-        icon: icon,
-        title: place.name,
-        position: place.geometry.location
-      }));
-
-      if (place.geometry.viewport) {
-
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
-    });
-    map.fitBounds(bounds);
-  });
-}
- </script>
-
-	-->
  <script >
  function openModal(){
  var modal = document.getElementById("modal");
@@ -247,8 +129,7 @@
 
  function addInput(){
 	 var d = document.getElementById("content");
-
-	 d.innerHTML += '<br />	<input id="searchPoi" class="dataSearch" type="text" name="name" value="">';
+ 	d.innerHTML += '<br />	<input id="searchPoi" class="dataSearch" type="text" name="name" value="">';
 }
 
 
@@ -259,10 +140,10 @@ function log(){
 
      dataSend["pw"]= $('#psw').val();
 
-	//console.log(dataSend);
 	url="http://localhost:8080/diseno-de-sistemas/validarUsuario?user="+$('#userid').val()+"&pw="+ $('#psw').val();
 
 	$.get(url, function(dataReceived){
+		console.log(dataReceived);
 		if(dataReceived){
 			//$(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
 			$(location).attr('href', 'C:/Users/Mauricio/Desktop/tpDDS/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
@@ -272,7 +153,6 @@ function log(){
 
 	});
 
-//http://localhost:8080/diseno-de-sistemas/validarUsuario?user=melania&pw=miranda
 }
 
 
@@ -288,23 +168,52 @@ $.getJSON("http://localhost:8080/diseno-de-sistemas/crearUsuario?user="+$('#user
   }
 
 
-
-
-
-
 function search(){
+
+
+
+	$( "#testName" ).empty();
+	$( "#testInfo" ).empty();
+
+
 	 infoArray=[];
 			$( '.dataSearch' ).each(function() {
 		  infoArray.push($( this ).val());
 
 		});
 
-		var datSend=$.extend({}, infoArray);
+var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
-		$.post("COMPLETAR URL", dataSend, function(dataReceived){
-			 ///deberia hacer la magia dependiendo de lo q muestre.
-			 console.log(dataReceived);
-			})
+
+
+			$.get(url, function(dataReceived){
+				 console.log(dataReceived);
+				 //deberia hacer la magia dependiendo de lo q muestre.
+				 for (var i = 0; i < dataReceived.length; i++) {
+								 if(dataReceived.type="Banco"){
+											//dataReceived[i].name;
+											// dataReceived[i].icono;
+											// dataReceived[i].servicios;
+											// dataReceived[i].sucursal;
+											var d = document.getElementById("testName");
+											d.innerHTML += '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">' +dataReceived[i].name+'</p>';
+											var e = document.getElementById("testInfo");
+											// e.innerHTML += '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Icono:' +dataReceived[i].icono+
+											// 												'<br /> Zona:'+dataReceived[i].sucursal;+ '<br /> Servicios:'+dataReceived[i].servicios;+ '
+											// 													</p>';
+
+										e.innerHTML += '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Zona: Almagro </br> Calle: 123</p>';
+
+								 };
+				 }
+
+
+			 });
+
+
+
+
+		 //http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName=parad&terminalNAME=terminal1
 
 		};
 
@@ -315,3 +224,12 @@ function search(){
 
 
 </html>
+
+
+<!--
+
+tipo banco =  [{"name":"unBanco","type":"Bank","range_of_atention":{"schedules":[{"hour_max":1474567200531,"hour_min":1474549200531}],"days_of_attention":[0,1,2,3,4,5,6]},"commune_radius":0.0,"number_bus_station":0}]
+ console.log(hola[0]);
+
+
+-->
