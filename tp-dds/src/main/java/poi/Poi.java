@@ -17,6 +17,7 @@ public abstract class Poi implements PoiInterface {
 		return actived;
 	}
 	public String type;
+	public List<String> servicios;
 
 	public void setActived(boolean actived) {
 		this.actived = actived;

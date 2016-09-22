@@ -24,66 +24,66 @@ import poi.Poi;
 @Controller
 public class PoiController {
 
-	private static final Logger LOGGER = LoggerFactory
-			.getLogger(PoiController.class);
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(PoiController.class);
 
-	private PoiService poiService;
+    private PoiService poiService;
 
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = ("/poi-show"), method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<List<PoiDTO>> showPois() {
-		poiService = PoiService.getInstance();
-		LOGGER.info("--------------------------------------------------------");
-		LOGGER.info("REQUEST");
-		LOGGER.info("--------------------------------------------------------");
-		List<PoiDTO> poisDTO = new ArrayList<PoiDTO>();
-		List<Poi> pois = poiService.getAllPois();
-		
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = ("/poi-show"), method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<PoiDTO>> showPois() {
+        poiService = PoiService.getInstance();
+        LOGGER.info("--------------------------------------------------------");
+        LOGGER.info("REQUEST");
+        LOGGER.info("--------------------------------------------------------");
+        List<PoiDTO> poisDTO = new ArrayList<PoiDTO>();
+        List<Poi> pois = poiService.getAllPois();
+
 		
 		/*
 		 * REFACTOR DE CODIGO SEGUN TIPO, HACER UN POIDTO Y EXTENER LAS DIFERENTES CLASES, LO MISMO CON ADDRESS Y EL RESTO DE MIERDAS
 		 */
 
-		//TODO
-		for (Poi currentPoi : pois) {
+        //TODO
+        for (Poi currentPoi : pois) {
 
-			switch (currentPoi.getType()) {
-				case "Bank":
-					Bank bank = (Bank) currentPoi;
+            switch (currentPoi.getType()) {
+                case "Bank":
+                    Bank bank = (Bank) currentPoi;
 
-					poisDTO.add(new PoiDTO(currentPoi.getName(), currentPoi.getType(), null/* currentPoi.getAddress()*/,
-							bank.getRangeOfAtention(), 0,
-							0));
+                    poisDTO.add(new PoiDTO(currentPoi.getName(), currentPoi.getType(), null/* currentPoi.getAddress()*/,
+                            bank.getRangeOfAtention(), 0,
+                            0, bank.getServicios()));
+                    break;
+                case "BusStation":
+                    BusStation busStation = new BusStation(currentPoi.getName(), null, currentPoi.getCoordinate(), currentPoi.getNumber());
+                    poisDTO.add(new PoiDTO(busStation.getName(), busStation.getType(), null, null, 0, busStation.getNumber()));
+            }
 
-				case "busStation":
-					BusStation busStation=new BusStation(currentPoi.getName(),null,currentPoi.getCoordinate(),currentPoi.getNumber());
-					poisDTO.add(new PoiDTO(busStation.getName(),busStation.getType(),null,null,0,busStation.getNumber()));
-			}
+        }
+        LOGGER.info("--------------------------------------------------------");
+        LOGGER.info("RESPONSE");
+        LOGGER.info("--------------------------------------------------------");
+        return new ResponseEntity<List<PoiDTO>>(poisDTO, HttpStatus.OK);
+    }
 
-		}
-		LOGGER.info("--------------------------------------------------------");
-		LOGGER.info("RESPONSE");
-		LOGGER.info("--------------------------------------------------------");
-		return new ResponseEntity<List<PoiDTO>>(poisDTO, HttpStatus.OK);
-	}
-	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = ("/poi-size"), method = RequestMethod.GET)
-	@ResponseBody
-	public ResponseEntity<Integer> poiSize() {
-		poiService = PoiService.getInstance();
-		LOGGER.info("--------------------------------------------------------");
-		LOGGER.info("REQUEST");
-		LOGGER.info("--------------------------------------------------------");
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = ("/poi-size"), method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Integer> poiSize() {
+        poiService = PoiService.getInstance();
+        LOGGER.info("--------------------------------------------------------");
+        LOGGER.info("REQUEST");
+        LOGGER.info("--------------------------------------------------------");
 
-		int size = poiService.getAllPois().size();
+        int size = poiService.getAllPois().size();
 
-		LOGGER.info("--------------------------------------------------------");
-		LOGGER.info("RESPONSE");
-		LOGGER.info("--------------------------------------------------------");
-		return new ResponseEntity<Integer>(size, HttpStatus.OK);
+        LOGGER.info("--------------------------------------------------------");
+        LOGGER.info("RESPONSE");
+        LOGGER.info("--------------------------------------------------------");
+        return new ResponseEntity<Integer>(size, HttpStatus.OK);
 
-	}
+    }
 
 }

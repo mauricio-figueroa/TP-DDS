@@ -16,111 +16,92 @@ import poi.Bank;
 import poi.Poi;
 
 public class Terminal {
-	
-	private long id;
-	private String nombre;
-	private Coordinate coordinates;
-	private PoiService poiService;
-	private List<List<String>> actions;
-	
-	public Terminal(String nombre,Coordinate coordinate,List<List<String>> actions) {
-		this.nombre = nombre;
-		this.coordinates=coordinate;
-		this.actions=actions;
-		this.poiService = PoiService.getInstance();
-	}
 
-	
+    private long id;
+    private String nombre;
+    private Coordinate coordinates;
+    private PoiService poiService;
+    private List<List<String>> actions;
 
-	public long getId() {
-		return id;
-	}
+    public Terminal(String nombre, Coordinate coordinate, List<List<String>> actions) {
+        this.nombre = nombre;
+        this.coordinates = coordinate;
+        this.actions = actions;
+        this.poiService = PoiService.getInstance();
+    }
 
 
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
+    public long getId() {
+        return id;
+    }
 
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
 
+    public List<List<String>> getActions() {
+        return actions;
+    }
 
 
+    public void setActions(List<List<String>> actions) {
+        this.actions = actions;
+    }
 
 
+    public String getNombre() {
+        return nombre;
+    }
 
 
-
-	public List<List<String>> getActions() {
-		return actions;
-	}
-
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
 
-	public void setActions(List<List<String>> actions) {
-		this.actions = actions;
-	}
+    public Coordinate getCoordinates() {
+        return coordinates;
+    }
 
 
-
-	public String getNombre() {
-		return nombre;
-	}
-
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setCoordinates(Coordinate coordinates) {
+        this.coordinates = coordinates;
+    }
 
 
-	public Coordinate getCoordinates() {
-		return coordinates;
-	}
+    public List<Bank> searchBank(String bank, String service) {
+        return poiService.searchBank(bank, service);
+
+    }
+
+    public PoiService getPoiService() {
+        return poiService;
+    }
 
 
-	public void setCoordinates(Coordinate coordinates) {
-		this.coordinates = coordinates;
-	}
-
-	
-	
-	public List<Bank> searchBank(String bank, String service){
-		return poiService.searchBank(bank, service);
-		
-	}
-
-	public PoiService getPoiService() {
-		return poiService;
-	}
+    public void setPoiService(PoiService poiService) {
+        this.poiService = poiService;
+    }
 
 
+    public Terminal(Coordinate coordinates) {
+        this.coordinates = coordinates;
+        poiService = PoiService.getInstance();
+    }
+
+    public boolean isAvailable(Poi poi) {
+        return poiService.isAvailable(poi);
+    }
+
+    public List<Poi> searchPoi(String textoBuscado) throws AddressException, MessagingException, InterruptedException {
+        return this.poiService.searchPois(textoBuscado, this.getNombre());
+    }
 
 
-	public void setPoiService(PoiService poiService) {
-		this.poiService = poiService;
-	}
-
-
-	public Terminal(Coordinate coordinates){
-		this.coordinates=coordinates;
-		poiService= PoiService.getInstance();
-	}
-	
-	public boolean isAvailable(Poi poi) {
-		return poiService.isAvailable(poi);
-	}
-	
-	public List<Poi> searchPoi(String textoBuscado) throws AddressException, MessagingException, InterruptedException{
-		return this.poiService.searchPois(textoBuscado,this.getNombre());
-	}
-	
-	
-	
-	
-	public boolean isNearBy(Poi poi) throws ClientProtocolException, IOException{
-		return poiService.isNearby(poi, coordinates);
-	}
+    public boolean isNearBy(Poi poi) throws ClientProtocolException, IOException {
+        return poiService.isNearby(poi, coordinates);
+    }
 
 }

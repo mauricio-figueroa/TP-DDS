@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import domain.Address;
 import domain.RangeOfAtention;
 
+import java.util.List;
+
 public class PoiDTO {
 	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 	String name;
@@ -18,6 +20,16 @@ public class PoiDTO {
 	double communeRadius;
 	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 	int numberBusStation;
+	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+	private List<String> services;
+
+	public List<String> getServices(){
+		return this.services;
+	}
+
+	public void setServices(List<String> services){
+		this.services=services;
+	}
 	
 	
 	public PoiDTO(String name, String type, Address address,
@@ -31,6 +43,23 @@ public class PoiDTO {
 		this.communeRadius = communeRadius;
 		this.numberBusStation = numberBusStation;
 	}
+
+
+
+	public PoiDTO(String name, String type, Address address,
+				  RangeOfAtention rangeOfAtention, double communeRadius,
+				  int numberBusStation,List<String> services) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.address = address;
+		this.rangeOfAtention = rangeOfAtention;
+		this.communeRadius = communeRadius;
+		this.numberBusStation = numberBusStation;
+		this.services=services;
+	}
+
+
 	public String getName() {
 		return name;
 	}
