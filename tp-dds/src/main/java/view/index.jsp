@@ -192,7 +192,7 @@ var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 				 for (var i = 0; i < dataReceived.length; i++) {
 								 if(dataReceived.type="Banco"){
 											//dataReceived[i].name;
-											// dataReceived[i].icono;
+											// dataReceived[i].icon;
 											// dataReceived[i].servicios;
 											// dataReceived[i].sucursal;
 											var d = document.getElementById("testName");
@@ -231,5 +231,6 @@ var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 tipo banco =  [{"name":"unBanco","type":"Bank","range_of_atention":{"schedules":[{"hour_max":1474567200531,"hour_min":1474549200531}],"days_of_attention":[0,1,2,3,4,5,6]},"commune_radius":0.0,"number_bus_station":0}]
  console.log(hola[0]);
 
+http://localhost:8080/diseno-de-sistemas/poi-addBank?name=unBanco&type=banco&mainStreet=Medrano&lat=1231&lon=324&services=melania,miranda
 
 -->

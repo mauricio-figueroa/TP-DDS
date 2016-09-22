@@ -81,17 +81,25 @@
            <h1>ACCIONES ANTE LA BÚSQUEDA</h1>
         </div>
 
-        <select>
+        <select id="listPermisos">
               <option value="" selected disabled>Elegir permisos</option>
-              <option value="">Option2</option>
+              <option  id="1" class="8" value="">Buscar poi</option>
+							<option id="2"value="1">Consultar cercanía</option>
+							<option id="3" value="2">Consultar disponibilidad</option>
+							<option id="4" value="3">Agregar Poi</option>
+							<option id="5" value="4">Agregar Terminal</option>
+							<option id="6" value="5">Modificar Poi</option>
+							<option id="7" value="6">Remover Terminal</option>
+							<option id="8" value="7">Remover Poi</option>
+
         </select>
 
-        <button id="addPermiso" type="button" name="button">Agregar</button>
+        <button id="addPermiso" type="button" name="button" onclick="addPermiso()">Agregar</button>
 
         <div class="">
           <h2>Acciones</h2>
-          <div class="">
-            <p class="permisoAdded">Totalizar por Fecha</p><button id="deletePermiso" type="button" name="button"> Eliminar</button>
+          <div  id="permisos" class="">
+
           </div>
         </div>
 
@@ -114,6 +122,19 @@
 
 
 <script>
+
+user1={};
+user2={};
+user3={};
+users=[user1, user2, user3];
+user1.lista=[];
+user2.lista=[];
+user3.lista=[];
+id=0;
+
+terminal="terminal1";
+
+
   function displayHistorial(){
 		$('.button-admin').hide();
 		$('#acciones').show();
@@ -142,15 +163,44 @@
 			dataSend["initFecha"]=$( "#initFecha"  ).val();
 			dataSend["finFecha"]=$( "#finFecha" ).val();
 
+			url='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+$( "#nameUser" ).val()+'&terminalName='+terminal;
+			url2='http://localhost:8080/diseno-de-sistemas/reportByTerminal?name='+terminal;
 
-			$.post("COMPLETAR URL", dataSend, function(dataReceived){
-				 ///deberia hacer la magia dependiendo de lo q muestre.
+			$.get(url, function(dataReceived){
 				 console.log(dataReceived);
-				})
+
+				 for (var i = 0; i < dataReceived.length; i++) {
+
+				 }
+
+
+			 });
+
+
 
 			};
 
 
+		function addPermiso(){
+			var i=Math.floor((Math.random() * 2) + 0);
+
+			console.log(users[i]);
+
+		$( "#permisos" ).append( ' </br><p id="num'+id+'" class="permisoAdded">'+$( "#listPermisos option:selected" ).text()+'</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso('+id+')"> Eliminar</button>' );
+
+		users[i].lista.push(id);
+
+		id++;
+		console.log(id);
+		}
+
+
+
+function eliminarPermiso(target){
+
+$( '#num'+target).remove();
+
+}
 
 </script>
 
