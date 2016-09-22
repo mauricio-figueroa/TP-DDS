@@ -20,6 +20,7 @@ public class CGP extends Poi {
 	public CGP(String name, Address address, Coordinate coordinate, double communeRadius,
 			ArrayList<CGPService> services) {
 		super(name, address, coordinate);
+		this.type=this.getClass().getSimpleName();
 		this.communeRadius = communeRadius;
 		this.services = services;
 		this.getData().add(this.getName());
@@ -59,6 +60,11 @@ public class CGP extends Poi {
 	@Override
 	public String getType() {
 		return "CGP";
+	}
+
+	@Override
+	public int getNumber() {
+		return 0;
 	}
 
 	@Override

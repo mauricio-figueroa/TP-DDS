@@ -13,11 +13,17 @@ public class ComercialShop extends Poi {
 		super(name, address, coordinate);
 		this.category = category;
 		this.getData().add(this.getName());
+		this.type=this.getClass().getSimpleName();
 		this.getData().add(this.getAddress().getMainStreet());
 	}
 
 	public String getType() {
 		return "ComercialShop";
+	}
+
+	@Override
+	public int getNumber() {
+		return 0;
 	}
 
 

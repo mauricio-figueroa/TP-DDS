@@ -18,6 +18,7 @@ import domain.Address;
 import domain.RangeOfAtention;
 import internalService.PoiService;
 import poi.Bank;
+import poi.BusStation;
 import poi.Poi;
 
 @Controller
@@ -36,32 +37,35 @@ public class PoiController {
 		LOGGER.info("--------------------------------------------------------");
 		LOGGER.info("REQUEST");
 		LOGGER.info("--------------------------------------------------------");
-		List<PoiDTO> poisDTO= new ArrayList<PoiDTO>();
+		List<PoiDTO> poisDTO = new ArrayList<PoiDTO>();
 		List<Poi> pois = poiService.getAllPois();
 		
 		
 		/*
 		 * REFACTOR DE CODIGO SEGUN TIPO, HACER UN POIDTO Y EXTENER LAS DIFERENTES CLASES, LO MISMO CON ADDRESS Y EL RESTO DE MIERDAS
 		 */
-		
+
 		//TODO
-		for(Poi currentPoi: pois){
-			
-		switch(currentPoi.getType()){
-		case "Bank":
-			Bank bank= (Bank) currentPoi;
+		for (Poi currentPoi : pois) {
 
-			poisDTO.add(new PoiDTO (currentPoi.getName(), currentPoi.getType(),null/* currentPoi.getAddress()*/,
-					bank.getRangeOfAtention(),0,
-					0));
-		}
-		}
+			switch (currentPoi.getType()) {
+				case "Bank":
+					Bank bank = (Bank) currentPoi;
 
+					poisDTO.add(new PoiDTO(currentPoi.getName(), currentPoi.getType(), null/* currentPoi.getAddress()*/,
+							bank.getRangeOfAtention(), 0,
+							0));
+
+				case "busStation":
+					BusStation busStation=new BusStation(currentPoi.getName(),null,currentPoi.getCoordinate(),currentPoi.getNumber());
+					poisDTO.add(new PoiDTO(busStation.getName(),busStation.getType(),null,null,0,busStation.getNumber()));
+			}
+
+		}
 		LOGGER.info("--------------------------------------------------------");
 		LOGGER.info("RESPONSE");
 		LOGGER.info("--------------------------------------------------------");
 		return new ResponseEntity<List<PoiDTO>>(poisDTO, HttpStatus.OK);
-
 	}
 	
 	@SuppressWarnings("unchecked")

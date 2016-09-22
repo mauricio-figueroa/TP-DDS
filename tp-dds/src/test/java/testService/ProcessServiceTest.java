@@ -41,9 +41,9 @@ public class ProcessServiceTest {
 	public void setUp() {
 		this.poiService = PoiService.getInstance();
 		processService =  ProcessService.getInstance();
-		santander= new Bank("Santander",new Address("Cordoba 1"), new Coordinate(54,32));
-		icbc= new Bank("ICBC",new Address("Corrientes 1"), new Coordinate(52,42));
-		stop114= new BusStation("Parada 114", new Address("Mozart 2300"),  new Coordinate(2,4),"114");
+		santander= new Bank("Santander",new Address("Cordoba 1"), new Coordinate(54,32),"pago,retiro");
+		icbc= new Bank("ICBC",new Address("Corrientes 1"), new Coordinate(52,42),"pago,retiro");
+		stop114= new BusStation("Parada 114", new Address("Mozart 2300"),  new Coordinate(2,4),114);
 		icbc.setId(122);
 		santander.setId(123);
 		admin= new Admin(null,"Gabo","gabriel.dyck@despegar.com","Email");

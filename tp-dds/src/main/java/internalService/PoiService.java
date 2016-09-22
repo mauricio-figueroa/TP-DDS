@@ -119,6 +119,10 @@ public class PoiService {
 		return allPois;
 	}
 
+	public void addPoi(Poi poi){
+		allPois.add(poi);
+	}
+
 	public void setAllPois(List<Poi> allPois) {
 		this.allPois = allPois;
 	}

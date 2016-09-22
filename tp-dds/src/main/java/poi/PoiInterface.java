@@ -10,4 +10,5 @@ public interface PoiInterface {
 	public boolean isAvailable();
 	boolean isNearby(Coordinate coordinate) throws ClientProtocolException, IOException;
 	public String getType();
+	public int getNumber();
 }

@@ -27,7 +27,7 @@ public class AdminTest {
 	Address address;
 	Coordinate coordinate;
 	String poiName;
-	String busNumber;
+	Integer busNumber;
 	BusStation busStation;
 
 	@Before
@@ -38,7 +38,7 @@ public class AdminTest {
 		address = new Address("San Justo 77");
 		coordinate = new Coordinate(-34.76, 56.76);
 		poiName = "Parada 144, San Justo";
-		busNumber = "144";
+		busNumber = 114;
 		busStation = new BusStation(poiName, address, coordinate, busNumber);
 		this.poiService.removeAllPois();
 

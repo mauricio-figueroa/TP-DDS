@@ -13,10 +13,18 @@ import domain.Schedule;
 
 public class Bank extends Poi {
 	private RangeOfAtention rangeOfAtention;
+	public List<String> services;
 
 
-	public Bank(String name, Address address, Coordinate coordinate){
+	public Bank(String name, Address address, Coordinate coordinate,String services){
 		super(name, address, coordinate);
+		this.services=new ArrayList<>();
+
+
+		String[] parts = services.split(",");
+		for (String currentString:parts) {
+			this.services.add(currentString);
+		}
 		
 		List<Schedule> schedules1=new ArrayList<Schedule>();
 		schedules1.add(new Schedule("10:00", "15:00"));
@@ -28,6 +36,7 @@ public class Bank extends Poi {
 		days1.add(4);
 		days1.add(5);
 		days1.add(6);
+		this.type=this.getClass().getSimpleName();
 		
 		this.rangeOfAtention=new RangeOfAtention(schedules1, days1);
 		this.getData().add(this.getName());
@@ -51,6 +60,11 @@ public class Bank extends Poi {
 
 	public String getType() {
 		return "Bank";
+	}
+
+	@Override
+	public int getNumber() {
+		return 0;
 	}
 
 	public boolean isNearBy(Coordinate coordinate) throws ClientProtocolException, IOException {

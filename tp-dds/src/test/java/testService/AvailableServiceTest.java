@@ -74,8 +74,8 @@ public class AvailableServiceTest {
 		cordinate2 = new Coordinate(lat2, lon2);
 		poiService = PoiService.getInstance();
 
-		bank = new Bank("Bank", new Address(""), cordinate2);
-		busStation = new BusStation("Parada de Bus", new Address(""), cordinate2, "114");
+		bank = new Bank("Bank", new Address(""), cordinate2,"pago,retiro");
+		busStation = new BusStation("Parada de Bus", new Address(""), cordinate2, 114);
 		cgp = new CGP("CGP", new Address(""), cordinate2, 700.0, new ArrayList<CGPService>());
 		schedules1 = new ArrayList<Schedule>();
 		schedulesRentas = new ArrayList<Schedule>();

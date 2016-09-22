@@ -29,13 +29,11 @@ public class Admin {
 		this.nombre = nombre;
 		this.mail=mail;
 		this.poiService = PoiService.getInstance();
-	
-	
+
 		if (resolutionType=="Email"){
 			errorResolution=new EmailErrorProcessResolution();
 		}else if(resolutionType=="Repeat") {
 			errorResolution=new RepeatErrorProcessResolution();
-			
 		}
 	}
 	
@@ -49,8 +47,7 @@ public class Admin {
 			return	poiService.getProcessService().turnOffAPoi(admin);}
 		});
 	}
-	
-	
+
 	public void updateComercialShops(String path){
 		Admin admin=this;
 		new Thread(() -> 
@@ -164,7 +161,7 @@ public class Admin {
 	}
 
 	public void addPoi(Poi poi) {
-		poiService.getAllPois().add(poi);
+		poiService.addPoi(poi);
 	}
 
 	// Consultar o interpretar otras formas.

@@ -40,7 +40,7 @@ public class ReportTest {
 		this.poiService.resetAllPois();
 		this.poiService.removeAllPois();
 
-		this.admin.addPoi(new Bank("BancoNAcion", new Address("Paraguay 2815"), new Coordinate(1.2, 21.3)));
+		this.admin.addPoi(new Bank("BancoNAcion", new Address("Paraguay 2815"), new Coordinate(1.2, 21.3),"pago,retiro"));
 		this.admin.addPoi(new ComercialShop("libreria de libros ajajaj", new Address("al lado de la utn"),
 				new Coordinate(1.2, 21.3), Newspaper.getInstance(32)));
 
@@ -73,7 +73,7 @@ System.out.println(resultadosTotales);
 	@Test
 	public void testReportesParcialesPorTerminal() throws AddressException, MessagingException, InterruptedException {
 
-		this.admin.addPoi(new Bank("acaNomas", new Address("cngvjhgj"), new Coordinate(1.2, 21.3)));
+		this.admin.addPoi(new Bank("acaNomas", new Address("cngvjhgj"), new Coordinate(1.2, 21.3),"pago,retiro"));
 		this.admin.addPoi(new ComercialShop("hgkhjk", new Address("acaNomas"), new Coordinate(1.2, 21.3),
 				Newspaper.getInstance(32)));
 
