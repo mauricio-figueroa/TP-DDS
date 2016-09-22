@@ -131,7 +131,7 @@ public class AdminController {
             @RequestParam(value = "mainStreet", required = true) String mainStreet,
             @RequestParam(value = "lat", required = true) double lat,
             @RequestParam(value = "lon", required = true) double lon,
-            @RequestParam(value = "services", required = true) String services) {
+            @RequestParam(value = "services", required = false) String services) {
 
         Poi poi = new Bank(name, new Address(mainStreet), new Coordinate(lat, lon),services);
 

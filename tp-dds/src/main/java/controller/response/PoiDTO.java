@@ -1,76 +1,98 @@
 package controller.response;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import domain.Address;
-import domain.RangeOfAtention;
+import java.util.HashMap;
+import java.util.List;
 
 public class PoiDTO {
-	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-	String name;
-	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-	String type;
-	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-	Address address;
-	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-	RangeOfAtention rangeOfAtention;
-	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-	double communeRadius;
-	@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-	int numberBusStation;
-	
-	
-	public PoiDTO(String name, String type, Address address,
-			RangeOfAtention rangeOfAtention, double communeRadius,
-			int numberBusStation) {
-		super();
+
+	public String icon;
+	public int numberLine;
+	public String Direccion;
+	public String zone;
+	public HashMap<String,String> cgpServices;
+	public List<String> bankServices;
+	public String name;
+	public String activity;
+
+	public PoiDTO( int numberLine, String direccion, String zone, HashMap<String, String> cgpServices, List<String> bankServices, String name, String activity) {
+		this.icon = "https://i.ytimg.com/vi/ZELci4OhE-c/maxresdefault.jpg";
+		this.numberLine = numberLine;
+		Direccion = direccion;
+		this.zone = zone;
+		this.cgpServices = cgpServices;
+		this.bankServices = bankServices;
 		this.name = name;
-		this.type = type;
-		this.address = address;
-		this.rangeOfAtention = rangeOfAtention;
-		this.communeRadius = communeRadius;
-		this.numberBusStation = numberBusStation;
+		this.activity = activity;
 	}
+
+	public int getNumberLine() {
+		return numberLine;
+	}
+
+	public void setNumberLine(int numberLine) {
+		this.numberLine = numberLine;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
+	public String getDireccion() {
+		return Direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		Direccion = direccion;
+	}
+
+	public String getZone() {
+		return zone;
+	}
+
+	public void setZone(String zone) {
+		this.zone = zone;
+	}
+
+	public HashMap<String, String> getCgpServices() {
+		return cgpServices;
+	}
+
+	public void setCgpServices(HashMap<String, String> cgpServices) {
+		this.cgpServices = cgpServices;
+	}
+
+	public List<String> getBankServices() {
+		return bankServices;
+	}
+
+	public void setBankServices(List<String> bankServices) {
+		this.bankServices = bankServices;
+	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getType() {
-		return type;
+
+	public String getActivity() {
+		return activity;
 	}
-	public void setType(String type) {
-		this.type = type;
+
+	public void setActivity(String activity) {
+		this.activity = activity;
 	}
-	public Address getAddress() {
-		return address;
-	}
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-	public RangeOfAtention getRangeOfAtention() {
-		return rangeOfAtention;
-	}
-	public void setRangeOfAtention(RangeOfAtention rangeOfAtention) {
-		this.rangeOfAtention = rangeOfAtention;
-	}
-	public double getCommuneRadius() {
-		return communeRadius;
-	}
-	public void setCommuneRadius(double communeRadius) {
-		this.communeRadius = communeRadius;
-	}
-	public int getNumberBusStation() {
-		return numberBusStation;
-	}
-	public void setNumberBusStation(int numberBusStation) {
-		this.numberBusStation = numberBusStation;
-	}
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 
 }

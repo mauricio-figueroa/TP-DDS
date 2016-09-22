@@ -44,8 +44,14 @@ public class Bank extends Poi {
 		this.getData().add("bank");
 		}
 
-	
-	
+	public List<String> getServices() {
+		return services;
+	}
+
+	public void setServices(List<String> services) {
+		this.services = services;
+	}
+
 	public RangeOfAtention getRangeOfAtention() {
 		return rangeOfAtention;
 	}

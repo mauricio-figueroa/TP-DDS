@@ -1,5 +1,8 @@
 package domain;
 
+import com.sun.javafx.scene.control.skin.LabeledImpl;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Address {
@@ -13,10 +16,18 @@ public class Address {
 	
 	
 	public Address(String mainStreet) {
-		super();
 		this.mainStreet = mainStreet;
+		this.number=123;
+		this.betweenStreet= new ArrayList<String>();
 	
 	}
+
+	public Address(String mainStreet, int number, List<String> betweenStreets){
+		this.betweenStreet=betweenStreets;
+		this.number=number;
+		this.mainStreet = mainStreet;
+	}
+
 
 	public String getMainStreet() {
 		return mainStreet;
@@ -54,7 +65,8 @@ public class Address {
 	return ("Address: " + mainStreet+ " " + number + " .Between streets " + betweenStreet.get(0) + " and " + betweenStreet.get(1)+ "." );
 	}
 	
-	public String getFullAddress(){
+/*	public String getFullAddress(){
 		return (getAddress() + town.getFullAddress());
 	}
+	*/
 }
