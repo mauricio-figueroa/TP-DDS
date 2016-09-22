@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
+import internalService.UsuarioService;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +60,37 @@ public class TerminalController {
 		}
 		
 		return new ResponseEntity(isNear, HttpStatus.OK);
+	}
+
+
+	private UsuarioService usuarioService=new UsuarioService();
+
+
+
+
+	@RequestMapping(value = ("/crearUsuario"), method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity addUser(@RequestParam(value = "user", required = true) String user,
+									  @RequestParam(value = "pw", required = true) String pw){
+
+		this.usuarioService.addUser(user,pw);
+
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+
+	}
+
+
+	@RequestMapping(value = ("/validarUsuario"), method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity validarUsuario(@RequestParam(value = "user", required = true) String user,
+										 @RequestParam(value = "pw", required = true) String pw){
+
+		if(this.usuarioService.existeUsuario(user,pw)){
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		}else{
+			return new ResponseEntity<Boolean>(false,HttpStatus.OK);
+		}
+
 	}
 	
 	

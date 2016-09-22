@@ -255,15 +255,17 @@
 function log(){
 	var dataSend={};
 
-	var dataSend["user"]=$('#userid').val();
+	 dataSend["user"]=$('#userid').val();
 
-		var dataSend["pw"]= $('#psw').val();
+     dataSend["pw"]= $('#psw').val();
 
 	//console.log(dataSend);
+	url="http://localhost:8080/diseno-de-sistemas/validarUsuario?user="+$('#userid').val()+"&pw="+ $('#psw').val();
 
-	$.post("COMPLETAR URL", dataSend, function(dataReceived){
+	$.get(url, function(dataReceived){
 		if(dataReceived){
-			$(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+			//$(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+			$(location).attr('href', 'C:/Users/Mauricio/Desktop/tpDDS/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
 		}else{
 			alert("Datos incorrectos");
 		};
@@ -272,6 +274,23 @@ function log(){
 
 //http://localhost:8080/diseno-de-sistemas/validarUsuario?user=melania&pw=miranda
 }
+
+
+function log2(){
+$.getJSON("http://localhost:8080/diseno-de-sistemas/crearUsuario?user="+$('#userid').val()+"pw="+ $('#psw').val() , function (data) {
+     response($.map(data, function (item) {
+         return {
+           label: item.description,
+           value: item.code
+         };
+     }));
+    });
+  }
+
+
+
+
+
 
 function search(){
 	 infoArray=[];
@@ -285,11 +304,11 @@ function search(){
 		$.post("COMPLETAR URL", dataSend, function(dataReceived){
 			 ///deberia hacer la magia dependiendo de lo q muestre.
 			 console.log(dataReceived);
-			};
+			})
 
-		});
+		};
 
-}
+
 
  </script>
 
