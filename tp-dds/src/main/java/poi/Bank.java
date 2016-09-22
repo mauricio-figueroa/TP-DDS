@@ -16,9 +16,11 @@ public class Bank extends Poi {
 	public List<String> services;
 
 
+
 	public Bank(String name, Address address, Coordinate coordinate,String services){
 		super(name, address, coordinate);
 		this.services=new ArrayList<>();
+		icon="https://i.ytimg.com/vi/ZELci4OhE-c/maxresdefault.jpg";
 
 
 		String[] parts = services.split(",");

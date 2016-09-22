@@ -52,12 +52,12 @@ public class PoiController {
 				case "Bank":
 					Bank bank = (Bank) currentPoi;
 
-					poisDTO.add(new PoiDTO ( 0,  bank.getAddress().getMainStreet(),  bank.getAddress().getMainStreet(),  null,  bank.getServices(), null,  null));
+					poisDTO.add(new PoiDTO (bank.getIcon(),bank.getType() ,  bank.getAddress().getMainStreet(),  bank.getAddress().getMainStreet(), bank.getServices()));
 					break;
 
-				case "busStation":
+				case "BusStation":
 					BusStation busStation=(BusStation) currentPoi;
-				//	poisDTO.add(new PoiDTO());
+					poisDTO.add(new PoiDTO(busStation.getIcon(),busStation.getType(),busStation.getNumberBusStation()));
 					break;
 			}
 

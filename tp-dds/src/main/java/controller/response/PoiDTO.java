@@ -4,9 +4,11 @@ import java.util.List;
 
 public class PoiDTO {
 
+
 	public String icon;
 	public int numberLine;
-	public String Direccion;
+	public String type;
+	public String direccion;
 	public String zone;
 	public HashMap<String,String> cgpServices;
 	public List<String> bankServices;
@@ -14,16 +16,18 @@ public class PoiDTO {
 	public String activity;
 
 
-	public PoiDTO( int numberLine, String direccion, String zone, HashMap<String, String> cgpServices, List<String> bankServices, String name, String activity) {
-		this.icon = "https://i.ytimg.com/vi/ZELci4OhE-c/maxresdefault.jpg";
-		this.numberLine = numberLine;
-		Direccion = direccion;
+	public PoiDTO(String icon, String type, String direccion, String zone, List<String> bankServices) {
+		this.icon = icon;
+		this.type = type;
+		direccion = direccion;
 		this.zone = zone;
-		this.cgpServices = cgpServices;
 		this.bankServices = bankServices;
+	}
 
-		this.name = name;
-		this.activity = activity;
+	public PoiDTO(String icon, String type, int numberLine) {
+		this.icon = icon;
+		this.type = type;
+		this.numberLine = numberLine;
 	}
 
 
@@ -45,11 +49,11 @@ public class PoiDTO {
 	}
 
 	public String getDireccion() {
-		return Direccion;
+		return direccion;
 	}
 
 	public void setDireccion(String direccion) {
-		Direccion = direccion;
+		direccion = direccion;
 	}
 
 	public String getZone() {

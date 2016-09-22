@@ -14,6 +14,7 @@ public class BusStation extends Poi {
     public BusStation(String name, Address address, Coordinate coordinate, Integer aNumberBusStation) {
         super(name, address, coordinate);
         numberBusStation = aNumberBusStation;
+        icon="https://i.ytimg.com/vi/ZELci4OhE-c/maxresdefault.jpg";
 
 
         this.type = this.getClass().getSimpleName();

@@ -25,7 +25,7 @@ public class Newspaper implements CategoryShop{
 	      if(instance == null) {
 	         instance = new Newspaper();
 	         instance.setDistanceMaxInMetters(distanceMaxInMetters);
-	         
+
 	         setRangeOfAtention();
 	      }
 	      return instance;

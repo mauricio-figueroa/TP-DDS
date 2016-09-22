@@ -14,6 +14,7 @@ public class CGPService {
 		super();
 		this.serviceName = serviceName;
 		this.rangeOfAtention = rangeOfAtention;
+
 	}
 
 	public RangeOfAtention getRangeOfAtention() {

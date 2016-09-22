@@ -23,6 +23,7 @@ public class Library implements CategoryShop {
 	         instance = new Library();
 	         instance.setDistanceMaxInMetters(distanceMaxInMetters);
 	         setRangeOfAtention();
+
 	         
 	      }
 	      return instance;

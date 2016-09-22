@@ -16,8 +16,9 @@ public abstract class Poi implements PoiInterface {
 	public boolean isActived() {
 		return actived;
 	}
-	public String type;
-	public List<String> servicios;
+	protected String type;
+	protected List<String> servicios;
+	protected String icon;
 
 	public void setActived(boolean actived) {
 		this.actived = actived;
@@ -35,6 +36,31 @@ public abstract class Poi implements PoiInterface {
 		this.address = address;
 		this.coordinate = coordinate;
 		this.actived=true;
+	}
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public List<String> getServicios() {
+		return servicios;
+	}
+
+	public void setServicios(List<String> servicios) {
+		this.servicios = servicios;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	@Override
