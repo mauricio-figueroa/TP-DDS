@@ -19,11 +19,7 @@ import domain.Coordinate;
 import domain.EnumActions;
 import domain.RangeOfAtention;
 import internalService.PoiService;
-import poi.Bank;
-import poi.BusStation;
-import poi.CGP;
-import poi.CGPService;
-import poi.Poi;
+import poi.*;
 import users.Admin;
 import users.Terminal;
 
@@ -149,7 +145,6 @@ public class AdminController {
             @RequestParam(value = "lat", required = true) double lat,
             @RequestParam(value = "lon", required = true) double lon,
             @RequestParam(value = "busNumber", required = true) Integer busNumber) {
-        // TODO Agregar muchos parametros y filtrar tipo por type
 
 
         Poi poi = new BusStation(name, new Address(mainStreet), new Coordinate(lat, lon), busNumber);
@@ -167,7 +162,6 @@ public class AdminController {
             @RequestParam(value = "lat", required = true) double lat,
             @RequestParam(value = "lon", required = true) double lon,
             @RequestParam(value = "communeRadius", required = true) double communeRadius) {
-        // TODO Agregar muchos parametros y filtrar tipo por type
 
         Poi poi = new CGP(name, new Address(mainStreet), new Coordinate(lat, lon), communeRadius, new ArrayList<CGPService>());
         admin.addPoi(poi);
@@ -202,6 +196,33 @@ public class AdminController {
         boolean status = admin.addScheduleToCGPService(nameOfCGP, serviceName, hourMax, hourMin);
         return new ResponseEntity(status, HttpStatus.OK);
 
+    }
+
+
+
+    @RequestMapping(value = ("/poi-addComercial"), method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity addComercial(
+            @RequestParam(value = "name", required = true) String name,
+            @RequestParam(value = "type", required = true) String type,
+            @RequestParam(value = "mainStreet", required = true) String mainStreet,
+            @RequestParam(value = "lat", required = true) double lat,
+            @RequestParam(value = "lon", required = true) double lon,
+            @RequestParam(value = "rubro", required = true) String rubro,
+            @RequestParam(value = "maxDistance", required = true) double maxDistance) {
+        CategoryShop categoryShop=null;
+        switch (rubro){
+            case "Library":
+                 categoryShop= Library.getInstance(maxDistance);
+                break;
+            case "Newspaper":
+                categoryShop= Newspaper.getInstance(maxDistance);
+                break;
+        }
+
+        Poi poi = new ComercialShop(name, new Address(mainStreet), new Coordinate(lat, lon),categoryShop);
+        admin.addPoi(poi);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 

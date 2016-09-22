@@ -18,10 +18,7 @@ import controller.response.PoiDTO;
 import domain.Address;
 import domain.RangeOfAtention;
 import internalService.PoiService;
-import poi.Bank;
-import poi.BusStation;
-import poi.CGP;
-import poi.Poi;
+import poi.*;
 
 @Controller
 public class PoiController {
@@ -66,6 +63,12 @@ public class PoiController {
 					HashMap<String, List<Integer>> cgpService= new HashMap<String, List<Integer>>();
 					cgp.getServices().forEach(service -> cgpService.put(service.getServiceName(),service.getRangeOfAtention().getDaysOfAttention()));
 					poisDTO.add(new PoiDTO (cgp.getIcon(),cgp.getType() , cgp.getAddress().getMainStreet(),  cgp.getAddress().getMainStreet(), cgpService));
+					break;
+
+				case "ComercialShop":
+					ComercialShop comercial= (ComercialShop) currentPoi;
+					poisDTO.add(new PoiDTO(comercial.getIcon(),comercial.getType() , comercial.getAddress().getMainStreet(),  comercial.getAddress().getMainStreet(),comercial.getCategory().getType()));
+
 					break;
 			}
 

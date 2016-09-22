@@ -39,6 +39,20 @@ public class PoiDTO {
 		this.numberLine = numberLine;
 	}
 
+	public PoiDTO(String icon, String type, String direccion, String name, String activity) {
+		this.icon = icon;
+		this.type = type;
+		this.direccion = direccion;
+		this.name = name;
+		this.activity = activity;
+	}
+
+
+
+
+
+
+
 
 	public int getNumberLine() {
 		return numberLine;

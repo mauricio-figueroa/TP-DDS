@@ -9,6 +9,14 @@ public class ComercialShop extends Poi {
 
 	private CategoryShop category;
 
+	public CategoryShop getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryShop category) {
+		this.category = category;
+	}
+
 	public ComercialShop(String name, Address address, Coordinate coordinate, CategoryShop category) {
 		super(name, address, coordinate);
 		this.category = category;

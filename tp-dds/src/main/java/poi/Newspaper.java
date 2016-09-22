@@ -34,7 +34,6 @@ public class Newspaper implements CategoryShop{
 	  public String getType(){
 		  return "Newspaper";
 	  }
-
 	
 	
 	public double getDistanceMaxInMetters() {
