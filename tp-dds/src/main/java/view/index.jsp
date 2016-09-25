@@ -107,14 +107,21 @@
 
 
 
+
 	</div>
 
 </div>
 
- <footer> P.O.I Todos los derechos reservados. 2016 ®</footer>
+ <!-- <footer> P.O.I Todos los derechos reservados. 2016 ®</footer> -->
 </body>
 
  <script >
+
+ $( document ).ready(function() {
+    ejecutarControllers();
+});
+
+
  function openModal(){
  var modal = document.getElementById("modal");
 	 modal.style.display = "block";
@@ -185,37 +192,84 @@ function search(){
 var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
 
-
 			$.get(url, function(dataReceived){
 				 console.log(dataReceived);
-				 //deberia hacer la magia dependiendo de lo q muestre.
+
 				 for (var i = 0; i < dataReceived.length; i++) {
-								 if(dataReceived.type="Banco"){
-											//dataReceived[i].name;
-											// dataReceived[i].icon;
-											// dataReceived[i].servicios;
-											// dataReceived[i].sucursal;
-											var d = document.getElementById("testName");
-											d.innerHTML += '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">' +dataReceived[i].name+'</p>';
-											var e = document.getElementById("testInfo");
-											// e.innerHTML += '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Icono:' +dataReceived[i].icono+
-											// 												'<br /> Zona:'+dataReceived[i].sucursal;+ '<br /> Servicios:'+dataReceived[i].servicios;+ '
-											// 													</p>';
 
-										e.innerHTML += '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Zona: Almagro </br> Calle: 123</p>';
+								  switch (dataReceived[i].type) {
+								  	case "CGP":
+										$( "#testName" ).append( "<br /> <img class='img-poi' src='"+dataReceived[i].icon+"' alt='' />");
+										$( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
+										 																			'<br /> Zona:'+dataReceived[i].zone+ '<br /> Servicios:'+dataReceived[i].cgp_services+ '</p>' );
 
-								 };
+								  	break;//1
+
+										case "Bank":
+
+										$( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+										$( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
+																													'<br /> Zona:'+dataReceived[i].zone+ '<br /> Servicios:'+dataReceived[i].bank_services+ '</p>' );
+										break;//2
+
+										case "BusStation":
+
+										$( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+										$( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Número de línea:' +dataReceived[i].number_line+'</p>' );
+										break;//3
+
+										case "ComercialShop":
+
+										$( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+										$( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
+																													'<br /> Nombre:'+dataReceived[i].name+ '<br /> Rubro:'+dataReceived[i].activity+ '</p>' );
+										break;//4
+
+								  	default:
+
+										$( "#testName" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">No hay información</p>' );
+										$( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> No hay información</p>' );
+
+
+								  }; //termina switch
 				 }
 
 
 			 });
-
-
-
-
-		 //http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName=parad&terminalNAME=terminal1
-
 		};
+
+
+		function ejecutarControllers(){
+
+			$.get('http://localhost:8080/diseno-de-sistemas/terminal-add?name=terminalGabo1&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL', function(dataReceived){
+				console.log('Se aregó una terminal');});
+
+
+		$.get('http://localhost:8080/diseno-de-sistemas/poi-addBusStation?name=114Parada&type=busStation&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&busNumber=114',
+		 function(dataReceived){
+			console.log('Se agregó un BusStation');});
+
+
+		$.get('http://localhost:8080/diseno-de-sistemas/poi-addCGP?name=CGPGab0&type=CGP&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&communeRadius=%2043.56', function(dataReceived){
+			console.log('Se agregó un CGP');});
+
+
+		$.get('http://localhost:8080/diseno-de-sistemas/poi-addComercial?name=gab0Library&type=library&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&rubro=Library&maxDistance=500', function(dataReceived){
+			console.log('Se agregó un Local Comercial');});
+
+
+		$.get('http://localhost:8080/diseno-de-sistemas/poi-addBank?name=bank1&type=bank&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&services=aa', function(dataReceived){
+			console.log('Se agregó un Banco');});
+
+		//
+		// $.get('', function(dataReceived){console.log(dataReceived);});
+		//
+		// $.get('', function(dataReceived){console.log(dataReceived);});
+		//
+		// $.get('', function(dataReceived){console.log(dataReceived);});
+
+		}
+
 
 
 

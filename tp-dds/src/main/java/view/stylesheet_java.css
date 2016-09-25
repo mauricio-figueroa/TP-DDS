@@ -208,3 +208,9 @@ footer{
 #initFecha, #finFecha, #nameUser{
 	color: black;
 }
+
+.img-poi{
+	height: 60px;
+	width: 100px;
+	padding-bottom: 10px;
+}

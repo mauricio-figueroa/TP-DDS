@@ -29,6 +29,8 @@
 
         <button type="button" name="button" onclick="displayHistorial()" >HISTORIAL</button>
 
+				  <button type="button" name="button" onclick="ejecutarControllers()" >EJECUTAR CONTROLLERS</button>
+
 
   </div>
 
@@ -117,7 +119,7 @@
 
 
 
-<footer> P.O.I Todos los derechos reservados. 2016 ®</footer>
+<!-- <footer> P.O.I Todos los derechos reservados. 2016 ®</footer> -->
 </body>
 
 
