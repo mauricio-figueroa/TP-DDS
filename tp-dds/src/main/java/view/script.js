@@ -1,4 +1,5 @@
 var terminal;
+var userSelected=0;
 
 user1={};
 user2={};
@@ -9,11 +10,6 @@ user2.lista=[];
 user3.lista=[];
 id=0;
 
-
-
-$( document ).ready(function() {
-   ejecutarControllers();
-});
 
 
 function openModal(){
@@ -208,22 +204,58 @@ var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
 
    		function addPermiso(){
-   			var i=Math.floor((Math.random() * 2) + 0);
 
-   			console.log(users[i]);
+        //Math.floor((Math.random() * 2) + 0);
 
-   		$( "#permisos" ).append( ' </br><p id="num'+id+'" class="permisoAdded">'+$( "#listPermisos option:selected" ).text()+'</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso('+id+')"> Eliminar</button>' );
+        var id=$( "#listPermisos option:selected" ).attr('id');
 
-   		users[i].lista.push(id);
+        console.log(id);
 
-   		id++;
-   		console.log(id);
+        if(jQuery.inArray(id, users[userSelected].lista) != -1){
+
+          alert("Ya existe dicho permiso");
+        }else{
+          $( "#permisos" ).append( ' </br><p id="'+id+'" class="permisoAdded">'+$( "#listPermisos option:selected" ).text()+'</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso('+id+')"> Eliminar</button>' );
+
+          users[userSelected].lista.push(id);
+
+        }
+
+
+
+
+          console.log(users[userSelected].lista);
    		}
 
 
 
    function eliminarPermiso(target){
 
-   $( '#num'+target).remove();
+
+
+   $( '#permisos > #'+target).empty();
+
+   var index = users[userSelected].lista.indexOf(target);
+
+    users[userSelected].lista.splice(index, 1);
+
+    console.log(users[userSelected].lista);
+
+
+
+   }
+
+   function cancel(){
+
+       users[userSelected].lista=[];
+       volver();
+
+
+   }
+
+   function Ok(){
+
+       $( '#permisos').empty();
+       volver();
 
    }

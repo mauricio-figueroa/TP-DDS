@@ -115,6 +115,13 @@
  <!-- <footer> P.O.I Todos los derechos reservados. 2016 ®</footer> -->
 </body>
 
+<script>
 
+$( document ).ready(function() {
+   ejecutarControllers();
+});
+
+
+</script>
 
 </html>

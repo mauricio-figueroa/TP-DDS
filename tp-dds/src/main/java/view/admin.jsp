@@ -56,12 +56,12 @@
 
           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
             <h2>Resultado</h2>
-            <div class="">
-                  <p class="namecol col-lg-4 col-md-4 col-sm-4 col-xs-4">Fecha</p>
-                  <p class="namecol col-lg-2 col-md-2 col-sm-2 col-xs-2">Usuario</p>
-                  <p class=" namecol col-lg-4 col-md-4 col-sm-4 col-xs-4">Parámetros</p>
-                  <p class="namecol col-lg-2 col-md-2 col-sm-2 col-xs-2">POIs</p>
-            </div>
+
+                  <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="namecol" >Fecha</p></div>
+                  <div class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >Usuario</p></div>
+                  <div class=" col col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="namecol" >Parámetros</p></div>
+                  <div class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >POIs</p></div>
+
 
 
           </div>
@@ -105,9 +105,9 @@
 
         <div class="accept">
 
-                  <button id="submitHis" type="button" name="button">OK</button>
+                  <button id="submitHis" type="button" name="button" onclick="Ok()">OK</button>
 
-                  <button id="cancelHis" type="button" name="button">Cancelar</button>
+                  <button id="cancelHis" type="button" name="button" onclick="cancel()">Cancelar</button>
         </div>
 
 

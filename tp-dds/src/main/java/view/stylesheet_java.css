@@ -160,6 +160,7 @@ footer{
 .namecol{
 	background-color: gray;
 	color: black !important;
+	padding: 5px;
 }
 
 .second-block p{
@@ -213,4 +214,8 @@ footer{
 	height: 60px;
 	width: 100px;
 	padding-bottom: 10px;
+}
+
+.col{
+	padding:0;
 }
