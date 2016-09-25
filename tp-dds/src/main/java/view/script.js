@@ -1,4 +1,4 @@
-var terminal;
+var terminal='terminalGabo1'
 var userSelected;
 
 var user1;
@@ -77,13 +77,15 @@ function search(){
 
    });
 
+   console.log(infoArray);
+
 //var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
 for (var i = 0; i <= infoArray.length; i++) {
 
   var url ='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+infoArray[i]+'&terminalName='+terminal;
 
-
+console.log(url);
        $.get(url, function(dataReceived){
 
 
@@ -340,3 +342,34 @@ function initialize(){
 
   remaining=[];
 }
+
+
+function mostrarPoi(){
+$( ".detallePoi" ).empty();
+
+  $(".poiToShow").click(function(){
+
+
+var url ='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+$(this).text()+'&terminalName='+terminal;
+console.log(url);
+$.get(url, function(dataReceived){
+
+console.log(dataReceived);
+   for (var i = 0; i < dataReceived.length; i++) {
+
+     $( ".detallePoi" ).append( '<br />	<p >Icono:</p><br /><img style="height:80px; width80px" src="'+dataReceived[i].icon+'" />' );
+
+   }
+
+
+ });//termina get
+
+});
+
+
+}
+
+
+// [{"user":"terminalGabo1","date":"Mon Sep 26 19:35:18 ART 2016","palabraBuscada":"bank","cantPoisEncontrados":3},{"user":"terminalGabo1","date":"Mon Sep 26 19:35:45 ART 2016","palabraBuscada":"cgp","cantPoisEncontrados":1}]
+
+//despues haces el http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name=terminalGabo1

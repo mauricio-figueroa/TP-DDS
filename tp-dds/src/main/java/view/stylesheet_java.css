@@ -219,3 +219,12 @@ footer{
 .col{
 	padding:0;
 }
+
+
+.poiToShow{
+	background-color: rgba(41, 72, 125,1);
+}
+
+.poiToShow:hover{
+	cursor: pointer;
+}
