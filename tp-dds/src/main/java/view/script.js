@@ -1,14 +1,27 @@
 var terminal;
-var userSelected=0;
+var userSelected;
 
-user1={};
-user2={};
-user3={};
-users=[user1, user2, user3];
-user1.lista=[];
-user2.lista=[];
-user3.lista=[];
-id=0;
+var user1;
+ var user2;
+var user3;
+var users;
+// user1.lista=[];
+// user2.lista=[];
+// user3.lista=[];
+
+var remaining;
+
+permisosObj={};
+permisosObj["1"]="Buscar poi";
+permisosObj["2"]="Consultar cercanía";
+permisosObj["3"]="Consultar disponibilidad";
+permisosObj["4"]="Agregar Poi";
+permisosObj["5"]="Agregar Terminal";
+permisosObj["6"]="Modificar Poi";
+permisosObj["7"]="Remover Terminal";
+permisosObj["8"]="Remover Poi";
+
+
 
 
 
@@ -204,20 +217,27 @@ var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
 
    		function addPermiso(){
+        if(typeof userSelected == "undefined"){
+          alert("Debe elegir un usuario");
+          return;
+        }
 
-        //Math.floor((Math.random() * 2) + 0);
 
         var id=$( "#listPermisos option:selected" ).attr('id');
 
         console.log(id);
 
+
         if(jQuery.inArray(id, users[userSelected].lista) != -1){
 
           alert("Ya existe dicho permiso");
         }else{
+
           $( "#permisos" ).append( ' </br><p id="'+id+'" class="permisoAdded">'+$( "#listPermisos option:selected" ).text()+'</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso('+id+')"> Eliminar</button>' );
 
           users[userSelected].lista.push(id);
+
+          remaining.push(id);
 
         }
 
@@ -231,11 +251,15 @@ var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
    function eliminarPermiso(target){
 
-
+console.log(target);
 
    $( '#permisos > #'+target).empty();
 
+  //var ind = target.toString();
+
    var index = users[userSelected].lista.indexOf(target);
+
+   //console.log(ind);
 
     users[userSelected].lista.splice(index, 1);
 
@@ -247,8 +271,15 @@ var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
    function cancel(){
 
-       users[userSelected].lista=[];
-       volver();
+     for (var i = 0; i <= remaining.length; i++) {
+      var ind=users[userSelected].lista.indexOf(remaining[i]);
+      users[userSelected].lista.splice(1, ind);
+
+     }
+     $( '#permisos').empty();
+
+
+      // volver();
 
 
    }
@@ -259,3 +290,46 @@ var url='http://localhost:8080/diseno-de-sistemas/poi-show';
        volver();
 
    }
+
+   function selectUser(){
+
+     $( '#permisos').empty();
+
+       var id=$( "#usuarios option:selected" ).attr('id');
+       userSelected=id;
+
+
+       for (var i = 0; i < users[id].lista.length; i++) {
+         var  idn=users[userSelected].lista[i];
+         agregarGraficaPermiso(idn, "#usuarios", "#permisos");
+
+       }
+
+       console.log(users[userSelected].lista);
+
+
+
+
+
+   }
+
+   function agregarGraficaPermiso(id, pathOuter, pathInner){
+
+     var ar= $( pathOuter+" option:selected" ).attr('id');
+
+ $( pathInner ).append( ' </br><p id="'+ar+'" class="permisoAdded">'+permisosObj[id]+'</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso('+id+')"> Eliminar</button>' );
+
+   }
+
+
+function initialize(){
+  user1={};
+  user2={};
+  user3={};
+  users=[user1, user2, user3];
+  user1.lista=[];
+  user2.lista=[];
+  user3.lista=[];
+
+  remaining=[];
+}
