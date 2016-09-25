@@ -15,6 +15,7 @@
 	<script src="bootstrap/js/jquery.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
+<script src="script.js"></script>
 
 </script>
 
@@ -118,90 +119,6 @@
 
 <!-- <footer> P.O.I Todos los derechos reservados. 2016 ®</footer> -->
 </body>
-
-
-<script>
-
-user1={};
-user2={};
-user3={};
-users=[user1, user2, user3];
-user1.lista=[];
-user2.lista=[];
-user3.lista=[];
-id=0;
-
-terminal="terminal1";
-
-
-  function displayHistorial(){
-		$('.button-admin').hide();
-		$('#acciones').show();
-		$('.volver').show();
-
-  }
-
-  function displayAcciones(){
-
-		    $('.button-admin').hide();
-		    $('#historial').show();
-		    $('.volver').show();
-  }
-
-  function volver(){
-    $('.button-admin').show();
-    $('#acciones').hide();
-    $('#historial').hide();
-    $('.volver').hide();
-  }
-
-	function searchHistorial(){
-		 	var datSend={};
-
-			dataSend["user"]=$( "#nameUser" ).val();
-			dataSend["initFecha"]=$( "#initFecha"  ).val();
-			dataSend["finFecha"]=$( "#finFecha" ).val();
-
-			url='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+$( "#nameUser" ).val()+'&terminalName='+terminal;
-			url2='http://localhost:8080/diseno-de-sistemas/reportByTerminal?name='+terminal;
-
-			$.get(url, function(dataReceived){
-				 console.log(dataReceived);
-
-				 for (var i = 0; i < dataReceived.length; i++) {
-
-				 }
-
-
-			 });
-
-
-
-			};
-
-
-		function addPermiso(){
-			var i=Math.floor((Math.random() * 2) + 0);
-
-			console.log(users[i]);
-
-		$( "#permisos" ).append( ' </br><p id="num'+id+'" class="permisoAdded">'+$( "#listPermisos option:selected" ).text()+'</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso('+id+')"> Eliminar</button>' );
-
-		users[i].lista.push(id);
-
-		id++;
-		console.log(id);
-		}
-
-
-
-function eliminarPermiso(target){
-
-$( '#num'+target).remove();
-
-}
-
-</script>
 
 
 </html>
