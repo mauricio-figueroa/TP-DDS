@@ -49,7 +49,7 @@ function log(){
  url="http://localhost:8080/diseno-de-sistemas/validarUsuario?user="+$('#userid').val()+"&pw="+ $('#psw').val();
 
  $.get(url, function(dataReceived){
-   console.log(dataReceived);
+
    if(dataReceived){
      $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
      //$(location).attr('href', 'C:/Users/Mauricio/Desktop/tpDDS/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
@@ -79,51 +79,59 @@ function search(){
 
 var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
+for (var i = 0; i <= infoArray.length; i++) {
 
-     $.get(url, function(dataReceived){
-        console.log(dataReceived);
-
-        for (var i = 0; i < dataReceived.length; i++) {
-
-                 switch (dataReceived[i].type) {
-                   case "CGP":
-                   $( "#testName" ).append( "<br /> <img class='img-poi' src='"+dataReceived[i].icon+"' alt='' />");
-                   $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
-                                                         '<br /> Zona:'+dataReceived[i].zone+ '<br /> Servicios:'+dataReceived[i].cgp_services+ '</p>' );
-
-                   break;//1
-
-                   case "Bank":
-
-                   $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
-                   $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
-                                                         '<br /> Zona:'+dataReceived[i].zone+ '<br /> Servicios:'+dataReceived[i].bank_services+ '</p>' );
-                   break;//2
-
-                   case "BusStation":
-
-                   $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
-                   $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Número de línea:' +dataReceived[i].number_line+'</p>' );
-                   break;//3
-
-                   case "ComercialShop":
-
-                   $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
-                   $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
-                                                         '<br /> Nombre:'+dataReceived[i].name+ '<br /> Rubro:'+dataReceived[i].activity+ '</p>' );
-                   break;//4
-
-                   default:
-
-                   $( "#testName" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">No hay información</p>' );
-                   $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> No hay información</p>' );
+  var urlTest ='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+infoArray[i]+'&terminalName='+terminal;
 
 
-                 }; //termina switch
-        }
+       $.get(urlTest, function(dataReceived){
 
 
-      });
+          for (var i = 0; i < dataReceived.length; i++) {
+
+                   switch (dataReceived[i].type) {
+                     case "CGP":
+                     $( "#testName" ).append( "<br /> <img class='img-poi' src='"+dataReceived[i].icon+"' alt='' />");
+                     $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
+                                                           '<br /> Zona:'+dataReceived[i].zone+ '<br /> Servicios:'+dataReceived[i].cgp_services+ '</p>' );
+
+                     break;//1
+
+                     case "Bank":
+
+                     $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+                     $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
+                                                           '<br /> Zona:'+dataReceived[i].zone+ '<br /> Servicios:'+dataReceived[i].bank_services+ '</p>' );
+                     break;//2
+
+                     case "BusStation":
+
+                     $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+                     $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Número de línea:' +dataReceived[i].number_line+'</p>' );
+                     break;//3
+
+                     case "ComercialShop":
+
+                     $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+                     $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
+                                                           '<br /> Nombre:'+dataReceived[i].name+ '<br /> Rubro:'+dataReceived[i].activity+ '</p>' );
+                     break;//4
+
+                     default:
+
+                     $( "#testName" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">No hay información</p>' );
+                     $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> No hay información</p>' );
+
+
+                   }; //termina switch
+          }
+
+
+        });//termina get
+  //termina for
+}
+
+
    };
 
 
@@ -153,7 +161,7 @@ var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
 
    $.get('http://localhost:8080/diseno-de-sistemas/crearUsuario?user=mauri&pw=mauri', function(dataReceived){
-     console.log("Se creo un usuario");});
+     console.log("Se creo un usuario: User-> mauri, Psw -> mauri");});
 
 
    //
@@ -332,3 +340,5 @@ function initialize(){
 
   remaining=[];
 }
+
+//http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName=bank&terminalName=terminalGabo1
