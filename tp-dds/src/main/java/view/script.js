@@ -77,14 +77,14 @@ function search(){
 
    });
 
-var url='http://localhost:8080/diseno-de-sistemas/poi-show';
+//var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
 for (var i = 0; i <= infoArray.length; i++) {
 
-  var urlTest ='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+infoArray[i]+'&terminalName='+terminal;
+  var url ='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+infoArray[i]+'&terminalName='+terminal;
 
 
-       $.get(urlTest, function(dataReceived){
+       $.get(url, function(dataReceived){
 
 
           for (var i = 0; i < dataReceived.length; i++) {
@@ -138,7 +138,7 @@ for (var i = 0; i <= infoArray.length; i++) {
    function ejecutarControllers(){
 
      $.get('http://localhost:8080/diseno-de-sistemas/terminal-add?name=terminalGabo1&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL', function(dataReceived){
-       console.log('Se aregó una terminal');
+       console.log('Se agregó una terminal');
        terminal='terminalGabo1';
      });
 
@@ -340,5 +340,3 @@ function initialize(){
 
   remaining=[];
 }
-
-//http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName=bank&terminalName=terminalGabo1
