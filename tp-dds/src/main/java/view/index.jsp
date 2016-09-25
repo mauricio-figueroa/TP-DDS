@@ -57,7 +57,7 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div   class="col-lg-4 col-md-4 col-sm-4 col-xs-4 nombre">
 										<p class=" namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											Nombre
+											Ícono
 										</p>
 										<div id="testName" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
@@ -163,17 +163,6 @@ function log(){
 }
 
 
-function log2(){
-$.getJSON("http://localhost:8080/diseno-de-sistemas/crearUsuario?user="+$('#userid').val()+"pw="+ $('#psw').val() , function (data) {
-     response($.map(data, function (item) {
-         return {
-           label: item.description,
-           value: item.code
-         };
-     }));
-    });
-  }
-
 
 function search(){
 
@@ -278,13 +267,3 @@ var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
 
 </html>
-
-
-<!--
-
-tipo banco =  [{"name":"unBanco","type":"Bank","range_of_atention":{"schedules":[{"hour_max":1474567200531,"hour_min":1474549200531}],"days_of_attention":[0,1,2,3,4,5,6]},"commune_radius":0.0,"number_bus_station":0}]
- console.log(hola[0]);
-
-http://localhost:8080/diseno-de-sistemas/poi-addBank?name=unBanco&type=banco&mainStreet=Medrano&lat=1231&lon=324&services=melania,miranda
-
--->

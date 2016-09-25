@@ -29,9 +29,6 @@
 
         <button type="button" name="button" onclick="displayHistorial()" >HISTORIAL</button>
 
-				  <button type="button" name="button" onclick="ejecutarControllers()" >EJECUTAR CONTROLLERS</button>
-
-
   </div>
 
   <button class="volver" type="button" name="button" onclick="volver()">Volver</button>
