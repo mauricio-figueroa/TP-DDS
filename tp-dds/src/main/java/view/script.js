@@ -44,19 +44,15 @@ function addInput(){
 
 
 function log(){
- var dataSend={};
 
-  dataSend["user"]=$('#userid').val();
-
-    dataSend["pw"]= $('#psw').val();
 
  url="http://localhost:8080/diseno-de-sistemas/validarUsuario?user="+$('#userid').val()+"&pw="+ $('#psw').val();
 
  $.get(url, function(dataReceived){
    console.log(dataReceived);
    if(dataReceived){
-     //$(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
-     $(location).attr('href', 'C:/Users/Mauricio/Desktop/tpDDS/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+     $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+     //$(location).attr('href', 'C:/Users/Mauricio/Desktop/tpDDS/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
    }else{
      alert("Datos incorrectos");
    };
@@ -155,8 +151,11 @@ var url='http://localhost:8080/diseno-de-sistemas/poi-show';
    $.get('http://localhost:8080/diseno-de-sistemas/poi-addBank?name=bank1&type=bank&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&services=aa', function(dataReceived){
      console.log('Se agregó un Banco');});
 
-   //
-   // $.get('', function(dataReceived){console.log(dataReceived);});
+
+   $.get('http://localhost:8080/diseno-de-sistemas/crearUsuario?user=mauri&pw=mauri', function(dataReceived){
+     console.log("Se creo un usuario");});
+
+
    //
    // $.get('', function(dataReceived){console.log(dataReceived);});
    //
