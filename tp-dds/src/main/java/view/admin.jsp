@@ -81,6 +81,19 @@
            <h1>ACCIONES ANTE LA BÚSQUEDA</h1>
         </div>
 
+				<div class="">
+					<select id="usuarios">
+								<option value="" selected disabled>Elegir  usuario</option>
+								<option  id="0" class="8" value="">Usuario 1</option>
+								<option id="1"value="1">Usuario 2</option>
+								<option id="2" value="2">Usuario 3</option>
+
+					</select>
+
+					<button id="addPermiso" type="button" name="button" onclick="selectUser()">Seleccionar</button>
+
+				</div>
+
         <select id="listPermisos">
               <option value="" selected disabled>Elegir permisos</option>
               <option  id="1" class="8" value="">Buscar poi</option>
@@ -111,14 +124,20 @@
         </div>
 
 
+
+
 </div>
 
 <!-- Termina pantalla de acciones -->
 
-
-
 <!-- <footer> P.O.I Todos los derechos reservados. 2016 ®</footer> -->
 </body>
 
+<script>
 
+$( document ).ready(function() {
+   initialize();
+});
+
+</script>
 </html>
