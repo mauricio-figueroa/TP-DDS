@@ -216,25 +216,21 @@ public class AdminController {
         for (ReportePorTerminal currentReport : reportes) {
 
 
-
             if (desde == null & hasta == null) {
-                ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(currentReport.getNombreTerminal());
 
 
-                for (LineaReporte currentRow : reporte.getBusquedas()) {
+                for (LineaReporte currentRow : currentReport.getBusquedas()) {
                     BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
                     busquedas.add(busquedaDto);
                 }
 
-                return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
             }
 
 
             if (desde != null & hasta == null) {
-                ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(currentReport.getNombreTerminal());
 
 
-                for (LineaReporte currentRow : reporte.getBusquedas()) {
+                for (LineaReporte currentRow : currentReport.getBusquedas()) {
                     BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
 
 
@@ -250,17 +246,15 @@ public class AdminController {
                 }
 
 
-                return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
 
 
             }
 
 
             if (hasta != null && desde == null) {
-                ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(currentReport.getNombreTerminal());
 
 
-                for (LineaReporte currentRow : reporte.getBusquedas()) {
+                for (LineaReporte currentRow : currentReport.getBusquedas()) {
                     BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
 
                     try {
@@ -274,17 +268,13 @@ public class AdminController {
                     }
                 }
 
-                return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
 
             }
 
             if (hasta != null && desde != null) {
 
 
-                ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(currentReport.getNombreTerminal());
-
-
-                for (LineaReporte currentRow : reporte.getBusquedas()) {
+                for (LineaReporte currentRow : currentReport.getBusquedas()) {
                     BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
 
                     try {
@@ -301,11 +291,9 @@ public class AdminController {
                     }
                 }
 
-                return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
 
 
             }
-
 
         }
 
