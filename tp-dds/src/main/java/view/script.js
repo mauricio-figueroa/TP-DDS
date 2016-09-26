@@ -51,8 +51,8 @@ function log(){
  $.get(url, function(dataReceived){
 
    if(dataReceived){
-    // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
-     $(location).attr('href', 'C:/Users/Mauricio/Desktop/tpDDS/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+    $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+    // $(location).attr('href', 'C:/Users/Mauricio/Desktop/tpDDS/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
    }else{
      alert("Datos incorrectos");
    };
@@ -205,7 +205,10 @@ console.log(url);
 
    	function searchHistorial(){
 
-
+      $( "#fecha" ).empty();
+      $( "#palabra_buscada" ).empty();
+      $( "#cant_pois" ).empty();
+      $( "#usuarioH" ).empty();
 
 
       if($( "#nameUser" ).val() && !$( "#initFecha"  ).val() && !$( "#finFecha" ).val()){

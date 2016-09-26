@@ -61,18 +61,25 @@
           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
             <h2>Resultado</h2>
 
-                  <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4" id="fecha"><p  class="namecol" >Fecha</p>
+                  <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4" ><p  class="namecol" >Fecha</p>
+										<div id="fecha" class="">
+
+										</div>
+								</div>
+                  <div  class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >Usuario</p>
+									<div id="usuarioH" class="">
+
+									</div>
+							</div>
+                  <div  class=" col col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="namecol" >Parámetros</p>
+									<div id="palabra_buscada" class="">
+
+									</div>
+							</div>
+                  <div  class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >POIs</p>
+								<div id="cant_pois"  class="">
 
 								</div>
-                  <div id="usuarioH" class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >Usuario</p>
-
-							</div>
-                  <div id="palabra_buscada" class=" col col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="namecol" >Parámetros</p>
-
-							</div>
-                  <div  id="cant_pois" class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >POIs</p>
-								<!-- <p class="poiToShow ">CGP</p>
-								<p class="poiToShow ">bank</p> -->
 							</div>
 
 
