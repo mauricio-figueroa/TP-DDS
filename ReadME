@@ -2,7 +2,7 @@ REPOSITORIO DEL GRUPO 41 TRABAJO PRACTICO INTEGRADOR DE LA CATEDRA DE DISEÑO DE
 
 Comentarios: Tratemos de mantener el diagrama de clase actualizado cada uno a cada cambio que hagamos en cuanto al diseño. En un rato subo el diagrama de clase como estaria actualmente.
 
-Integrantes: 
+Integrantes:
 		Melania Miranda
 		Mauricio Figueroa
 		Gabriel Fernando Dyck
@@ -12,7 +12,7 @@ Integrantes:
 
 
 
-ALGUNOS CONTROLLERS: 
+ALGUNOS CONTROLLERS:
 
 http://localhost:8080/diseno-de-sistemas/terminal-add?name=terminalGabo1&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL
 
@@ -44,3 +44,4 @@ http://localhost:8080/diseno-de-sistemas/crearUsuario?user=mauri&pw=mauri
 
 http://localhost:8080/diseno-de-sistemas/validarUsuario?user=mauri&pw=mauri
 
+http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name=terminalGabo1
