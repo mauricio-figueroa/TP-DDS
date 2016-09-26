@@ -23,7 +23,7 @@ public class ComercialShop extends Poi {
 		this.getData().add(this.getName());
 		this.type=this.getClass().getSimpleName();
 		this.getData().add(this.getAddress().getMainStreet());
-		icon="https://i.ytimg.com/vi/ZELci4OhE-c/maxresdefault.jpg";
+		icon="http://images.clipartpanda.com/shopping-bag-clipart-yToyAeqTE.jpeg";
 	}
 
 	public String getType() {

@@ -96,7 +96,13 @@ public class ReportService {
 		return mapaResultadoParcialPorTerminal;
 	}
 
-	private ReportePorTerminal buscarReporteTerminal(String nombreTerminal) {
+
+
+
+
+
+
+	public ReportePorTerminal buscarReporteTerminal(String nombreTerminal) {
 		ReportePorTerminal reporte = null;
 		for (ReportePorTerminal reportePorTerminal : reportes) {
 			if (reportePorTerminal.getNombreTerminal().equalsIgnoreCase(nombreTerminal)) {

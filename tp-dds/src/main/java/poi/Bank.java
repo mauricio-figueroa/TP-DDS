@@ -20,7 +20,7 @@ public class Bank extends Poi {
 	public Bank(String name, Address address, Coordinate coordinate,String services){
 		super(name, address, coordinate);
 		this.services=new ArrayList<>();
-		icon="https://i.ytimg.com/vi/ZELci4OhE-c/maxresdefault.jpg";
+		icon="http://www.freeiconspng.com/uploads/full-size-jpg-preview-bank-building-icon-6.jpg";
 
 
 		String[] parts = services.split(",");

@@ -1,10 +1,11 @@
 package controller.controllers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import controller.response.BusquedaDTO;
+import domain.*;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import domain.Address;
-import domain.Coordinate;
-import domain.EnumActions;
-import domain.RangeOfAtention;
 import internalService.PoiService;
 import poi.*;
 import users.Admin;
@@ -97,6 +94,28 @@ public class AdminController {
         Map<String, Integer> reportsByDate = PoiService.getReportService().getReportesTotalesTodasLasTerminales();
         return new ResponseEntity(reportsByDate, HttpStatus.OK);
     }
+
+    @RequestMapping(value = ("/reportePorNombreTerminal"), method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity reportePorNombreTerminal(
+            @RequestParam(value = "name", required = true) String name) {
+
+
+        ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(name);
+
+        List<BusquedaDTO> busquedas=new ArrayList<>();
+
+        for (LineaReporte currentRow:reporte.getBusquedas()) {
+            BusquedaDTO busquedaDto= new BusquedaDTO(currentRow.getFechaBusqueda().toString(),name,currentRow.getPalabraBuscada(),currentRow.getCantPoisBusqueda());
+            busquedas.add(busquedaDto);
+        }
+
+        return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
+    }
+
+
+
+
 
 
     @RequestMapping(value = ("/poi-remove"), method = RequestMethod.GET)
