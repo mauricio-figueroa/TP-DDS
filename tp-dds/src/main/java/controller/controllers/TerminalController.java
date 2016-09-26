@@ -1,6 +1,7 @@
 package controller.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,11 @@ public class TerminalController {
 			@RequestParam(value = "terminalName", required = true) String terminalName) throws AddressException, MessagingException, InterruptedException {
 
 		Terminal terminal= poiService.searchTerminal(terminalName);
+		if(terminal==null){
+			return new ResponseEntity(new ArrayList<>(), HttpStatus.OK);
+
+
+		}
 		List<Poi> pois= terminal.searchPoi(searchName);
 		return new ResponseEntity(pois, HttpStatus.OK);
 	}
