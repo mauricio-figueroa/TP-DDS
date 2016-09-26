@@ -50,28 +50,25 @@
             <input id="initFecha" type="text" name="name" value="">
             <input id="finFecha" type="text" name="name" value="">
 
-            <button id="searchAc" type="button" name="button">Buscar</button>
+            <button id="searchAc" type="button" name="button" onclick="searchHistorial()">Buscar</button>
 
 
 
           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
             <h2>Resultado</h2>
 
-                  <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="namecol" >Fecha</p>
-									<p > PRO</p>
-										<p > PRO</p>
+                  <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4" id="fecha"><p  class="namecol" >Fecha</p>
+
 								</div>
-                  <div class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >Usuario</p>
-									<p > PRO</p>
-										<p > PRO</p>
+                  <div id="usuarioH" class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >Usuario</p>
+
 							</div>
-                  <div class=" col col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="namecol" >Parámetros</p>
-								<p > PRO</p>
-									<p > PRO</p>
+                  <div id="palabra_buscada" class=" col col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="namecol" >Parámetros</p>
+
 							</div>
-                  <div class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >POIs</p>
-								<p class="poiToShow ">CGP</p>
-								<p class="poiToShow ">bank</p>
+                  <div  id="cant_pois" class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >POIs</p>
+								<!-- <p class="poiToShow ">CGP</p>
+								<p class="poiToShow ">bank</p> -->
 							</div>
 
 
@@ -80,7 +77,7 @@
 
           <div class=" col col-lg-3 col-md-3 col-sm-3 col-xs-3">
                 <h2>Detalle de POIS</h2>
-								<div class="detallePoi col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div id="detallePoi" class="detallePoi col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 								</div>
           </div>

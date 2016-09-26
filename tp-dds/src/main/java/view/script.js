@@ -200,29 +200,41 @@ console.log(url);
        $('.volver').hide();
      }
 
+
+  ///historial
+
    	function searchHistorial(){
-   		 	var datSend={};
+        // ar datSend={};
+        //
+   		// 	dataSend["user"]=$( "#nameUser" ).val();
+   		// 	dataSend["initFecha"]=$( "#initFecha"  ).val();
+   		// 	dataSend["finFecha"]=$( "#finFecha" ).val();
 
-   			dataSend["user"]=$( "#nameUser" ).val();
-   			dataSend["initFecha"]=$( "#initFecha"  ).val();
-   			dataSend["finFecha"]=$( "#finFecha" ).val();
-
-   			url='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+$( "#nameUser" ).val()+'&terminalName='+terminal;
-   			url2='http://localhost:8080/diseno-de-sistemas/reportByTerminal?name='+terminal;
-
-   			$.get(url, function(dataReceived){
+   			url='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+$( "#nameUser" ).text()+'&terminalName='+terminal;
+   			url2='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+$( "#nameUser" ).val();
+console.log(url2);
+   			$.get(url2, function(dataReceived){
    				 console.log(dataReceived);
 
    				 for (var i = 0; i < dataReceived.length; i++) {
 
+              $( "#fecha" ).append( '<p> '+dataReceived[i].date+'<p/>' );
+              $( "#palabra_buscada" ).append( '<p class="poiToShow">'+dataReceived[i].palabraBuscada+'<p/>' );
+              $( "#cant_pois" ).append( '<p >'+dataReceived[i].cantPoisEncontrados+'<p/>' );
+              $( "#usuarioH" ).append( '<p >'+dataReceived[i].user+'<p/>' );
+
+              mostrarPoi();
    				 }
 
 
    			 });
 
-
+          mostrarPoi();
 
    			};
+
+
+        ///historial
 
 
    		function addPermiso(){
@@ -296,7 +308,6 @@ console.log(target);
    function Ok(){
 
        $( '#permisos').empty();
-       volver();
 
    }
 
@@ -345,7 +356,8 @@ function initialize(){
 
 
 function mostrarPoi(){
-$( ".detallePoi" ).empty();
+
+$( "#detallePoi" ).empty();
 
   $(".poiToShow").click(function(){
 
@@ -354,12 +366,12 @@ var url ='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+
 console.log(url);
 $.get(url, function(dataReceived){
 
-console.log(dataReceived);
-   for (var i = 0; i < dataReceived.length; i++) {
+//console.log(dataReceived);
+  // for (var i = 0; i < dataReceived.length; i++) {
 
-     $( ".detallePoi" ).append( '<br />	<p >Icono:</p><br /><img style="height:80px; width80px" src="'+dataReceived[i].icon+'" />' );
+     $( ".detallePoi" ).append( '<br /><img style="height:80px; width80px" src="'+dataReceived[0].icon+'" />' );
 
-   }
+   //}
 
 
  });//termina get
