@@ -22,7 +22,7 @@ http://localhost:8080/diseno-de-sistemas/reportByDate
 
 http://localhost:8080/diseno-de-sistemas/reportByTerminal?name=terminalGabo1
 
-http://localhost:8080/diseno-de-sistemas/all-reportshttp://localhost:8080/diseno-de-sistemas/search-poi-from?searchName=bank&terminalName=terminalGabo1
+http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName=bank&terminalName=terminalGabo1
 
 http://localhost:8080/diseno-de-sistemas/poi-addBank?name=bank1&type=bank&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&services=aa
 
