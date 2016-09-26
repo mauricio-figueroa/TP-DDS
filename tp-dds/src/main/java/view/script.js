@@ -275,7 +275,7 @@ console.log(url);
 
    			 });
 
-          mostrarPoi();
+
 
    			};
 
@@ -403,9 +403,11 @@ function initialize(){
 
 function mostrarPoi(){
 
-$( "#detallePoi" ).empty();
+
 
   $(".poiToShow").click(function(){
+
+    $( "#detallePoi" ).empty();
 
 
 var url ='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+$(this).text()+'&terminalName='+terminal;
