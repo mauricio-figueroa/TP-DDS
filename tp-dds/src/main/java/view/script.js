@@ -204,16 +204,62 @@ console.log(url);
   ///historial
 
    	function searchHistorial(){
-        // ar datSend={};
-        //
-   		// 	dataSend["user"]=$( "#nameUser" ).val();
-   		// 	dataSend["initFecha"]=$( "#initFecha"  ).val();
-   		// 	dataSend["finFecha"]=$( "#finFecha" ).val();
 
-   			url='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+$( "#nameUser" ).text()+'&terminalName='+terminal;
-   			url2='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+$( "#nameUser" ).val();
-console.log(url2);
-   			$.get(url2, function(dataReceived){
+
+
+
+      if($( "#nameUser" ).val() && !$( "#initFecha"  ).val() && !$( "#finFecha" ).val()){
+
+        var 	url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+$( "#nameUser" ).val();
+
+      }else if($( "#nameUser" ).val() && $( "#initFecha"  ).val() && !$( "#finFecha" ).val() ){
+
+        var 	url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+$( "#nameUser" ).val()+'&desde='+$( "#initFecha"  ).val();
+
+          if ( !checkDateFormat($( "#initFecha"  ).val())) {
+            alert("datos mal ingresados");
+            return;
+          }
+
+
+      }else if ($( "#nameUser" ).val() && $( "#initFecha"  ).val() && $( "#finFecha" ).val() ) {
+
+          var 	url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+$( "#nameUser" ).val()+'&desde='+$( "#initFecha"  ).val()+'&hasta='+$( "#finFecha" ).val();
+          if( !checkDateFormat($( "#initFecha"  ).val()) && !checkDateFormat($( "#finFecha"  ).val()) ) {
+            alert("datos mal ingresados");
+            return;
+          }
+
+
+      } else if(!$( "#nameUser" ).val() && $( "#initFecha"  ).val() && $( "#finFecha" ).val()){
+
+         var url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?desde='+$( "#initFecha"  ).val()+'&hasta='+$( "#finFecha" ).val();
+      //  var 	url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+terminal+'&desde='+$( "#initFecha"  ).val()+'&hasta='+$( "#finFecha" ).val();
+
+        if( !checkDateFormat($( "#initFecha"  ).val()) && !checkDateFormat($( "#finFecha"  ).val()) ) {
+          alert("datos mal ingresados");
+          return;
+        }
+
+
+      }else if ($( "#nameUser" ).val() && !$( "#initFecha"  ).val() && $( "#finFecha" ).val()) {
+
+        var 	url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+$( "#nameUser" ).val()+'&hasta='+$( "#finFecha" ).val();
+
+        if( !checkDateFormat($( "#finFecha"  ).val()) ) {
+          alert("datos mal ingresados");
+          return;
+        }
+
+      }else {
+        alert("Datos ingresados incorrectamente");
+      };
+
+   		//	url='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+$( "#nameUser" ).text()+'&terminalName='+terminal;
+
+        console.log(url);
+
+   			$.get(url, function(dataReceived){
    				 console.log(dataReceived);
 
    				 for (var i = 0; i < dataReceived.length; i++) {
@@ -378,6 +424,14 @@ $.get(url, function(dataReceived){
 
 });
 
+
+}
+function checkDateFormat(string){
+  if( string[2]=='/' && string[5]=='/' && string.length==10 && $.isNumeric( string[0]) && $.isNumeric( string[1]) && $.isNumeric( string[3]) && $.isNumeric( string[4]) && $.isNumeric( string[6]) && $.isNumeric( string[7]) && $.isNumeric( string[8]) && $.isNumeric( string[9]) ){
+    return true;
+  } else {
+    return false;
+  }
 
 }
 
