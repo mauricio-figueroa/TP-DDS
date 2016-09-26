@@ -40,3 +40,7 @@ http://localhost:8080/diseno-de-sistemas/poi-show
 
 http://localhost:8080/diseno-de-sistemas/poi-size
 
+http://localhost:8080/diseno-de-sistemas/crearUsuario?user=mauri&pw=mauri
+
+http://localhost:8080/diseno-de-sistemas/validarUsuario?user=mauri&pw=mauri
+
