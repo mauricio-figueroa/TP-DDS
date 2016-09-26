@@ -97,7 +97,7 @@ public class AdminController {
 
     @RequestMapping(value = ("/reportePorNombreTerminal"), method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity reportePorNombreTerminal(
+    public ResponseEntity<List<BusquedaDTO>> reportePorNombreTerminal(
             @RequestParam(value = "name", required = true) String name) {
 
 
@@ -106,7 +106,7 @@ public class AdminController {
         List<BusquedaDTO> busquedas=new ArrayList<>();
 
         for (LineaReporte currentRow:reporte.getBusquedas()) {
-            BusquedaDTO busquedaDto= new BusquedaDTO(currentRow.getFechaBusqueda().toString(),name,currentRow.getPalabraBuscada(),currentRow.getCantPoisBusqueda());
+            BusquedaDTO busquedaDto= new BusquedaDTO(name,currentRow.getFechaBusqueda().toString(),currentRow.getPalabraBuscada(),currentRow.getCantPoisBusqueda());
             busquedas.add(busquedaDto);
         }
 
