@@ -1,4 +1,4 @@
-var terminal;
+var terminal='terminalGabo1'
 var userSelected;
 
 var user1;
@@ -77,13 +77,15 @@ function search(){
 
    });
 
+   console.log(infoArray);
+
 //var url='http://localhost:8080/diseno-de-sistemas/poi-show';
 
 for (var i = 0; i <= infoArray.length; i++) {
 
   var url ='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+infoArray[i]+'&terminalName='+terminal;
 
-
+console.log(url);
        $.get(url, function(dataReceived){
 
 
@@ -198,29 +200,87 @@ for (var i = 0; i <= infoArray.length; i++) {
        $('.volver').hide();
      }
 
+
+  ///historial
+
    	function searchHistorial(){
-   		 	var datSend={};
 
-   			dataSend["user"]=$( "#nameUser" ).val();
-   			dataSend["initFecha"]=$( "#initFecha"  ).val();
-   			dataSend["finFecha"]=$( "#finFecha" ).val();
 
-   			url='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+$( "#nameUser" ).val()+'&terminalName='+terminal;
-   			url2='http://localhost:8080/diseno-de-sistemas/reportByTerminal?name='+terminal;
+
+
+      if($( "#nameUser" ).val() && !$( "#initFecha"  ).val() && !$( "#finFecha" ).val()){
+
+        var 	url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+$( "#nameUser" ).val();
+
+      }else if($( "#nameUser" ).val() && $( "#initFecha"  ).val() && !$( "#finFecha" ).val() ){
+
+        var 	url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+$( "#nameUser" ).val()+'&desde='+$( "#initFecha"  ).val();
+
+          if ( !checkDateFormat($( "#initFecha"  ).val())) {
+            alert("datos mal ingresados");
+            return;
+          }
+
+
+      }else if ($( "#nameUser" ).val() && $( "#initFecha"  ).val() && $( "#finFecha" ).val() ) {
+
+          var 	url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+$( "#nameUser" ).val()+'&desde='+$( "#initFecha"  ).val()+'&hasta='+$( "#finFecha" ).val();
+          if( !checkDateFormat($( "#initFecha"  ).val()) && !checkDateFormat($( "#finFecha"  ).val()) ) {
+            alert("datos mal ingresados");
+            return;
+          }
+
+
+      } else if(!$( "#nameUser" ).val() && $( "#initFecha"  ).val() && $( "#finFecha" ).val()){
+
+         var url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?desde='+$( "#initFecha"  ).val()+'&hasta='+$( "#finFecha" ).val();
+      //  var 	url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+terminal+'&desde='+$( "#initFecha"  ).val()+'&hasta='+$( "#finFecha" ).val();
+
+        if( !checkDateFormat($( "#initFecha"  ).val()) && !checkDateFormat($( "#finFecha"  ).val()) ) {
+          alert("datos mal ingresados");
+          return;
+        }
+
+
+      }else if ($( "#nameUser" ).val() && !$( "#initFecha"  ).val() && $( "#finFecha" ).val()) {
+
+        var 	url='http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name='+$( "#nameUser" ).val()+'&hasta='+$( "#finFecha" ).val();
+
+        if( !checkDateFormat($( "#finFecha"  ).val()) ) {
+          alert("datos mal ingresados");
+          return;
+        }
+
+      }else {
+        alert("Datos ingresados incorrectamente");
+      };
+
+   		//	url='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+$( "#nameUser" ).text()+'&terminalName='+terminal;
+
+        console.log(url);
 
    			$.get(url, function(dataReceived){
    				 console.log(dataReceived);
 
    				 for (var i = 0; i < dataReceived.length; i++) {
 
+              $( "#fecha" ).append( '<p> '+dataReceived[i].date+'<p/>' );
+              $( "#palabra_buscada" ).append( '<p class="poiToShow">'+dataReceived[i].palabraBuscada+'<p/>' );
+              $( "#cant_pois" ).append( '<p >'+dataReceived[i].cantPoisEncontrados+'<p/>' );
+              $( "#usuarioH" ).append( '<p >'+dataReceived[i].user+'<p/>' );
+
+              mostrarPoi();
    				 }
 
 
    			 });
 
-
+          mostrarPoi();
 
    			};
+
+
+        ///historial
 
 
    		function addPermiso(){
@@ -294,7 +354,6 @@ console.log(target);
    function Ok(){
 
        $( '#permisos').empty();
-       volver();
 
    }
 
@@ -340,3 +399,43 @@ function initialize(){
 
   remaining=[];
 }
+
+
+function mostrarPoi(){
+
+$( "#detallePoi" ).empty();
+
+  $(".poiToShow").click(function(){
+
+
+var url ='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+$(this).text()+'&terminalName='+terminal;
+console.log(url);
+$.get(url, function(dataReceived){
+
+//console.log(dataReceived);
+  // for (var i = 0; i < dataReceived.length; i++) {
+
+     $( ".detallePoi" ).append( '<br /><img style="height:80px; width80px" src="'+dataReceived[0].icon+'" />' );
+
+   //}
+
+
+ });//termina get
+
+});
+
+
+}
+function checkDateFormat(string){
+  if( string[2]=='/' && string[5]=='/' && string.length==10 && $.isNumeric( string[0]) && $.isNumeric( string[1]) && $.isNumeric( string[3]) && $.isNumeric( string[4]) && $.isNumeric( string[6]) && $.isNumeric( string[7]) && $.isNumeric( string[8]) && $.isNumeric( string[9]) ){
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
+
+// [{"user":"terminalGabo1","date":"Mon Sep 26 19:35:18 ART 2016","palabraBuscada":"bank","cantPoisEncontrados":3},{"user":"terminalGabo1","date":"Mon Sep 26 19:35:45 ART 2016","palabraBuscada":"cgp","cantPoisEncontrados":1}]
+
+//despues haces el http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name=terminalGabo1

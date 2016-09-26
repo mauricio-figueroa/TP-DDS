@@ -15,9 +15,13 @@
 	<script src="bootstrap/js/jquery.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 <script src="script.js"></script>
 
-</script>
+
 
 <link rel="stylesheet" href="stylesheet_java.css">
 </head>
@@ -36,7 +40,7 @@
 
 
 <!-- Pantalla de historial -->
-<div id="acciones" class="">
+<div id="acciones" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="">
            <h1>HISTORIAL DE BÚSQUEDAS REALIZADAS</h1>
         </div>
@@ -50,24 +54,36 @@
             <input id="initFecha" type="text" name="name" value="">
             <input id="finFecha" type="text" name="name" value="">
 
-            <button id="searchAc" type="button" name="button">Buscar</button>
+            <button id="searchAc" type="button" name="button" onclick="searchHistorial()">Buscar</button>
 
 
 
           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
             <h2>Resultado</h2>
 
-                  <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="namecol" >Fecha</p></div>
-                  <div class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >Usuario</p></div>
-                  <div class=" col col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="namecol" >Parámetros</p></div>
-                  <div class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >POIs</p></div>
+                  <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-4" id="fecha"><p  class="namecol" >Fecha</p>
+
+								</div>
+                  <div id="usuarioH" class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >Usuario</p>
+
+							</div>
+                  <div id="palabra_buscada" class=" col col-lg-4 col-md-4 col-sm-4 col-xs-4"><p class="namecol" >Parámetros</p>
+
+							</div>
+                  <div  id="cant_pois" class="col col-lg-2 col-md-2 col-sm-2 col-xs-2"><p class="namecol" >POIs</p>
+								<!-- <p class="poiToShow ">CGP</p>
+								<p class="poiToShow ">bank</p> -->
+							</div>
 
 
 
           </div>
 
-          <div class="">
+          <div class=" col col-lg-3 col-md-3 col-sm-3 col-xs-3">
                 <h2>Detalle de POIS</h2>
+								<div id="detallePoi" class="detallePoi col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+								</div>
           </div>
         </div>
 
@@ -137,6 +153,7 @@
 
 $( document ).ready(function() {
    initialize();
+	 mostrarPoi();
 });
 
 </script>
