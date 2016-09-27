@@ -216,6 +216,20 @@ public class AdminController {
         for (ReportePorTerminal currentReport : reportes) {
 
 
+
+            if (desde == null & hasta == null) {
+                ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(currentReport.getNombreTerminal());
+
+
+                for (LineaReporte currentRow : reporte.getBusquedas()) {
+                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+                    busquedas.add(busquedaDto);
+                }
+
+                return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
+            }
+
+
             if (desde != null & hasta == null) {
                 ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(currentReport.getNombreTerminal());
 
