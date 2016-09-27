@@ -98,11 +98,16 @@ public class AdminController {
     @RequestMapping(value = ("/reportePorNombreTerminal"), method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<BusquedaDTO>> reportePorNombreTerminalPorFecha(
-            @RequestParam(value = "name", required = true) String name,
+            @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "desde", required = false) String desde,
             @RequestParam(value = "hasta", required = false) String hasta) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        if (name == null) {
+            return this.funcionRecontraChotaComoTodoLaApp(desde, hasta);
+        }
+
 
         if (desde == null & hasta == null) {
             ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(name);
@@ -200,6 +205,97 @@ public class AdminController {
         return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
 
 
+    }
+
+    private ResponseEntity<List<BusquedaDTO>> funcionRecontraChotaComoTodoLaApp(String desde, String hasta) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        List<BusquedaDTO> busquedas = new ArrayList<>();
+        List<ReportePorTerminal> reportes = PoiService.getReportService().getReportes();
+
+        for (ReportePorTerminal currentReport : reportes) {
+
+
+            if (desde != null & hasta == null) {
+                ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(currentReport.getNombreTerminal());
+
+
+                for (LineaReporte currentRow : reporte.getBusquedas()) {
+                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+
+
+                    try {
+                        Date date = formatter.parse(desde);
+                        boolean b = currentRow.getFechaBusqueda().after(date);
+                        if (b) {
+                            busquedas.add(busquedaDto);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("me chupa un huevo");
+                    }
+                }
+
+
+                return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
+
+
+            }
+
+
+            if (hasta != null && desde == null) {
+                ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(currentReport.getNombreTerminal());
+
+
+                for (LineaReporte currentRow : reporte.getBusquedas()) {
+                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+
+                    try {
+                        Date date = formatter.parse(hasta);
+                        boolean b = currentRow.getFechaBusqueda().before(date);
+                        if (b) {
+                            busquedas.add(busquedaDto);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("me chupa un huevo");
+                    }
+                }
+
+                return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
+
+            }
+
+            if (hasta != null && desde != null) {
+
+
+                ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(currentReport.getNombreTerminal());
+
+
+                for (LineaReporte currentRow : reporte.getBusquedas()) {
+                    BusquedaDTO busquedaDto = new BusquedaDTO(currentReport.getNombreTerminal(), currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+
+                    try {
+                        Date dateDesde = formatter.parse(desde);
+                        Date dateHasta = formatter.parse(hasta);
+                        boolean despues = currentRow.getFechaBusqueda().after(dateDesde);
+                        boolean antes = currentRow.getFechaBusqueda().before(dateHasta);
+
+                        if (despues && antes) {
+                            busquedas.add(busquedaDto);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("me chupa un huevo");
+                    }
+                }
+
+                return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
+
+
+            }
+
+
+        }
+
+        return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
     }
 
 
