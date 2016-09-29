@@ -3,6 +3,9 @@ package controller.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import controller.response.BusquedaDTO;
 import domain.*;
@@ -10,10 +13,7 @@ import org.apache.commons.lang3.EnumUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import internalService.PoiService;
 import poi.*;
@@ -97,25 +97,110 @@ public class AdminController {
 
     @RequestMapping(value = ("/reportePorNombreTerminal"), method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<BusquedaDTO>> reportePorNombreTerminal(
-            @RequestParam(value = "name", required = true) String name) {
+    public ResponseEntity<List<BusquedaDTO>> reportePorNombreTerminalPorFecha(
+            @RequestParam(value = "name", required = true) String name,
+            @RequestParam(value = "desde", required = false) String desde,
+            @RequestParam(value = "hasta", required = false) String hasta) {
 
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-        ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(name);
+        if (desde == null & hasta == null) {
+            ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(name);
 
-        List<BusquedaDTO> busquedas=new ArrayList<>();
+            List<BusquedaDTO> busquedas = new ArrayList<>();
 
-        for (LineaReporte currentRow:reporte.getBusquedas()) {
-            BusquedaDTO busquedaDto= new BusquedaDTO(name,currentRow.getFechaBusqueda().toString(),currentRow.getPalabraBuscada(),currentRow.getCantPoisBusqueda());
-            busquedas.add(busquedaDto);
+            for (LineaReporte currentRow : reporte.getBusquedas()) {
+                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+                busquedas.add(busquedaDto);
+            }
+
+            return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
         }
 
+        if (desde != null & hasta == null) {
+            ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(name);
+
+            List<BusquedaDTO> busquedas = new ArrayList<>();
+
+            for (LineaReporte currentRow : reporte.getBusquedas()) {
+                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+
+
+                try {
+                    Date date = formatter.parse(desde);
+                    boolean b = currentRow.getFechaBusqueda().after(date);
+                    if (b) {
+                        busquedas.add(busquedaDto);
+                    }
+                } catch (Exception e) {
+                    System.out.println("me chupa un huevo");
+                }
+            }
+
+
+            return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
+
+
+        }
+
+
+        if (hasta != null && desde == null) {
+            ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(name);
+
+            List<BusquedaDTO> busquedas = new ArrayList<>();
+
+            for (LineaReporte currentRow : reporte.getBusquedas()) {
+                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+
+                try {
+                    Date date = formatter.parse(hasta);
+                    boolean b = currentRow.getFechaBusqueda().before(date);
+                    if (b) {
+                        busquedas.add(busquedaDto);
+                    }
+                } catch (Exception e) {
+                    System.out.println("me chupa un huevo");
+                }
+            }
+
+            return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
+
+        }
+
+        if (hasta != null && desde != null) {
+
+
+            ReportePorTerminal reporte = PoiService.getReportService().buscarReporteTerminal(name);
+
+            List<BusquedaDTO> busquedas = new ArrayList<>();
+
+            for (LineaReporte currentRow : reporte.getBusquedas()) {
+                BusquedaDTO busquedaDto = new BusquedaDTO(name, currentRow.getFechaBusqueda().toString(), currentRow.getPalabraBuscada(), currentRow.getCantPoisBusqueda());
+
+                try {
+                    Date dateDesde = formatter.parse(desde);
+                    Date dateHasta = formatter.parse(hasta);
+                    boolean despues = currentRow.getFechaBusqueda().after(dateDesde);
+                    boolean antes = currentRow.getFechaBusqueda().before(dateHasta);
+
+                    if (despues && antes) {
+                        busquedas.add(busquedaDto);
+                    }
+                } catch (Exception e) {
+                    System.out.println("me chupa un huevo");
+                }
+            }
+
+            return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
+
+
+        }
+
+        List<BusquedaDTO> busquedas = new ArrayList<>();
         return new ResponseEntity<List<BusquedaDTO>>(busquedas, HttpStatus.OK);
+
+
     }
-
-
-
-
 
 
     @RequestMapping(value = ("/poi-remove"), method = RequestMethod.GET)
@@ -148,7 +233,7 @@ public class AdminController {
             @RequestParam(value = "lon", required = true) double lon,
             @RequestParam(value = "services", required = false) String services) {
 
-        Poi poi = new Bank(name, new Address(mainStreet), new Coordinate(lat, lon),services);
+        Poi poi = new Bank(name, new Address(mainStreet), new Coordinate(lat, lon), services);
 
         admin.addPoi(poi);
         return new ResponseEntity(HttpStatus.OK);
@@ -188,7 +273,6 @@ public class AdminController {
     }
 
 
-
     @RequestMapping(value = ("/poi-addCGPServiceInTo"), method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity addPoiCGPService(
@@ -218,7 +302,6 @@ public class AdminController {
     }
 
 
-
     @RequestMapping(value = ("/poi-addComercial"), method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity addComercial(
@@ -229,17 +312,17 @@ public class AdminController {
             @RequestParam(value = "lon", required = true) double lon,
             @RequestParam(value = "rubro", required = true) String rubro,
             @RequestParam(value = "maxDistance", required = true) double maxDistance) {
-        CategoryShop categoryShop=null;
-        switch (rubro){
+        CategoryShop categoryShop = null;
+        switch (rubro) {
             case "Library":
-                 categoryShop= Library.getInstance(maxDistance);
+                categoryShop = Library.getInstance(maxDistance);
                 break;
             case "Newspaper":
-                categoryShop= Newspaper.getInstance(maxDistance);
+                categoryShop = Newspaper.getInstance(maxDistance);
                 break;
         }
 
-        Poi poi = new ComercialShop(name, new Address(mainStreet), new Coordinate(lat, lon),categoryShop);
+        Poi poi = new ComercialShop(name, new Address(mainStreet), new Coordinate(lat, lon), categoryShop);
         admin.addPoi(poi);
         return new ResponseEntity(HttpStatus.OK);
     }
