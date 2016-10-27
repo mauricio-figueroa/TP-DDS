@@ -20,7 +20,9 @@ public class CGP extends Poi {
 
     @Column(name="communeRadius")
     private double communeRadius;
-    @OneToOne(cascade = CascadeType.ALL)
+
+
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "services")
     private ArrayList<CGPService> services;
 

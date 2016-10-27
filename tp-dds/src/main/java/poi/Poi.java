@@ -15,7 +15,6 @@ import javax.persistence.*;
 @Table(name = "poi")
 public abstract class Poi implements PoiInterface {
 
-
 	@Id@GeneratedValue
 	protected long id;
 
@@ -34,7 +33,6 @@ public abstract class Poi implements PoiInterface {
 
 	@Column(name="name")
 	protected String name;
-
 
 
 	@OneToOne(cascade = CascadeType.ALL)
