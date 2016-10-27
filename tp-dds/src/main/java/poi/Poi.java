@@ -9,28 +9,42 @@ import domain.Coordinate;
 import externalServices.GoogleDistanceService.GoogleDistanceService;
 import internalService.AvailabilityService;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "poi")
 public abstract class Poi implements PoiInterface {
 
+
+	@Id@GeneratedValue
 	protected long id;
+
+	@Column(name="actived")
 	protected boolean actived;
-	public boolean isActived() {
-		return actived;
-	}
+
+	@Column(name="type")
 	protected String type;
+
+	@Column(name="servicios")
 	protected List<String> servicios;
 	protected String icon;
-
 	public void setActived(boolean actived) {
 		this.actived = actived;
 	}
 
+	@Column(name="name")
 	protected String name;
+
+
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
 	protected Address address;
+
 	protected Coordinate coordinate;
 	protected GoogleDistanceService googleService = GoogleDistanceService.getInstance();
 	protected AvailabilityService availabilityService = AvailabilityService.getInstance();
 	private List<String> data=new ArrayList<String>();
-
 	public Poi(String name, Address address, Coordinate coordinate) {
 		this.name = name;
 		this.address = address;
@@ -49,6 +63,10 @@ public abstract class Poi implements PoiInterface {
 
 	public List<String> getServicios() {
 		return servicios;
+	}
+
+	public boolean isActived() {
+		return actived;
 	}
 
 	public void setServicios(List<String> servicios) {
