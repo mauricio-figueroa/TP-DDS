@@ -12,7 +12,7 @@ public class EntityManagerProvider {
 
 
     private EntityManagerProvider() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("pu");
+        entityManagerFactory = Persistence.createEntityManagerFactory("db");
     }
     public static EntityManagerProvider getInstance() {
         if(instance == null){

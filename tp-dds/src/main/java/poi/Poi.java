@@ -3,6 +3,7 @@ package poi;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.http.client.ClientProtocolException;
 import domain.Address;
 import domain.Coordinate;
@@ -15,141 +16,143 @@ import javax.persistence.*;
 @Table(name = "poi")
 public abstract class Poi implements PoiInterface {
 
-	@Id@GeneratedValue
-	protected long id;
+    @Id
+    @GeneratedValue
+    protected long id;
 
-	@Column(name="actived")
-	protected boolean actived;
+    @Column(name = "actived")
+    protected boolean actived;
 
-	@Column(name="type")
-	protected String type;
+    @Column(name = "type")
+    protected String type;
 
-	@Column(name="servicios")
-	protected List<String> servicios;
-	protected String icon;
-	public void setActived(boolean actived) {
-		this.actived = actived;
-	}
+    @Transient
+    protected String icon;
 
-	@Column(name="name")
-	protected String name;
+    public void setActived(boolean actived) {
+        this.actived = actived;
+    }
+
+    @Column(name = "name")
+    protected String name;
 
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "address_id")
-	protected Address address;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_address")
+    protected Address address;
 
-	protected Coordinate coordinate;
-	protected GoogleDistanceService googleService = GoogleDistanceService.getInstance();
-	protected AvailabilityService availabilityService = AvailabilityService.getInstance();
-	private List<String> data=new ArrayList<String>();
-	public Poi(String name, Address address, Coordinate coordinate) {
-		this.name = name;
-		this.address = address;
-		this.coordinate = coordinate;
-		this.actived=true;
-	}
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cordinate")
+    protected Coordinate coordinate;
 
-	@Override
-	public String getType() {
-		return type;
-	}
+    @Transient
+    protected GoogleDistanceService googleService = GoogleDistanceService.getInstance();
+    @Transient
+    protected AvailabilityService availabilityService = AvailabilityService.getInstance();
+    @Transient
+    private List<String> data = new ArrayList<String>();
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public Poi(String name, Address address, Coordinate coordinate) {
+        this.name = name;
+        this.address = address;
+        this.coordinate = coordinate;
+        this.actived = true;
+    }
 
-	public List<String> getServicios() {
-		return servicios;
-	}
+    @Override
+    public String getType() {
+        return type;
+    }
 
-	public boolean isActived() {
-		return actived;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void setServicios(List<String> servicios) {
-		this.servicios = servicios;
-	}
 
-	public String getIcon() {
-		return icon;
-	}
+    public boolean isActived() {
+        return actived;
+    }
 
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
 
-	@Override
-	public String toString() {
-		return "Poi [name=" + name + ", coordinate=" + coordinate + "]";
-	}
+    public String getIcon() {
+        return icon;
+    }
 
-	public List<String> getData() {
-		return data;
-	}
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
-	public void setData(List<String> data) {
-		this.data = data;
-	}
+    @Override
+    public String toString() {
+        return "Poi [name=" + name + ", coordinate=" + coordinate + "]";
+    }
 
-	public GoogleDistanceService getGoogleService() {
-		return googleService;
-	}
+    public List<String> getData() {
+        return data;
+    }
 
-	public void setGoogleService(GoogleDistanceService googleService) {
-		this.googleService = googleService;
-	}
+    public void setData(List<String> data) {
+        this.data = data;
+    }
 
-	public AvailabilityService getAvailabilityService() {
-		return availabilityService;
-	}
+    public GoogleDistanceService getGoogleService() {
+        return googleService;
+    }
 
-	public void setAvailabilityService(AvailabilityService availabilityService) {
-		this.availabilityService = availabilityService;
-	}
+    public void setGoogleService(GoogleDistanceService googleService) {
+        this.googleService = googleService;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public AvailabilityService getAvailabilityService() {
+        return availabilityService;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setAvailabilityService(AvailabilityService availabilityService) {
+        this.availabilityService = availabilityService;
+    }
 
-	public Poi() {
-		super();
-	}
+    public String getName() {
+        return name;
+    }
 
-	public Address getAddress() {
-		return address;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    public Poi() {
+        super();
+    }
 
-	public Coordinate getCoordinate() {
-		return coordinate;
-	}
+    public Address getAddress() {
+        return address;
+    }
 
-	public void setCoordinate(Coordinate cordinate) {
-		this.coordinate = cordinate;
-	}
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
-	public boolean isNearby(Coordinate cordinate) throws ClientProtocolException, IOException {
-		return this.googleService.getDistance(this.coordinate, cordinate) < 500;
-	}
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
 
-	public boolean isAvailable() {
-		return false;
-	}
+    public void setCoordinate(Coordinate cordinate) {
+        this.coordinate = cordinate;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public boolean isNearby(Coordinate cordinate) throws ClientProtocolException, IOException {
+        return this.googleService.getDistance(this.coordinate, cordinate) < 500;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public boolean isAvailable() {
+        return false;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
 }

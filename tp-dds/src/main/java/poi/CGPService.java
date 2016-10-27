@@ -4,13 +4,23 @@ import domain.RangeOfAtention;
 import internalService.AvailabilityService;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.util.Date;
 
-@Entity(name = "cgpService")
+@Entity
+@Table(name = "cgpService")
 public class CGPService {
+
+
+    @Id @GeneratedValue
+    private long id;
 
     @Column(name = "serviceNAme")
     private String serviceName;
+
+    public CGPService() {
+    }
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "range_of_atention")

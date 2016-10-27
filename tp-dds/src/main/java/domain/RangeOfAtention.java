@@ -1,13 +1,23 @@
 package domain;
 
-import javax.persistence.Entity;
+
+import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "range_of_atention")
+@Entity
+@Table(name = "range_of_atention")
 public class RangeOfAtention {
 
 
+    @Id@GeneratedValue
+    private long id;
+
+    public RangeOfAtention() {
+    }
+
+    @Transient
     private List<Schedule> schedules;
+    @Transient
     private List<Integer> daysOfAttention;
 
 

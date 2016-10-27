@@ -17,19 +17,25 @@ public class Address {
 
     @Column(name = "number")
     private int number;
-    private List<String> betweenStreet;
+
+
+    // private List<String> betweenStreet;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "town")
     private Town town;
 
+    public Address() {
+    }
 
     public Address(String mainStreet) {
         this.mainStreet = mainStreet;
         this.number = 123;
-        this.betweenStreet = new ArrayList<String>();
+        //  this.betweenStreet = new ArrayList<String>();
 
     }
 
     public Address(String mainStreet, int number, List<String> betweenStreets) {
-        this.betweenStreet = betweenStreets;
+        //  this.betweenStreet = betweenStreets;
         this.number = number;
         this.mainStreet = mainStreet;
     }
@@ -51,27 +57,21 @@ public class Address {
         this.number = number;
     }
 
-    public List<String> getBetweenStreet() {
-        return betweenStreet;
-    }
+    //  public List<String> getBetweenStreet() {
+    //     return betweenStreet;
+    //  }
 
-    public void setBetweenStreet(List<String> betweenStreet) {
-        this.betweenStreet = betweenStreet;
-    }
+    // public void setBetweenStreet(List<String> betweenStreet) {
+    //     this.betweenStreet = betweenStreet;
+    //}
 
-    public Town getTown() {
-        return town;
-    }
+     public Town getTown() {
+       return town;
+     }
 
     public void setTown(Town town) {
-        this.town = town;
-    }
+       this.town = town;
+     }
 
-    public String getAddress() {
-        return ("Address: " + mainStreet + " " + number + " .Between streets " + betweenStreet.get(0) + " and " + betweenStreet.get(1) + ".");
-    }
 
-	public String getFullAddress(){
-		return (getAddress() + town.getFullAddress());
-	}
 }

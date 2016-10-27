@@ -12,8 +12,11 @@ import domain.Address;
 import domain.Coordinate;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 
-@Entity(name="cgp")
+@Entity
+@Table(name="cgp")
 public class CGP extends Poi {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CGP.class);
@@ -22,8 +25,6 @@ public class CGP extends Poi {
     private double communeRadius;
 
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "services")
     private ArrayList<CGPService> services;
 
     public CGP(String name, Address address, Coordinate coordinate, double communeRadius,

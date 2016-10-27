@@ -11,89 +11,94 @@ import domain.Coordinate;
 import domain.RangeOfAtention;
 import domain.Schedule;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "busStation")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Bank extends Poi {
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "range_of_atention")
-	private RangeOfAtention rangeOfAtention;
 
-	public List<String> services;
+    public Bank() {
+    }
 
-
-
-	public Bank(String name, Address address, Coordinate coordinate,String services){
-		super(name, address, coordinate);
-		this.services=new ArrayList<>();
-		icon="http://www.freeiconspng.com/uploads/full-size-jpg-preview-bank-building-icon-6.jpg";
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "range_of_atention")
+    private RangeOfAtention rangeOfAtention;
 
 
-		String[] parts = services.split(",");
-		for (String currentString:parts) {
-			this.services.add(currentString);
-		}
-		
-		List<Schedule> schedules1=new ArrayList<Schedule>();
-		schedules1.add(new Schedule("10:00", "15:00"));
-		List<Integer> days1=new ArrayList<Integer>();
-		days1.add(0);
-		days1.add(1);
-		days1.add(2);
-		days1.add(3);
-		days1.add(4);
-		days1.add(5);
-		days1.add(6);
-		this.type=this.getClass().getSimpleName();
-		
-		this.rangeOfAtention=new RangeOfAtention(schedules1, days1);
-		this.getData().add(this.getName());
-		this.getData().add(this.getAddress().getMainStreet());
-		this.getData().add("bank");
-		}
+    //@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    //@JoinColumn(name = "fk_services")
+    @Transient
+    public List<String> services;
 
-	public List<String> getServices() {
-		return services;
-	}
+    public Bank(String name, Address address, Coordinate coordinate, String services) {
+        super(name, address, coordinate);
+        this.services = new ArrayList<>();
+        icon = "http://www.freeiconspng.com/uploads/full-size-jpg-preview-bank-building-icon-6.jpg";
 
-	public void setServices(List<String> services) {
-		this.services = services;
-	}
 
-	public RangeOfAtention getRangeOfAtention() {
-		return rangeOfAtention;
-	}
+        String[] parts = services.split(",");
+        for (String currentString : parts) {
+            this.services.add(currentString);
+        }
 
-	public void setRangeOfAtention(RangeOfAtention rangeOfAtention) {
-		this.rangeOfAtention = rangeOfAtention;
-	}
+        List<Schedule> schedules1 = new ArrayList<Schedule>();
+        schedules1.add(new Schedule("10:00", "15:00"));
+        List<Integer> days1 = new ArrayList<Integer>();
+        days1.add(0);
+        days1.add(1);
+        days1.add(2);
+        days1.add(3);
+        days1.add(4);
+        days1.add(5);
+        days1.add(6);
+        this.type = this.getClass().getSimpleName();
 
-	public boolean isEnable() {
-		return true; // TO DO
-	}
+        this.rangeOfAtention = new RangeOfAtention(schedules1, days1);
+        this.getData().add(this.getName());
+        this.getData().add(this.getAddress().getMainStreet());
+        this.getData().add("bank");
+    }
 
-	public String getType() {
-		return "Bank";
-	}
+    public List<String> getServices() {
+        return services;
+    }
 
-	@Override
-	public int getNumber() {
-		return 0;
-	}
+    public void setServices(List<String> services) {
+        this.services = services;
+    }
 
-	public boolean isNearBy(Coordinate coordinate) throws ClientProtocolException, IOException {
-		double distance = this.getGoogleService().getDistance(coordinate, this.getCoordinate());
-		return distance < 100;
-	}
+    public RangeOfAtention getRangeOfAtention() {
+        return rangeOfAtention;
+    }
 
-	@Override
-	public boolean isAvailable() {
-		return this.getAvailabilityService().isAvailability( this.getRangeOfAtention());
-	}
-	
-	
+    public void setRangeOfAtention(RangeOfAtention rangeOfAtention) {
+        this.rangeOfAtention = rangeOfAtention;
+    }
+
+    public boolean isEnable() {
+        return true; // TO DO
+    }
+
+    public String getType() {
+        return "Bank";
+    }
+
+    @Override
+    public int getNumber() {
+        return 0;
+    }
+
+    public boolean isNearBy(Coordinate coordinate) throws ClientProtocolException, IOException {
+        double distance = this.getGoogleService().getDistance(coordinate, this.getCoordinate());
+        return distance < 100;
+    }
+
+    @Override
+    public boolean isAvailable() {
+        return this.getAvailabilityService().isAvailability(this.getRangeOfAtention());
+    }
 
 
 }
