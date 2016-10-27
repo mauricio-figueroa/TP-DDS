@@ -1,41 +1,47 @@
 package poi;
 
-import java.util.Date;
-
 import domain.RangeOfAtention;
 import internalService.AvailabilityService;
 
+import javax.persistence.*;
+import java.util.Date;
+
+@Entity(name = "cgpService")
 public class CGPService {
 
-	private String serviceName;
-	private RangeOfAtention rangeOfAtention;
+    @Column(name = "serviceNAme")
+    private String serviceName;
 
-	public CGPService(String serviceName, RangeOfAtention rangeOfAtention) {
-		super();
-		this.serviceName = serviceName;
-		this.rangeOfAtention = rangeOfAtention;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "range_of_atention")
+    private RangeOfAtention rangeOfAtention;
 
-	}
+    public CGPService(String serviceName, RangeOfAtention rangeOfAtention) {
+        super();
+        this.serviceName = serviceName;
+        this.rangeOfAtention = rangeOfAtention;
 
-	public RangeOfAtention getRangeOfAtention() {
-		return rangeOfAtention;
-	}
+    }
 
-	public void setRangeOfAtention(RangeOfAtention rangeOfAtention) {
-		this.rangeOfAtention = rangeOfAtention;
-	}
+    public RangeOfAtention getRangeOfAtention() {
+        return rangeOfAtention;
+    }
 
-	public String getServiceName() {
-		return serviceName;
-	}
+    public void setRangeOfAtention(RangeOfAtention rangeOfAtention) {
+        this.rangeOfAtention = rangeOfAtention;
+    }
 
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
-	}
-	
-	public boolean isAvailable(Date date, AvailabilityService availabilityService){
-		boolean available=availabilityService.isAvailability(this.getRangeOfAtention());
-		return available;		
-	}
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public boolean isAvailable(Date date, AvailabilityService availabilityService) {
+        boolean available = availabilityService.isAvailability(this.getRangeOfAtention());
+        return available;
+    }
 
 }

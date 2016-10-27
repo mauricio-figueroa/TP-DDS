@@ -5,6 +5,8 @@ import org.apache.http.client.ClientProtocolException;
 import domain.Address;
 import domain.Coordinate;
 
+import javax.persistence.Column;
+
 public class ComercialShop extends Poi {
 
 	private CategoryShop category;

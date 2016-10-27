@@ -11,11 +11,18 @@ import org.slf4j.LoggerFactory;
 import domain.Address;
 import domain.Coordinate;
 
+import javax.persistence.*;
+
+@Entity(name="cgp")
 public class CGP extends Poi {
 
-    private double communeRadius;
-    private ArrayList<CGPService> services;
     private static final Logger LOGGER = LoggerFactory.getLogger(CGP.class);
+
+    @Column(name="communeRadius")
+    private double communeRadius;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "services")
+    private ArrayList<CGPService> services;
 
     public CGP(String name, Address address, Coordinate coordinate, double communeRadius,
                ArrayList<CGPService> services) {
