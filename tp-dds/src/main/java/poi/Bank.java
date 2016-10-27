@@ -11,8 +11,16 @@ import domain.Coordinate;
 import domain.RangeOfAtention;
 import domain.Schedule;
 
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 public class Bank extends Poi {
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "range_of_atention")
 	private RangeOfAtention rangeOfAtention;
+
 	public List<String> services;
 
 
