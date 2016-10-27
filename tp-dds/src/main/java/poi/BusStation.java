@@ -6,16 +6,19 @@ import org.apache.http.client.ClientProtocolException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.IOException;
 
-
-@Entity(name="busStation")
+@Entity
+@Table(name = "busStation")
 public class BusStation extends Poi {
 
+    public BusStation() {
+    }
 
-    @Column(name="numberBusStation")
+
+    @Column(name = "numberBusStation")
     private Integer numberBusStation;
-
 
     public BusStation(String name, Address address, Coordinate coordinate, Integer aNumberBusStation) {
         super(name, address, coordinate);

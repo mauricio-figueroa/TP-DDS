@@ -9,14 +9,18 @@ import java.util.List;
 public class RangeOfAtention {
 
 
-    @Id@GeneratedValue
+    @Id
+    @GeneratedValue
     private long id;
 
     public RangeOfAtention() {
     }
 
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name="fk_range_of_atention")
     private List<Schedule> schedules;
+
+
     @Transient
     private List<Integer> daysOfAttention;
 

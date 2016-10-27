@@ -33,12 +33,14 @@ public class PoiService {
 	
 	
 	public static PoiService getInstance() {
+
 		if (instance == null) {
 			instance = new PoiService();
 			allPois = new ArrayList<Poi>();
 			bankService = BankService.getInstance();
 			reportService=ReportService.getInstance();
 			terminales=new ArrayList<Terminal>();
+			terminales.add(new Terminal("TerminalTest",new Coordinate(14.6,15.3),null));
 			processService= ProcessService.getInstance();
 			
 		}

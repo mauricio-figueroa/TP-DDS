@@ -3,6 +3,7 @@ package poi;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
@@ -16,19 +17,22 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 
 @Entity
-@Table(name="cgp")
+@Table(name = "cgp")
 public class CGP extends Poi {
+public CGP() {
+    }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CGP.class);
 
-    @Column(name="communeRadius")
+    @Column(name = "communeRadius")
     private double communeRadius;
 
 
-    private ArrayList<CGPService> services;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CGPService> services;
 
     public CGP(String name, Address address, Coordinate coordinate, double communeRadius,
-               ArrayList<CGPService> services) {
+               List<CGPService> services) {
         super(name, address, coordinate);
         this.type = this.getClass().getSimpleName();
         this.communeRadius = communeRadius;
@@ -54,7 +58,7 @@ public class CGP extends Poi {
         this.communeRadius = communeRadius;
     }
 
-    public ArrayList<CGPService> getServices() {
+    public List<CGPService> getServices() {
         return services;
     }
 

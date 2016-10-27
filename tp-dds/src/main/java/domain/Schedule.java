@@ -1,58 +1,72 @@
 package domain;
 
+
+import javax.persistence.*;
 import java.util.Date;
 
 
 @SuppressWarnings("deprecation")
+@Entity
+@Table
 public class Schedule {
 
-	private Date hourMax;
-	private Date hourMin;
+    @Id
+    @GeneratedValue
+    protected long id;
 
-	public Date getHourMax() {
-		return hourMax;
-	}
+    @Column
+    private Date hourMax;
 
-	public void setHourMax(Date hourMax) {
-		this.hourMax = hourMax;
-	}
+    @Column
+    private Date hourMin;
 
-	public Date getHourMin() {
-		return hourMin;
-	}
+    public Date getHourMax() {
+        return hourMax;
+    }
 
-	public void setHourMin(Date hourMin) {
-		this.hourMin = hourMin;
-	}
+    public Schedule() {
+    }
 
-	public Schedule(String hourMinString, String hourMaxString) {
+    public void setHourMax(Date hourMax) {
+        this.hourMax = hourMax;
+    }
 
-		initMinHour(hourMinString);
-		initMaxHour(hourMaxString);
+    public Date getHourMin() {
+        return hourMin;
+    }
 
-	}
+    public void setHourMin(Date hourMin) {
+        this.hourMin = hourMin;
+    }
 
-	private void initMinHour(String hourMinString) {
+    public Schedule(String hourMinString, String hourMaxString) {
 
-		String[] hourMinSplit = hourMinString.split(":");
-		int hourMinInt = Integer.parseInt(hourMinSplit[0]);
-		int minuteMinInt = Integer.parseInt(hourMinSplit[1]);
-		this.hourMin = new Date();
-		hourMin.setHours(hourMinInt);
-		hourMin.setMinutes(minuteMinInt);
-		hourMin.setSeconds(0);
+        initMinHour(hourMinString);
+        initMaxHour(hourMaxString);
 
-	}
+    }
 
-	private void initMaxHour(String hourMaxString) {
+    private void initMinHour(String hourMinString) {
 
-		String[] hourMaxSplit = hourMaxString.split(":");
-		int hour = Integer.parseInt(hourMaxSplit[0]);
-		int minute = Integer.parseInt(hourMaxSplit[1]);
-		this.hourMax = new Date();
-		hourMax.setHours(hour);
-		hourMax.setMinutes(minute);
-		hourMax.setSeconds(0);
-	}
+        String[] hourMinSplit = hourMinString.split(":");
+        int hourMinInt = Integer.parseInt(hourMinSplit[0]);
+        int minuteMinInt = Integer.parseInt(hourMinSplit[1]);
+        this.hourMin = new Date();
+        hourMin.setHours(hourMinInt);
+        hourMin.setMinutes(minuteMinInt);
+        hourMin.setSeconds(0);
+
+    }
+
+    private void initMaxHour(String hourMaxString) {
+
+        String[] hourMaxSplit = hourMaxString.split(":");
+        int hour = Integer.parseInt(hourMaxSplit[0]);
+        int minute = Integer.parseInt(hourMaxSplit[1]);
+        this.hourMax = new Date();
+        hourMax.setHours(hour);
+        hourMax.setMinutes(minute);
+        hourMax.setSeconds(0);
+    }
 
 }

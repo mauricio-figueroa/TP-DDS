@@ -1,19 +1,36 @@
 package controller.response;
 
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.List;
 
+@Entity
+@Table(name = "poi_dto")
 public class PoiDTO {
 
+    public PoiDTO() {
+    }
 
-    public String icon;
+    @Id@GeneratedValue
+    private long id;
+
+    @Transient
+    private String icon;
+    @Transient
     public int numberLine;
+    @Transient
     public String type;
+    @Transient
     public String direccion;
+    @Transient
     public String zone;
+    @Transient
     public HashMap<String, List<Integer>> cgpServices;
+    @Transient
     public List<String> bankServices;
+    @Transient
     public String name;
+    @Transient
     public String activity;
 
 
