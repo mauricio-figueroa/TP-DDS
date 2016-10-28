@@ -28,18 +28,19 @@ public class PoiDTO {
     public HashMap<String, List<Integer>> cgpServices;
     @Transient
     public List<String> bankServices;
-    @Transient
+    @Column(name="name_poi")
     public String name;
     @Transient
     public String activity;
 
 
-    public PoiDTO(String icon, String type, String direccion, String zone, List<String> bankServices) {
+    public PoiDTO(String icon, String type, String direccion, String zone, List<String> bankServices,String name ) {
         this.icon = icon;
         this.type = type;
         this.direccion = direccion;
         this.zone = zone;
         this.bankServices = bankServices;
+        this.name=name;
     }
 
 
@@ -51,7 +52,8 @@ public class PoiDTO {
         this.cgpServices = cgpServices;
     }
 
-    public PoiDTO(String icon, String type, int numberLine) {
+    public PoiDTO(String name,String icon, String type, int numberLine) {
+        this.name=name;
         this.icon = icon;
         this.type = type;
         this.numberLine = numberLine;
@@ -140,4 +142,11 @@ public class PoiDTO {
     }
 
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

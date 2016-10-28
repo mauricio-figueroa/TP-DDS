@@ -25,7 +25,7 @@ public class Search {
     private String searchKeys;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name="fk_search")
     private List<PoiDTO> poiDTOs;
 
     public void setId(long id) {

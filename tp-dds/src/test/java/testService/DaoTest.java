@@ -6,10 +6,7 @@ import domain.*;
 import internalService.PoiService;
 import org.junit.Assert;
 import org.junit.Test;
-import poi.Bank;
-import poi.BusStation;
-import poi.CGP;
-import poi.CGPService;
+import poi.*;
 import users.Terminal;
 
 import javax.mail.MessagingException;
@@ -20,7 +17,7 @@ import java.util.List;
 public class DaoTest {
 
     EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
-    Bank bank = new Bank("Banco1", new Address("corrientes"), new Coordinate(127.4, 125.6), "extraccion moneda");
+    Bank bank = new Bank("Banco", new Address("corrientes"), new Coordinate(127.4, 125.6), "extraccion moneda");
     List<CGPService> cgpServices = new ArrayList<>();
     Schedule schedule = new Schedule("04:30", "04:55");
     Schedule schedule2 = new Schedule("04:40", "04:55");
@@ -52,26 +49,26 @@ public class DaoTest {
     }
 
     @Test
-    public void modificarPoi(){
-        long id=bankDao.saveOrUpdate(bank).getId();
+    public void modificarPoi() {
+        long id = bankDao.saveOrUpdate(bank).getId();
 
 
-        Bank bankModi=bankDao.getById(id);
-        Coordinate corCoordinate=new Coordinate(1234.5,1234.5);
+        Bank bankModi = bankDao.getById(id);
+        Coordinate corCoordinate = new Coordinate(1234.5, 1234.5);
         bankModi.setCoordinate(corCoordinate);
 
-        id=bankDao.saveOrUpdate(bankModi).getId();
-        bankModi=bankDao.getById(id);
+        id = bankDao.saveOrUpdate(bankModi).getId();
+        bankModi = bankDao.getById(id);
 
-        Assert.assertEquals(bankModi.getCoordinate().getLatitude(),corCoordinate.getLatitude(),0.1);
-        Assert.assertEquals(bankModi.getCoordinate().getLongitude(),corCoordinate.getLongitude(),0.1);
+        Assert.assertEquals(bankModi.getCoordinate().getLatitude(), corCoordinate.getLatitude(), 0.1);
+        Assert.assertEquals(bankModi.getCoordinate().getLongitude(), corCoordinate.getLongitude(), 0.1);
     }
 
 
     @Test
-    public void eliminarPoi(){
-        long id=bankDao.saveOrUpdate(bank).getId();
-        Bank bankModi=bankDao.getById(id);
+    public void eliminarPoi() {
+        long id = bankDao.saveOrUpdate(bank).getId();
+        Bank bankModi = bankDao.getById(id);
         bankDao.remove(bankModi);
 
         Assert.assertNull(bankDao.getById(id));
@@ -83,25 +80,30 @@ public class DaoTest {
 
     @Test
     public void persistirBusqueda() throws MessagingException, InterruptedException {
-        String name=bankDao.saveOrUpdate(bank).getName();
-        SearchDao searchDao=new SearchDao(entityManager);
-        Coordinate corCoordinate=new Coordinate(1234.5,1234.5);
+        Bank bank2 = new Bank("Banco", new Address("corrientes"), new Coordinate(127.4, 125.6), "extraccion moneda");
+        PoiService poiService = PoiService.getInstance();
+        poiService.addPoi(bank);
+        poiService.addPoi(bank2);
+        String name1 = bankDao.saveOrUpdate(bank).getName();
+        String name = bankDao.saveOrUpdate(bank2).getName();
+        SearchDao searchDao = new SearchDao(entityManager);
+        Coordinate corCoordinate = new Coordinate(1234.5, 1234.5);
         PoiService.getInstance();
-        String nameTerminal="TerminalTest";
-        Terminal terminal= new Terminal(nameTerminal,corCoordinate,null);
+        String nameTerminal = "TerminalTest";
+        Terminal terminal = new Terminal(nameTerminal, corCoordinate, null);
 
-        TerminalController terminalController=new TerminalController();
-        terminalController.searchPoiFrom(name,nameTerminal);
+        TerminalController terminalController = new TerminalController();
+        terminalController.searchPoiFrom(name, nameTerminal);
+        terminal.setPoiService(poiService);
 
-        Search search=searchDao.getById(1l);
+        Search search = searchDao.getById(1l);
 
-        boolean persistirBusqueda= search.getPoiDTOs().stream().anyMatch(
 
-                poiDTO -> poiDTO.getName().equalsIgnoreCase(name) );
-        Assert.assertTrue(persistirBusqueda);
+        Assert.assertEquals(search.getPoiDTOs().get(0).getName(),bank.getName());
+        Assert.assertEquals(search.getPoiDTOs().get(1).getName(),bank2.getName());
+
+
     }
-
-
 
 
 }

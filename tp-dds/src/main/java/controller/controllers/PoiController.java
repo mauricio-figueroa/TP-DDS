@@ -51,12 +51,12 @@ public class PoiController {
 				case "Bank":
 					Bank bank = (Bank) currentPoi;
 
-					poisDTO.add(new PoiDTO (bank.getIcon(),bank.getType() ,  bank.getAddress().getMainStreet(),  bank.getAddress().getMainStreet(), bank.getServices()));
+					poisDTO.add(new PoiDTO (bank.getIcon(),bank.getType() ,  bank.getAddress().getMainStreet(),  bank.getAddress().getMainStreet(), bank.getServices(),bank.getName()));
 					break;
 
 				case "BusStation":
 					BusStation busStation=(BusStation) currentPoi;
-					poisDTO.add(new PoiDTO(busStation.getIcon(),busStation.getType(),busStation.getNumberBusStation()));
+					poisDTO.add(new PoiDTO(busStation.getName(),busStation.getIcon(),busStation.getType(),busStation.getNumberBusStation()));
 					break;
 				case "CGP":
 					CGP cgp= (CGP) currentPoi;
