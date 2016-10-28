@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import controller.response.BusquedaDTO;
+import dao.AdminDAO;
+import dao.EntityManagerProvider;
 import domain.*;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import poi.*;
 import users.Admin;
 import users.Terminal;
 
+import javax.persistence.EntityManager;
+
 @Controller
 public class AdminController {
 
@@ -27,6 +31,19 @@ public class AdminController {
 
     public AdminController() {
         admin = new Admin();
+    }
+
+
+    @RequestMapping(value = ("/terminal-add"), method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity registerAdmin(@RequestParam(value="user", required = true) String user,
+                                        @RequestParam(value="pass",required = true) String pass,
+                                        @RequestParam(value="mail",required = true) String mail){
+        EntityManager entityManager= EntityManagerProvider.getInstance().getEntityManager();
+        AdminDAO adminDAO = new AdminDAO(entityManager);
+        Admin adminToReg= new Admin(null,user,pass,"email");
+        Admin admin= adminDAO.saveOrUpdate(adminToReg);
+        return new ResponseEntity(admin.getId(),HttpStatus.OK);
     }
 
     @RequestMapping(value = ("/terminal-add"), method = RequestMethod.GET)

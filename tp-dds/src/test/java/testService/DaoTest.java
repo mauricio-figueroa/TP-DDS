@@ -1,12 +1,15 @@
 package testService;
 
+import controller.controllers.AdminController;
 import controller.controllers.TerminalController;
 import dao.*;
 import domain.*;
 import internalService.PoiService;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.http.ResponseEntity;
 import poi.*;
+import users.Admin;
 import users.Terminal;
 
 import javax.mail.MessagingException;
@@ -102,7 +105,20 @@ public class DaoTest {
         Assert.assertEquals(search.getPoiDTOs().get(0).getName(),bank.getName());
         Assert.assertEquals(search.getPoiDTOs().get(1).getName(),bank2.getName());
 
+    }
 
+
+    @Test
+    public void persistirUsuario(){
+        AdminDAO adminDAO = new AdminDAO(entityManager);
+        AdminController adminCon= new AdminController();
+        ResponseEntity response= adminCon.registerAdmin("gabo","123","gabriel.dyck@gmail.com");
+        long id= (long)response.getBody();
+        Admin admin= adminDAO.getById(id);
+        admin.setNombre("f3r");
+        adminDAO.saveOrUpdate(admin);
+        admin=adminDAO.getById(id);
+        Assert.assertTrue(admin.getNombre().equalsIgnoreCase("f3r"));
     }
 
 

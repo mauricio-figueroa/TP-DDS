@@ -12,13 +12,28 @@ import poi.CGP;
 import poi.CGPService;
 import poi.Poi;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="ADMIN")
 public class Admin {
 
+	@Id@GeneratedValue
 	private long id;
+
+	@Transient
 	private List<List<String>> actions;
+
+	@Column(name="NOMBRE")
 	private String nombre;
+
+	@Transient
 	private PoiService poiService;
+
+	@Column(name="MAIL")
 	private String mail;
+
+	@Transient
 	private ErrorProcessResolution errorResolution;
 
 
