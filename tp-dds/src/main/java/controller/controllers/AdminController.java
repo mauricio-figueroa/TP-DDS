@@ -34,7 +34,7 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value = ("/terminal-add"), method = RequestMethod.GET)
+    @RequestMapping(value = ("/register-admin"), method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity registerAdmin(@RequestParam(value="user", required = true) String user,
                                         @RequestParam(value="pass",required = true) String pass,

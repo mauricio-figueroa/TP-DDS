@@ -145,20 +145,20 @@ console.log(url);
      });
 
 
-   $.get('http://localhost:8080/diseno-de-sistemas/poi-addBusStation?name=114Parada&type=busStation&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&busNumber=114',
+   $.get('http://localhost:8080/diseno-de-sistemas/poi-addBusStation?name=114Parada&type=busStation&mainStreet=Avenida Siempre Viva%201231&lat=-34.638473&lon=-58.391618&busNumber=114',
     function(dataReceived){
      console.log('Se agregó un BusStation');});
 
 
-   $.get('http://localhost:8080/diseno-de-sistemas/poi-addCGP?name=CGPGab0&type=CGP&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&communeRadius=%2043.56', function(dataReceived){
+   $.get('http://localhost:8080/diseno-de-sistemas/poi-addCGP?name=CGPGab0&type=CGP&mainStreet=Avenida Siempre Viva%201231&lat=-34.638473&lon=-58.391618&communeRadius=%2043.56', function(dataReceived){
      console.log('Se agregó un CGP');});
 
 
-   $.get('http://localhost:8080/diseno-de-sistemas/poi-addComercial?name=gab0Library&type=library&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&rubro=Library&maxDistance=500', function(dataReceived){
+   $.get('http://localhost:8080/diseno-de-sistemas/poi-addComercial?name=gab0Library&type=library&mainStreet=Avenida Siempre Viva%201231&lat=-34.638473&lon=-58.391618&rubro=Library&maxDistance=500', function(dataReceived){
      console.log('Se agregó un Local Comercial');});
 
 
-   $.get('http://localhost:8080/diseno-de-sistemas/poi-addBank?name=bank1&type=bank&mainStreet=Straccia%201231&lat=-34.638473&lon=-58.391618&services=aa', function(dataReceived){
+   $.get('http://localhost:8080/diseno-de-sistemas/poi-addBank?name=bank1&type=bank&mainStreet=Avenida Siempre Viva%201231&lat=-34.638473&lon=-58.391618&services=aa', function(dataReceived){
      console.log('Se agregó un Banco');});
 
 
