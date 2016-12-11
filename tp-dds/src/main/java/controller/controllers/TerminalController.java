@@ -2,6 +2,7 @@ package controller.controllers;
 
 import controller.response.PoiDTO;
 import dao.EntityManagerProvider;
+import dao.MongoDBManager;
 import dao.SearchDao;
 import domain.Search;
 import internalService.PoiService;
@@ -83,8 +84,10 @@ public class TerminalController {
         Search search=new Search(terminalName+searchName,poisDTO);
 
         EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+
         SearchDao searchDao=new SearchDao(entityManager);
         searchDao.saveOrUpdate(search);
+        MongoDBManager.saveSearch(search);
         return new ResponseEntity<List<PoiDTO>>(poisDTO, HttpStatus.OK);
     }
 
