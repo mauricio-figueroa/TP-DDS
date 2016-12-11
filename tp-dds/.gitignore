@@ -1,5 +1,6 @@
 /target/
 /.idea
 /tp-dds.iml
-/.idea
-RepoteSystemsTempFiles/
+.idea
+RemoteSystemsTempFiles/.idea/
+/RemoteSystemsTempFiles/.idea/
