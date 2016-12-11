@@ -36,7 +36,6 @@ function closeModal(){
   modalC.style.display="none";
 
 }
-
 function addInput(){
   var d = document.getElementById("content");
  d.innerHTML += '<br />	<input id="searchPoi" class="dataSearch" type="text" name="name" value="">';
