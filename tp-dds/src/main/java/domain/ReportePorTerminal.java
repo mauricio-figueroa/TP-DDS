@@ -35,7 +35,7 @@ public class ReportePorTerminal {
 		this.busquedas = busquedas;
 	}
 
-	public void agregarReporteAterminal(int cantPoisBusqueda,String palabraBuscada) {
+	public void agregarReporteAterminal(int cantPoisBusqueda,List<String> palabraBuscada) {
 		busquedas.add(new LineaReporte(new Date(), cantPoisBusqueda, palabraBuscada));
 	}
 

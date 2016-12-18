@@ -2,6 +2,7 @@ package internalService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -73,6 +74,11 @@ public class PoiService {
 		return searchTerminal;
 		
 	}
+
+
+	public Terminal searchTerminalByName(String name){
+		return terminales.stream().filter(terminal-> terminal.getNombre().equalsIgnoreCase(name)).findFirst().get();
+	}
 	
 	
 	public static BankService getBankService() {
@@ -141,27 +147,57 @@ public class PoiService {
 		return poi.isAvailable();
 	}
 
-	public List<Poi> searchPois(String string, String nombreTerminal) throws AddressException, MessagingException, InterruptedException {
+	public List<Poi> searchPois(List<String> textosBuscados, String nombreTerminal) throws AddressException, MessagingException, InterruptedException {
 		Reloj reloj=new Reloj();
 		reloj.Contar();
 		List<Poi> pois = new ArrayList<Poi>();
-		for (Poi poi : allPois) {
-			
+
+		textosBuscados.forEach(texto ->
+		{for (Poi poi : allPois) {
+
 			for (String text : poi.getData()) {
-				if (text.contains(string)) {
+				if (text.contains(texto)) {
 					pois.add(poi);
 					break;
 				}
 			}
 		}
+		});
+
 		System.out.println(pois.size());
 		//Thread.sleep(6000);
 		reloj.Detener();
 		int segundosQueTardo=reloj.getSegundos();
 		System.out.println("Segundoooos: "+segundosQueTardo);
-		this.subjectBusquedas.notificarObservador(string, nombreTerminal, pois,segundosQueTardo);
+		this.subjectBusquedas.notificarObservador(textosBuscados, nombreTerminal, pois,segundosQueTardo);
 		return pois;
 	}
+
+	public List<Poi> searchPois(String textoBuscado, String nombreTerminal) throws AddressException, MessagingException, InterruptedException {
+		Reloj reloj=new Reloj();
+		reloj.Contar();
+		List<Poi> pois = new ArrayList<Poi>();
+
+		for (Poi poi : allPois) {
+
+			for (String text : poi.getData()) {
+				if (text.contains(textoBuscado)) {
+					pois.add(poi);
+					break;
+				}
+
+		}
+		}
+
+		System.out.println(pois.size());
+		//Thread.sleep(6000);
+		reloj.Detener();
+		int segundosQueTardo=reloj.getSegundos();
+		System.out.println("Segundoooos: "+segundosQueTardo);
+		this.subjectBusquedas.notificarObservador(Arrays.asList(textoBuscado), nombreTerminal, pois,segundosQueTardo);
+		return pois;
+	}
+
 
 	public List<Bank> searchBank(String bank, String service) {
 		return getBanksFromExternalService(bank, service);

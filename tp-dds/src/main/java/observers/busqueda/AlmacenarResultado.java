@@ -2,6 +2,8 @@ package observers.busqueda;
 
 import internalService.ReportService;
 
+import java.util.List;
+
 public class AlmacenarResultado implements ObserverBusqueda {
 	
 	private ReportService reportService=ReportService.getInstance();
@@ -10,7 +12,7 @@ public class AlmacenarResultado implements ObserverBusqueda {
 
 
 	@Override
-	public void update(String palabraBuscada, String nombreTerminal, int cantPoisBusqueda,int segundosQueTardo) {
+	public void update(List<String> palabraBuscada, String nombreTerminal, int cantPoisBusqueda, int segundosQueTardo) {
 		reportService.addReporte(nombreTerminal, palabraBuscada, cantPoisBusqueda);		
 	}
 

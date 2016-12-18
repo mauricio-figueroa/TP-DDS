@@ -72,17 +72,17 @@ function search(){
 
   infoArray=[];
      $( '.dataSearch' ).each(function() {
-     infoArray.push($( this ).val());
-
+         if ($( this ).val() !=""){
+             infoArray.push($( this ).val());
+         }
    });
 
    console.log(infoArray);
 
 //var url='http://localhost:8080/diseno-de-sistemas/poi-show';
+var searchName= infoArray.join(",");
 
-for (var i = 0; i <= infoArray.length; i++) {
-
-  var url ='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+infoArray[i]+'&terminalName='+terminal;
+  var url ='http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName='+searchName+'&terminalName='+terminal;
 
 console.log(url);
        $.get(url, function(dataReceived){
@@ -130,7 +130,7 @@ console.log(url);
 
         });//termina get
   //termina for
-}
+
 
 
    };

@@ -7,6 +7,7 @@ import dao.SearchDao;
 import domain.Search;
 import internalService.PoiService;
 import internalService.UsuarioService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,7 @@ public class TerminalController {
     @RequestMapping(value = ("/search-poi-from"), method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity searchPoiFrom(
-            @RequestParam(value = "searchName", required = true) String searchName,
+            @RequestParam(value = "searchName", required = true) List<String> searchList,
             @RequestParam(value = "terminalName", required = true) String terminalName) throws AddressException, MessagingException, InterruptedException {
 
         List<PoiDTO> poisDTO = new ArrayList<PoiDTO>();
@@ -50,7 +51,7 @@ public class TerminalController {
 
 
         }
-        List<Poi> pois = terminal.searchPoi(searchName);
+        List<Poi> pois = terminal.searchPoi(searchList);
 
 
         for (Poi currentPoi : pois) {
@@ -81,7 +82,7 @@ public class TerminalController {
             }
 
         }
-        Search search=new Search(terminalName+searchName,poisDTO);
+        Search search=new Search(terminalName+ StringUtils.join(searchList,","),poisDTO);
 
         EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
 
@@ -95,7 +96,7 @@ public class TerminalController {
     @RequestMapping(value = ("/is-near-by"), method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity isNearBy(
-            @RequestParam(value = "searchName", required = true) String searchName,
+            @RequestParam(value = "searchName", required = true) List<String> searchName,
             @RequestParam(value = "terminalName", required = true) String terminalName) throws AddressException, MessagingException, InterruptedException, ClientProtocolException, IOException {
 
         Terminal terminal = poiService.searchTerminal(terminalName);

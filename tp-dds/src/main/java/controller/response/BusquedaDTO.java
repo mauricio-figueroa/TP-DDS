@@ -3,16 +3,18 @@ package controller.response;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.List;
+
 public class BusquedaDTO {
 
     private String date;
     private String user;
-    private String palabraBuscada;
+    private List<String> palabraBuscada;
     private int cantPoisEncontrados;
 
 
     @JsonCreator
-    public BusquedaDTO(@JsonProperty("user") String user, @JsonProperty("date") String date, @JsonProperty("palabraBuscada") String palabraBuscada, @JsonProperty("cantPoisEncontrados") int cantPoisEncontrados) {
+    public BusquedaDTO(@JsonProperty("user") String user, @JsonProperty("date") String date, @JsonProperty("palabraBuscada") List<String> palabraBuscada, @JsonProperty("cantPoisEncontrados") int cantPoisEncontrados) {
         this.date = date;
         this.user = user;
         this.palabraBuscada = palabraBuscada;
@@ -30,12 +32,12 @@ public class BusquedaDTO {
     }
 
     @JsonProperty("palabraBuscada")
-    public void setPalabraBuscada(String palabraBuscada) {
+    public void setPalabraBuscada(List<String> palabraBuscada) {
         this.palabraBuscada = palabraBuscada;
     }
 
     @JsonProperty("palabraBuscada")
-    public String getPalabraBuscada() {
+    public List<String> getPalabraBuscada() {
         return this.palabraBuscada;
     }
 

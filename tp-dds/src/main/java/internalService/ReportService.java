@@ -36,7 +36,7 @@ public class ReportService {
 		this.reportes = reportes;
 	}
 
-	public void addReporte(String nombreTerminal, String palabraBuscada, Integer cantPoisBusqueda) {
+	public void addReporte(String nombreTerminal, List<String> palabraBuscada, Integer cantPoisBusqueda) {
 		int i = 0;
 		for (ReportePorTerminal currentReport : reportes) {
 			if (currentReport.getNombreTerminal().equalsIgnoreCase(nombreTerminal)) {

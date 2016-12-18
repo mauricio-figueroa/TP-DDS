@@ -14,7 +14,7 @@ public interface Subject {
 
 	public void eliminarObservador();
 
-	void notificarObservador(String stringBuscado, String nombreTerminal, List<Poi> poisEncontrados,
+	void notificarObservador(List<String> stringBuscado, String nombreTerminal, List<Poi> poisEncontrados,
 			int segundosQueTardo) throws AddressException, MessagingException;
 
 }

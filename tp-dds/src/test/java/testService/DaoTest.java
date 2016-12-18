@@ -15,6 +15,7 @@ import users.Terminal;
 import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DaoTest {
@@ -96,7 +97,7 @@ public class DaoTest {
         Terminal terminal = new Terminal(nameTerminal, corCoordinate, null);
 
         TerminalController terminalController = new TerminalController();
-        terminalController.searchPoiFrom(name, nameTerminal);
+        terminalController.searchPoiFrom(Arrays.asList(name), nameTerminal);
         terminal.setPoiService(poiService);
 
         Search search = searchDao.getById(1l);

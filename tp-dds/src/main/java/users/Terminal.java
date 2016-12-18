@@ -95,8 +95,12 @@ public class Terminal {
         return poiService.isAvailable(poi);
     }
 
-    public List<Poi> searchPoi(String textoBuscado) throws AddressException, MessagingException, InterruptedException {
-        return this.poiService.searchPois(textoBuscado, this.getNombre());
+    public List<Poi> searchPoi(List<String> textosBuscados) throws AddressException, MessagingException, InterruptedException {
+        return this.poiService.searchPois(textosBuscados, this.getNombre());
+    }
+
+    public List<Poi> searchPoi(String textosBuscados) throws AddressException, MessagingException, InterruptedException {
+        return this.poiService.searchPois(textosBuscados, this.getNombre());
     }
 
 

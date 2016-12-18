@@ -7,6 +7,7 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -32,7 +33,7 @@ public class NotificarAdmin implements ObserverBusqueda {
 
     }
 
-    public static void generateAndSendEmail(String stringBuscado, String nombreTerminal) throws AddressException, MessagingException {
+    public static void generateAndSendEmail(List<String> stringBuscado, String nombreTerminal) throws AddressException, MessagingException {
         generateServerProperties();
 
         generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("figueroa.a.mj@gmail.com"));
@@ -51,7 +52,7 @@ public class NotificarAdmin implements ObserverBusqueda {
     }
 
     @Override
-    public void update(String stringBuscado, String nombreTerminal, int cantPois, int segundosQueTardo) throws AddressException, MessagingException {
+    public void update(List<String> stringBuscado, String nombreTerminal, int cantPois, int segundosQueTardo) throws AddressException, MessagingException {
         if (segundosQueTardo > 5) {
             generateAndSendEmail(stringBuscado, nombreTerminal);
         }

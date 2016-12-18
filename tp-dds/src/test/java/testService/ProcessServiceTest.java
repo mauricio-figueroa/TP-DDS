@@ -85,7 +85,7 @@ public class ProcessServiceTest {
 	List<String> actionValidate= new ArrayList<String>();
 	actionValidate.add(EnumActions.ADDTERMINAL.toString());
 	processService.addActionsToUser("Terminal Gabo", "Terminal",actionValidate,admin);
-	assertTrue(poiService.getTerminales().get(0).getActions().size()==2);
+	assertTrue(poiService.searchTerminalByName("Terminal Gabo").getActions().size()==2);
 
 	}
 	
