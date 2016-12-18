@@ -98,7 +98,7 @@
 
 			<input id="userid" class="log-input" type="text" name="name" value="" placeholder="Usuario">
 
-		<input  id="psw"  class="log-input"  type="text" name="name" value="" placeholder="Contraseña">
+		<input  id="psw"  class="log-input"  type="password" name="name" value="" placeholder="Contraseña">
 			<button class="log-button" type="button" name="button" onclick="log()">Enviar</button>
 		</form>
 
