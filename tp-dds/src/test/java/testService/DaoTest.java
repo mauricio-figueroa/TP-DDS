@@ -158,7 +158,30 @@ public class DaoTest {
     }
 
 
+    @Test
+    public void test(){
+        EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+        AdminDAO adminDAO = new AdminDAO(entityManager);
+        TerminalDao terminalDao = new TerminalDao(entityManager);
+        AdminController adminCon = new AdminController();
+        Admin admin=new Admin(null,"mauri","123","mauri@gmial.com","Mauri");
+        Admin admin2=new Admin(null,"mel","123","mel@gmial.com","Mel");
+        Admin admin3=new Admin(null,"gabi","123","gaby@gmial.com","Gabi");
+        Admin admin4=new Admin(null,"juani","123","juani@gmial.com","Juani");
+        Terminal terminal=new Terminal("terminalMauri","terminal1",null,null);
+        Terminal terminal2=new Terminal("terminalMel","terminal2",null,null);
+        Terminal terminal3=new Terminal("terminalGabi","terminal3",null,null);
+        Terminal termina4=new Terminal("terminalMel","terminal4",null,null);
+        adminDAO.saveOrUpdate(admin);
+        adminDAO.saveOrUpdate(admin2);
+        adminDAO.saveOrUpdate(admin3);
+        adminDAO.saveOrUpdate(admin4);
+        terminalDao.saveOrUpdate(terminal);
+        terminalDao.saveOrUpdate(terminal2);
+        terminalDao.saveOrUpdate(terminal3);
+        terminalDao.saveOrUpdate(termina4);
 
+    }
 
 
 
