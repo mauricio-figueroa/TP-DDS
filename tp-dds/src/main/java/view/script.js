@@ -72,12 +72,15 @@ function log(){
 
  $.get(url, function(dataReceived){
 
-   if(dataReceived){
+   if(dataReceived==1){
     $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
     // $(location).attr('href', 'C:/Users/Mauricio/Desktop/tpDDS/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
-   }else{
-     alert("Datos incorrectos");
+   }else if(dataReceived==2){
+       $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+   }else {
+       openModal();
    };
+
 
  });
 
@@ -360,6 +363,10 @@ console.log(target);
 
 
 
+   }
+
+   function cerrarSesion(){
+     $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/index.jsp');
    }
 
    function cancel(){
