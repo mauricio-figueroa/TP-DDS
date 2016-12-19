@@ -23,23 +23,38 @@ permisosObj["8"]="Remover Poi";
 
 
 
+$( document ).ready(function() {
+fitBackground();
+});
 
+$( window ).resize(function() {
+  fitBackground();
+});
 
 function openModal(){
-var modal = document.getElementById("modal");
-  modal.style.display = "block";
+  var wd= parseInt($(window).width());
+  var wh= parseInt($(window).height());
+  $('.modal-inner').css('margin-left', wd/2-150+'px');
+  $('.modal-inner').css('margin-top', wh/2-60+'px');
+  $('.modal').fadeIn();
 
 }
 
 function closeModal(){
-  var modalC = document.getElementById("modal");
-  modalC.style.display="none";
+
+$('.modal').click(function(){
+  $(this).fadeOut();
+})
 
 }
 
 function addInput(){
   var d = document.getElementById("content");
  d.innerHTML += '<br />	<input id="searchPoi" class="dataSearch" type="text" name="name" value="">';
+}
+
+function cerrarSesion(){
+  $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/index.jsp');
 }
 
 
@@ -50,11 +65,13 @@ function log(){
 
  $.get(url, function(dataReceived){
 
-   if(dataReceived){
+   if(dataReceived==1){
     $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
     // $(location).attr('href', 'C:/Users/Mauricio/Desktop/tpDDS/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
-   }else{
-     alert("Datos incorrectos");
+  }else if(dataReceived==2){
+       $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+   }else {
+       openModal();
    };
 
  });
@@ -439,6 +456,106 @@ function checkDateFormat(string){
   }
 
 }
+
+
+function fitBackground(){
+	var img = new Image ;
+	try{
+		img.src = $('.bg-fit').css('background-image').replace("url(", "").replace(")", "").replace("\"", "").replace("\"", "");
+	}catch(err){
+
+	}
+	$(img).load(function() {
+    var bgWidth = img.width;
+    var bgHeight = img.height;
+
+
+    var wdHeight = $(window).height();
+	var wdWidth = $(window).width();
+	var docHeight = $(document).height();
+	var docWidth = $(document).width();
+
+if( (wdWidth-wdHeight) > 0 ){
+
+
+  if( (wdWidth- wdHeight) > (bgWidth-bgHeight)){
+
+
+					if(docHeight > wdHeight){
+
+						if(bgHeight < wdHeight){
+							$(".bg-fit").css("background-size","auto 100%  ");
+
+						}else{
+							$(".bg-fit").css("background-size","100% auto ");
+
+						}
+					}else {
+								$(".bg-fit").css("background-size","100% auto");
+
+					};
+
+
+    }else{
+
+
+			 		if(docHeight > wdHeight) {
+
+						if(bgHeight < wdHeight){
+							$(".bg-fit").css("background-size","auto 100%  ");
+
+						}else{
+							$(".bg-fit").css("background-size","100% auto ");
+
+						}
+
+
+					}else{
+
+						if(docHeight > bgHeight){
+								$(".bg-fit").css("background-size","auto  100% ");
+
+						}else{
+								if(bgHeight < wdHeight){
+									$(".bg-fit").css("background-size","auto 100%  ");
+
+								}else{
+									$(".bg-fit").css("background-size","130% auto ");
+
+
+								}
+
+						};
+
+				 };
+	};
+
+//  ELSE QUE CALCULA EL ALTO
+
+
+   }else{
+
+
+       if( (wdHeight- wdWidth) > (bgHeight-bgWidth) ){
+
+
+    	$(".bg-fit").css("background-size"," auto 100%");
+
+     }else{
+
+
+         $(".bg-fit").css("background-size","100%  auto");
+
+     };
+
+   }
+
+   }) ;
+
+
+ };
+
+
 
 
 // [{"user":"terminalGabo1","date":"Mon Sep 26 19:35:18 ART 2016","palabraBuscada":"bank","cantPoisEncontrados":3},{"user":"terminalGabo1","date":"Mon Sep 26 19:35:45 ART 2016","palabraBuscada":"cgp","cantPoisEncontrados":1}]

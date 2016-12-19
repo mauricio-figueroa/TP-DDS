@@ -23,10 +23,16 @@
 
 
 
-<link rel="stylesheet" href="stylesheet_java.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<body class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-fit">
+	
+<button class="icon-login close-sesion" type="button" name="button" onclick="cerrarSesion()" >Cerrar Sesion</button>
+
+	<div class="welcome">
+		<h1>Bienvenido al modo administrador</h1>
+	</div>
 
   <div class="button-admin">
 
