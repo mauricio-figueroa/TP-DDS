@@ -10,6 +10,7 @@ import java.util.Date;
 import controller.response.BusquedaDTO;
 import dao.AdminDAO;
 import dao.EntityManagerProvider;
+import dao.TerminalDao;
 import domain.*;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -51,6 +52,7 @@ public class AdminController {
     @ResponseBody
     public ResponseEntity addTerminal(
             @RequestParam(value = "name", required = true) String name,
+            @RequestParam(value = "password", required = true) String password,
             @RequestParam(value = "lat", required = true) double lat,
             @RequestParam(value = "lon", required = true) double lon,
             @RequestParam(value = "action", required = false) List<String> actions) {
@@ -58,7 +60,11 @@ public class AdminController {
         if (actions.stream().allMatch(action -> EnumUtils.isValidEnum(EnumActions.class, action))) {
             List<List<String>> listOfActions = new ArrayList<List<String>>();
             listOfActions.add(actions);
-            boolean state = admin.addTerminal(new Terminal(name,"asdas", new Coordinate(lat, lon), listOfActions));
+            Terminal terminal=new Terminal(name,password, new Coordinate(lat, lon), listOfActions);
+            boolean state = admin.addTerminal(terminal);
+            EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+            TerminalDao terminalDao = new TerminalDao(entityManager);
+            terminalDao.saveOrUpdate(terminal);
             return new ResponseEntity(state, HttpStatus.OK);
         } else {
             String error = "ACTIONS MUST BE " + EnumActions.values();
