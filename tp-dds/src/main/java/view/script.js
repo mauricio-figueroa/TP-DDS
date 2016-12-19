@@ -48,11 +48,6 @@ $('.modal').click(function(){
 
 }
 
-function openModal(){
-var modal = document.getElementById("modal");
-  modal.style.display = "block";
-
-}
 
 function closeModal(){
   var modalC = document.getElementById("modal");
