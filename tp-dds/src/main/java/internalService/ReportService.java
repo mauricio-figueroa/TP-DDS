@@ -8,8 +8,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import dao.MongoDBManager;
 import domain.LineaReporte;
 import domain.ReportePorTerminal;
+import domain.Search;
 
 public class ReportService {
 
@@ -36,7 +38,9 @@ public class ReportService {
 		this.reportes = reportes;
 	}
 
-	public void addReporte(String nombreTerminal, List<String> palabraBuscada, Integer cantPoisBusqueda) {
+	public void addReporte(String nombreTerminal, String palabraBuscada, Integer cantPoisBusqueda) {
+		Search search = new Search(null,new Date(),nombreTerminal,palabraBuscada,cantPoisBusqueda);
+		MongoDBManager.saveSearch(search);
 		int i = 0;
 		for (ReportePorTerminal currentReport : reportes) {
 			if (currentReport.getNombreTerminal().equalsIgnoreCase(nombreTerminal)) {
@@ -64,23 +68,23 @@ public class ReportService {
 				suma = suma +cantPoisResult;
 				mapaResultadosTotales.put(date, suma);
 				}
-				
+
 			}
 		return mapaResultadosTotales;
 		}
-		
-	
+
+
 
 	public void resetReports() {
 		reportes = new ArrayList<ReportePorTerminal>();
 	}
 
-	
+
 
 	public Map<String, Integer> getParcialesPorTerminal(String nombreTerminal) {
 		int suma=0;
 		 Map<String, Integer> mapaResultadoParcialPorTerminal = new HashMap<String, Integer>();
-		
+
 		ReportePorTerminal reporte = this.buscarReporteTerminal(nombreTerminal);
 		if (reporte != null) {
 			for (LineaReporte lineaReporte : reporte.getBusquedas()) {
@@ -90,7 +94,7 @@ public class ReportService {
 				int cantPoisResult= lineaReporte.getCantPoisBusqueda();
 					suma = suma +cantPoisResult;
 					mapaResultadoParcialPorTerminal.put(date, suma);
-				
+
 			}
 		}
 		return mapaResultadoParcialPorTerminal;
@@ -101,12 +105,23 @@ public class ReportService {
 
 
 
-
-	public ReportePorTerminal buscarReporteTerminal(String nombreTerminal) {
+/*	public ReportePorTerminal buscarReporteTerminal(String nombreTerminal) {
 		ReportePorTerminal reporte = null;
 		for (ReportePorTerminal reportePorTerminal : reportes) {
 			if (reportePorTerminal.getNombreTerminal().equalsIgnoreCase(nombreTerminal)) {
 				reporte = reportePorTerminal;
+			}
+		}
+		return reporte;
+
+	}*/
+
+	public ReportePorTerminal buscarReporteTerminal(String nombreTerminal) {
+		ReportePorTerminal reporte = new ReportePorTerminal(nombreTerminal);
+		List<Search> mongoSearchs = MongoDBManager.getSearchCollection();
+		for (Search search : mongoSearchs) {
+			if (search.getUser().equalsIgnoreCase(nombreTerminal)) {
+				reporte.getBusquedas().add(new LineaReporte(search.getDate(),search.getCantPoisEncontrados(),search.getPalabraBuscada()));
 			}
 		}
 		return reporte;

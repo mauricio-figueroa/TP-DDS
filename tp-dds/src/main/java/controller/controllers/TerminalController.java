@@ -23,10 +23,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.persistence.EntityManager;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class TerminalController {
@@ -82,13 +79,12 @@ public class TerminalController {
             }
 
         }
-        Search search=new Search(terminalName+ StringUtils.join(searchList,","),poisDTO);
+        Search search= new  Search(poisDTO, new Date(), terminalName, StringUtils.join(searchList,","), poisDTO.size());
 
         EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
 
         SearchDao searchDao=new SearchDao(entityManager);
         searchDao.saveOrUpdate(search);
-        MongoDBManager.saveSearch(search);
         return new ResponseEntity<List<PoiDTO>>(poisDTO, HttpStatus.OK);
     }
 
@@ -96,7 +92,7 @@ public class TerminalController {
     @RequestMapping(value = ("/is-near-by"), method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity isNearBy(
-            @RequestParam(value = "searchName", required = true) List<String> searchName,
+            @RequestParam(value = "searchName", required = true) String searchName,
             @RequestParam(value = "terminalName", required = true) String terminalName) throws AddressException, MessagingException, InterruptedException, ClientProtocolException, IOException {
 
         Terminal terminal = poiService.searchTerminal(terminalName);
