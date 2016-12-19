@@ -41,7 +41,7 @@ public class AdminController {
                                         @RequestParam(value="mail",required = true) String mail){
         EntityManager entityManager= EntityManagerProvider.getInstance().getEntityManager();
         AdminDAO adminDAO = new AdminDAO(entityManager);
-        Admin adminToReg= new Admin(null,user,pass,"email");
+        Admin adminToReg= new Admin(null,user,"PW",pass,"email");
         Admin admin= adminDAO.saveOrUpdate(adminToReg);
         return new ResponseEntity(admin.getId(),HttpStatus.OK);
     }
@@ -57,7 +57,7 @@ public class AdminController {
         if (actions.stream().allMatch(action -> EnumUtils.isValidEnum(EnumActions.class, action))) {
             List<List<String>> listOfActions = new ArrayList<List<String>>();
             listOfActions.add(actions);
-            boolean state = admin.addTerminal(new Terminal(name, new Coordinate(lat, lon), listOfActions));
+            boolean state = admin.addTerminal(new Terminal(name,"pw", new Coordinate(lat, lon), listOfActions));
             return new ResponseEntity(state, HttpStatus.OK);
         } else {
             String error = "ACTIONS MUST BE " + EnumActions.values();

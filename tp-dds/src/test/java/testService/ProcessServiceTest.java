@@ -46,7 +46,7 @@ public class ProcessServiceTest {
 		stop114= new BusStation("Parada 114", new Address("Mozart 2300"),  new Coordinate(2,4),114);
 		icbc.setId(122);
 		santander.setId(123);
-		admin= new Admin(null,"Gabo","gabriel.dyck@despegar.com","Email");
+		admin= new Admin(null,"Gabo","PW","gabriel.dyck@despegar.com","Email");
 		
 		
 	}
@@ -69,7 +69,7 @@ public class ProcessServiceTest {
 		admin.turnOffAPoi();
 		toCheck= poiService.getAllPois().stream().filter(poi -> poi.isActived()).collect(Collectors.toList());
 		assertTrue(toCheck.isEmpty() || !processService.getProcessStories().stream().filter(story -> story.getResult()=="Error").collect(Collectors.toList()).isEmpty());
-		admin= new Admin(null,"Gabo","gabriel.dyck@despegar.com","Repeat");
+		admin= new Admin(null,"Gabo","PW","gabriel.dyck@despegar.com","Repeat");
 		admin.turnOffAPoi();
 		
 	}
@@ -81,7 +81,7 @@ public class ProcessServiceTest {
 	actionInitialize.add(EnumActions.ADDPOI.toString());
 	List<List<String>> actions= new ArrayList<List<String>>();
 	actions.add(actionInitialize);
-	poiService.getTerminales().add(new Terminal("Terminal Gabo", new Coordinate(43.23,54.23),actions));
+	poiService.getTerminales().add(new Terminal("Terminal Gabo","pw", new Coordinate(43.23,54.23),actions));
 	List<String> actionValidate= new ArrayList<String>();
 	actionValidate.add(EnumActions.ADDTERMINAL.toString());
 	processService.addActionsToUser("Terminal Gabo", "Terminal",actionValidate,admin);
@@ -103,7 +103,7 @@ public class ProcessServiceTest {
 		actionInitialize.add(EnumActions.ADDPOI.toString());
 		List<List<String>> actions= new ArrayList<List<String>>();
 		actions.add(actionInitialize);
-		poiService.getTerminales().add(new Terminal("Terminal Gabo", new Coordinate(43.23,54.23),actions));
+		poiService.getTerminales().add(new Terminal("Terminal Gabo","pw", new Coordinate(43.23,54.23),actions));
 
 		List<String> actionValidate= new ArrayList<String>();
 		actionValidate.add(EnumActions.ADDTERMINAL.toString());

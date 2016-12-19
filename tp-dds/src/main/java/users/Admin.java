@@ -15,83 +15,89 @@ import poi.Poi;
 import javax.persistence.*;
 
 @Entity
-@Table(name="ADMIN")
-public class Admin {
+@Table(name = "ADMIN")
+public class Admin  {
+	@Id
+	@GeneratedValue
+	public long id;
 
-	@Id@GeneratedValue
-	private long id;
+	@Column(name="NOMBRE")
+	public String nombre;
+
+	@Column(name="CONTRASENIA")
+	public String contrasenia;
+
+
 
 	@Transient
 	private List<List<String>> actions;
 
-	@Column(name="NOMBRE")
-	private String nombre;
 
 	@Transient
 	private PoiService poiService;
 
-	@Column(name="MAIL")
+	@Column(name = "MAIL")
 	private String mail;
 
 	@Transient
 	private ErrorProcessResolution errorResolution;
 
 
-
-	public Admin(List<List<String>> actions, String nombre,String mail,String resolutionType) {
-		
+	public Admin(List<List<String>> actions, String nombre, String contrasenia, String mail, String resolutionType) {
+		this.contrasenia = contrasenia;
 		this.actions = actions;
 		this.nombre = nombre;
-		this.mail=mail;
+		this.mail = mail;
 		this.poiService = PoiService.getInstance();
 
-		if (resolutionType=="Email"){
-			errorResolution=new EmailErrorProcessResolution();
-		}else if(resolutionType=="Repeat") {
-			errorResolution=new RepeatErrorProcessResolution();
+		if (resolutionType == "Email") {
+			errorResolution = new EmailErrorProcessResolution();
+		} else if (resolutionType == "Repeat") {
+			errorResolution = new RepeatErrorProcessResolution();
 		}
 	}
-	
-	
-	public void turnOffAPoi(){
-		Admin admin=this;
-		errorResolution.errorResolution(poiService.getProcessService().turnOffAPoi(this),this,new Callable<String>(){
-			
+
+
+	public void turnOffAPoi() {
+		Admin admin = this;
+		errorResolution.errorResolution(poiService.getProcessService().turnOffAPoi(this), this, new Callable<String>() {
+
 			@Override
-			public String call(){
-			return	poiService.getProcessService().turnOffAPoi(admin);}
+			public String call() {
+				return poiService.getProcessService().turnOffAPoi(admin);
+			}
 		});
 	}
 
-	public void updateComercialShops(String path){
-		Admin admin=this;
-		new Thread(() -> 
-		errorResolution.errorResolution(poiService.getProcessService().updateComercialShops(path,this),this,new Callable<String>(){
-			
-			@Override
-			public String call(){
-			return poiService.getProcessService().updateComercialShops(path,admin);
-			}
-			})).start();
-		
-	}
-	
-	public void addActionsToUser(String nombre,String type,List actions){
-		Admin admin=this;
-		new Thread(() -> 
-		errorResolution.errorResolution(poiService.getProcessService().addActionsToUser(nombre,type,actions,this),this,new Callable<String>(){
-			@Override
-			public String call(){
-			return poiService.getProcessService().addActionsToUser(nombre,type,actions,admin);
-			}
-		})).start();
+	public void updateComercialShops(String path) {
+		Admin admin = this;
+		new Thread(() ->
+				errorResolution.errorResolution(poiService.getProcessService().updateComercialShops(path, this), this, new Callable<String>() {
 
-		}
-	
-	public void multiplyProcess(List<Runnable> process ){
-		process.forEach(methods -> methods.run() );
+					@Override
+					public String call() {
+						return poiService.getProcessService().updateComercialShops(path, admin);
+					}
+				})).start();
+
 	}
-	
+
+	public void addActionsToUser(String nombre, String type, List actions) {
+		Admin admin = this;
+		new Thread(() ->
+				errorResolution.errorResolution(poiService.getProcessService().addActionsToUser(nombre, type, actions, this), this, new Callable<String>() {
+					@Override
+					public String call() {
+						return poiService.getProcessService().addActionsToUser(nombre, type, actions, admin);
+					}
+				})).start();
+
+	}
+
+	public void multiplyProcess(List<Runnable> process) {
+		process.forEach(methods -> methods.run());
+	}
+
 	public String getMail() {
 		return mail;
 	}
@@ -108,9 +114,15 @@ public class Admin {
 		this.errorResolution = errorResolution;
 	}
 
-	
-	
-	
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 
 	public List<List<String>> getActions() {
 		return actions;
@@ -125,45 +137,39 @@ public class Admin {
 	}
 
 
-
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
 
-
-	
-
 	public Admin() {
 		poiService = PoiService.getInstance();
-		
+
 	}
-	
-	public boolean addTerminal(Terminal terminal){
+
+	public boolean addTerminal(Terminal terminal) {
 		poiService.getTerminales().add(terminal);
 		return true;
 	}
-	
-	
-	
-	public boolean removeTerminal(String name){
-		int index=0;
-		boolean status=false;
-		for(Terminal currenTerminal:poiService.getTerminales()){
-			if(currenTerminal.getNombre().equalsIgnoreCase(name)){
+
+
+	public boolean removeTerminal(String name) {
+		int index = 0;
+		boolean status = false;
+		for (Terminal currenTerminal : poiService.getTerminales()) {
+			if (currenTerminal.getNombre().equalsIgnoreCase(name)) {
 				poiService.getTerminales().remove(index);
-				status=true;
+				status = true;
 			}
 			index++;
 		}
 		return status;
 	}
-	
+
 
 	public boolean removePoi(String poiName) {
 		int index = 0;
-		
+
 		for (Poi currentPoi : poiService.getAllPois()) {
 
 			if (currentPoi.getName().equalsIgnoreCase(poiName)) {
@@ -220,7 +226,7 @@ public class Admin {
 	}
 
 	public boolean addScheduleToCGPService(String nameOfCGP,
-			String serviceName, String hourMax, String hourMin) {
+										   String serviceName, String hourMax, String hourMin) {
 
 		for (Poi currentPoi : poiService.getAllPois()) {
 			if (currentPoi.getType() == "CGP"
@@ -240,14 +246,6 @@ public class Admin {
 		return false;
 
 	}
-	
-	public long getId() {
-		return id;
-	}
 
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 }

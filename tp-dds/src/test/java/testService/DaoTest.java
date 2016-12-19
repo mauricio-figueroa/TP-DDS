@@ -94,7 +94,7 @@ public class DaoTest {
         Coordinate corCoordinate = new Coordinate(1234.5, 1234.5);
         PoiService.getInstance();
         String nameTerminal = "TerminalTest";
-        Terminal terminal = new Terminal(nameTerminal, corCoordinate, null);
+        Terminal terminal = new Terminal(nameTerminal,"pw", corCoordinate, null);
 
         TerminalController terminalController = new TerminalController();
         terminalController.searchPoiFrom(Arrays.asList(name), nameTerminal);
@@ -121,6 +121,18 @@ public class DaoTest {
         admin=adminDAO.getById(id);
         Assert.assertTrue(admin.getNombre().equalsIgnoreCase("f3r"));
     }
+
+    @Test
+    public void persistirUsuario2() {
+        AdminDAO adminDAO = new AdminDAO(entityManager);
+        AdminController adminCon = new AdminController();
+        ResponseEntity response = adminCon.registerAdmin("gabo", "123", "gabriel.dyck@gmail.com");
+        long id = (long) response.getBody();
+        Admin admin=new Admin(null,"mauri","mauripw","mauri@gmial.com","Mauri");
+
+        Admin admin2= adminDAO.saveOrUpdate(admin);
+    }
+
 
 
 }

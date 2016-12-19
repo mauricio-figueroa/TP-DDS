@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
+import javax.persistence.*;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -15,16 +16,28 @@ import internalService.PoiService;
 import poi.Bank;
 import poi.Poi;
 
+@Entity
+@Table(name = "TERMINAL")
 public class Terminal {
 
+    @Id
+    @GeneratedValue
     private long id;
-    private String nombre;
+    @Column(name="NOMBRE")
+    public String nombre;
+    @Column(name="CONTRASENIA")
+    public String contrasenia;
+    @Transient
     private Coordinate coordinates;
+    @Transient
     private PoiService poiService;
+
+    @Transient
     private List<List<String>> actions;
 
-    public Terminal(String nombre, Coordinate coordinate, List<List<String>> actions) {
+    public Terminal(String nombre,String contrasenia, Coordinate coordinate, List<List<String>> actions) {
         this.nombre = nombre;
+        this.contrasenia=contrasenia;
         this.coordinates = coordinate;
         this.actions = actions;
         this.poiService = PoiService.getInstance();
