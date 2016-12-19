@@ -92,28 +92,29 @@ console.log(url);
 
                    switch (dataReceived[i].type) {
                      case "CGP":
-                     $( "#testName" ).append( "<br /> <img class='img-poi' src='"+dataReceived[i].icon+"' alt='' />");
+
+                     $( "#testName" ).append( "<br /> <img class='img-poi' src='img/"+dataReceived[i].icon+".png' alt='' />");
                      $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
                                                            '<br /> Zona:'+dataReceived[i].zone+ '<br /> Servicios:'+dataReceived[i].cgp_services+ '</p>' );
 
                      break;//1
 
                      case "Bank":
-
-                     $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+                     var x = Math.floor((Math.random() * 4) + 1);
+                     $( "#testName" ).append( '<br /><img class="img-poi" src="img/'+dataReceived[i].icon+'-'+x+'.png" alt="" />' );
                      $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
                                                            '<br /> Zona:'+dataReceived[i].zone+ '<br /> Servicios:'+dataReceived[i].bank_services+ '</p>' );
                      break;//2
 
                      case "BusStation":
-
-                     $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+                     var x = Math.floor((Math.random() * 4) + 1);
+                     $( "#testName" ).append( '<br /><img class="img-poi" src="img/'+dataReceived[i].icon+'-'+x+'.png" alt="" />' );
                      $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Número de línea:' +dataReceived[i].number_line+'</p>' );
                      break;//3
 
                      case "ComercialShop":
-
-                     $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+                     var x = Math.floor((Math.random() * 3) + 1);
+                     $( "#testName" ).append( '<br /><img class="img-poi" src="img/'+dataReceived[i].icon+'-'+x+'.png" alt="" />' );
                      $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
                                                            '<br /> Nombre:'+dataReceived[i].name+ '<br /> Rubro:'+dataReceived[i].activity+ '</p>' );
                      break;//4
@@ -162,7 +163,7 @@ console.log(url);
 
 
    $.get('http://localhost:8080/diseno-de-sistemas/crearUsuario?user=mauri&pw=mauri', function(dataReceived){
-     console.log("Se creo un usuario: User-> mauri, Psw -> mauri");});
+     console.log("Se creo un usuario administrador: User-> mauri, Psw -> mauri");});
 
 
    //
