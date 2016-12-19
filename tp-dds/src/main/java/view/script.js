@@ -48,12 +48,6 @@ $('.modal').click(function(){
 
 }
 
-
-function closeModal(){
-  var modalC = document.getElementById("modal");
-  modalC.style.display="none";
-
-}
 function addInput(){
   var d = document.getElementById("content");
  d.innerHTML += '<br />	<input id="searchPoi" class="dataSearch" type="text" name="name" value="">';
