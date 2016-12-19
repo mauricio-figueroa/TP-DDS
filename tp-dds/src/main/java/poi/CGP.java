@@ -45,7 +45,7 @@ public CGP() {
         for (CGPService cgpService : services) {
             this.getData().add(cgpService.getServiceName());
         }
-        icon = "http://www.cgp-mutuelle.lu/attachments/Image/CGP-couleur.jpg?template=generic";
+        icon = "cgp";
 
     }
 

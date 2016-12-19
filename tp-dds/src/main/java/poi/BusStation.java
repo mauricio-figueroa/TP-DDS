@@ -23,7 +23,7 @@ public class BusStation extends Poi {
     public BusStation(String name, Address address, Coordinate coordinate, Integer aNumberBusStation) {
         super(name, address, coordinate);
         numberBusStation = aNumberBusStation;
-        icon = "http://www.clker.com/cliparts/L/B/N/E/8/K/bus-station-red-hi.png";
+        icon = "bus";
 
 
         this.type = this.getClass().getSimpleName();

@@ -1,6 +1,5 @@
-var terminal = 'terminalGabo1'
-var userSelected;
 
+var termimal;
 var user1;
 var user2;
 var user3;
@@ -10,6 +9,7 @@ var users;
 // user3.lista=[];
 
 var remaining;
+
 ejecutarControllers();
 
 permisosObj = {};
@@ -54,10 +54,16 @@ function addInput() {
 }
 
 
-function log() {
+function log( ) {
 
 
     url = "http://localhost:8080/diseno-de-sistemas/validarUsuario?user=" + $('#userid').val() + "&pw=" + $('#psw').val();
+
+    localStorage["terminal"]=$('#userid').val();
+
+    terminal=localStorage["terminal"];
+
+//    console.log(userSelected);
 
     $.get(url, function (dataReceived) {
 
@@ -97,7 +103,9 @@ function search() {
 //var url='http://localhost:8080/diseno-de-sistemas/poi-show';
     var searchName = infoArray.join(",");
 
-    var url = 'http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName=' + searchName + '&terminalName=' + terminal;
+    var url = 'http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName=' + searchName + '&terminalName=' +  localStorage["terminal"];
+
+
 
     console.log(url);
     $.get(url, function (dataReceived) {
@@ -156,17 +164,14 @@ function ejecutarControllers() {
 
     $.get('http://localhost:8080/diseno-de-sistemas/terminal-add?name=terminalGabi&password=1231&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL', function (dataReceived) {
         console.log('Se agregó una terminal');
-        terminal = 'terminalGabo1';
     });
 
     $.get('http://localhost:8080/diseno-de-sistemas/terminal-add?name=terminalMel&password=123&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL', function (dataReceived) {
         console.log('Se agregó una terminal');
-        terminal = 'terminalGabo1';
     });
 
     $.get('http://localhost:8080/diseno-de-sistemas/terminal-add?name=terminalMau&password=123&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL', function (dataReceived) {
         console.log('Se agregó una terminal');
-        terminal = 'terminalGabo1';
     });
 
 

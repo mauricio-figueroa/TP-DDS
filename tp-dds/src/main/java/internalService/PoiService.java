@@ -69,6 +69,7 @@ public class PoiService {
 		for(Terminal currentTerminal: terminales){
 			if (currentTerminal.getNombre().equalsIgnoreCase(terminalName)){
 				searchTerminal= currentTerminal;
+				break;
 			}
 		}
 		return searchTerminal;
