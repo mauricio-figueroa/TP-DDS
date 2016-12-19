@@ -48,8 +48,13 @@ public class ReportTest {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
 		this.date = sdf.format(fecha);
 
+<<<<<<< HEAD
 		terminal  = new Terminal("terminalAbasto","pw", new Coordinate(53.54,12.54),null);
 		terminal2 =new Terminal("terminalPalermo","pw", new Coordinate(54.14,45.54),null);
+=======
+		terminal  = new Terminal("terminalAbasto","asd", new Coordinate(53.54,12.54),null);
+		terminal2 =new Terminal("terminalPalermo","asd", new Coordinate(54.14,45.54),null);
+>>>>>>> b10191c51c514df07d08eede456a3bfcd26cabbd
 
 	}
 

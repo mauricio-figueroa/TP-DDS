@@ -41,7 +41,11 @@ public class PoiService {
 			bankService = BankService.getInstance();
 			reportService=ReportService.getInstance();
 			terminales=new ArrayList<Terminal>();
+<<<<<<< HEAD
 			terminales.add(new Terminal("TerminalTest","pw",new Coordinate(14.6,15.3),null));
+=======
+			terminales.add(new Terminal("TerminalTest","12356",new Coordinate(14.6,15.3),null));
+>>>>>>> b10191c51c514df07d08eede456a3bfcd26cabbd
 			processService= ProcessService.getInstance();
 			
 		}

@@ -6,6 +6,7 @@ import dao.*;
 import domain.*;
 import internalService.PoiService;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 import poi.*;
@@ -19,17 +20,29 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DaoTest {
+    private BankDao bankDao;
+    private CGPDao cgpDao;
+    private BusDao busDao;
+    private EntityManager entityManager;
+    private List<CGPService> cgpServices;
+    private Bank bank;
+    private Schedule schedule;
+    private Schedule schedule2;
+    private List<Schedule> schedules;
 
-    EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
-    Bank bank = new Bank("Banco", new Address("corrientes"), new Coordinate(127.4, 125.6), "extraccion moneda");
-    List<CGPService> cgpServices = new ArrayList<>();
-    Schedule schedule = new Schedule("04:30", "04:55");
-    Schedule schedule2 = new Schedule("04:40", "04:55");
-    List<Schedule> schedules = new ArrayList<>();
+    @Before
+    public void setup() {
+        this.entityManager = EntityManagerProvider.getInstance().getEntityManager();
+        this.bank = new Bank("Banco", new Address("corrientes"), new Coordinate(127.4, 125.6), "extraccion moneda");
+        this.cgpServices = new ArrayList<>();
+        this.schedule = new Schedule("04:30", "04:55");
+        this.schedule2 = new Schedule("04:40", "04:55");
+        this.schedules = new ArrayList<>();
 
-    BankDao bankDao = new BankDao(entityManager);
-    CGPDao cgpDao = new CGPDao(entityManager);
-    BusDao busDao = new BusDao(entityManager);
+        this.bankDao = new BankDao(entityManager);
+        this.cgpDao = new CGPDao(entityManager);
+        this.busDao = new BusDao(entityManager);
+    }
 
     @Test
     public void testBank() {
@@ -94,7 +107,11 @@ public class DaoTest {
         Coordinate corCoordinate = new Coordinate(1234.5, 1234.5);
         PoiService.getInstance();
         String nameTerminal = "TerminalTest";
+<<<<<<< HEAD
         Terminal terminal = new Terminal(nameTerminal,"pw", corCoordinate, null);
+=======
+        Terminal terminal = new Terminal(nameTerminal, "asda", corCoordinate, null);
+>>>>>>> b10191c51c514df07d08eede456a3bfcd26cabbd
 
         TerminalController terminalController = new TerminalController();
         terminalController.searchPoiFrom(Arrays.asList(name), nameTerminal);
@@ -103,22 +120,22 @@ public class DaoTest {
         Search search = searchDao.getById(1l);
 
 
-        Assert.assertEquals(search.getPoiDTOs().get(0).getName(),bank.getName());
-        Assert.assertEquals(search.getPoiDTOs().get(1).getName(),bank2.getName());
+        Assert.assertEquals(search.getPoiDTOs().get(0).getName(), bank.getName());
+        Assert.assertEquals(search.getPoiDTOs().get(1).getName(), bank2.getName());
 
     }
 
 
     @Test
-    public void persistirUsuario(){
+    public void persistirUsuario() {
         AdminDAO adminDAO = new AdminDAO(entityManager);
-        AdminController adminCon= new AdminController();
-        ResponseEntity response= adminCon.registerAdmin("gabo","123","gabriel.dyck@gmail.com");
-        long id= (long)response.getBody();
-        Admin admin= adminDAO.getById(id);
+        AdminController adminCon = new AdminController();
+        ResponseEntity response = adminCon.registerAdmin("gabo", "123", "gabriel.dyck@gmail.com");
+        long id = (long) response.getBody();
+        Admin admin = adminDAO.getById(id);
         admin.setNombre("f3r");
         adminDAO.saveOrUpdate(admin);
-        admin=adminDAO.getById(id);
+        admin = adminDAO.getById(id);
         Assert.assertTrue(admin.getNombre().equalsIgnoreCase("f3r"));
     }
 
@@ -135,4 +152,58 @@ public class DaoTest {
 
 
 
+    @Test
+    public void persistirUsuario2() {
+        AdminDAO adminDAO = new AdminDAO(entityManager);
+        AdminController adminCon = new AdminController();
+        ResponseEntity response = adminCon.registerAdmin("gabo", "123", "gabriel.dyck@gmail.com");
+        long id = (long) response.getBody();
+        Admin admin=new Admin(null,"mauri","mauripw","mauri@gmial.com","Mauri");
+
+        Admin admin2= adminDAO.saveOrUpdate(admin);
+    }
+
+
+    @Test
+    public void peristirTerminal() {
+        TerminalDao terminalDao = new TerminalDao(entityManager);
+        AdminController adminCon = new AdminController();
+        Terminal terminal=new Terminal("terminal1","terminal1",null,null);
+
+        Terminal terminal2= terminalDao.saveOrUpdate(terminal);
+    }
+
+
+    @Test
+    public void test(){
+        EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+        AdminDAO adminDAO = new AdminDAO(entityManager);
+        TerminalDao terminalDao = new TerminalDao(entityManager);
+        AdminController adminCon = new AdminController();
+        Admin admin=new Admin(null,"mauri","123","mauri@gmial.com","Mauri");
+        Admin admin2=new Admin(null,"mel","123","mel@gmial.com","Mel");
+        Admin admin3=new Admin(null,"gabi","123","gaby@gmial.com","Gabi");
+        Admin admin4=new Admin(null,"juani","123","juani@gmial.com","Juani");
+        Terminal terminal=new Terminal("terminalMauri","terminal1",null,null);
+        Terminal terminal2=new Terminal("terminalMel","terminal2",null,null);
+        Terminal terminal3=new Terminal("terminalGabi","terminal3",null,null);
+        Terminal termina4=new Terminal("terminalMel","terminal4",null,null);
+        adminDAO.saveOrUpdate(admin);
+        adminDAO.saveOrUpdate(admin2);
+        adminDAO.saveOrUpdate(admin3);
+        adminDAO.saveOrUpdate(admin4);
+        terminalDao.saveOrUpdate(terminal);
+        terminalDao.saveOrUpdate(terminal2);
+        terminalDao.saveOrUpdate(terminal3);
+        terminalDao.saveOrUpdate(termina4);
+
+    }
+
+
+
 }
+
+
+
+
+

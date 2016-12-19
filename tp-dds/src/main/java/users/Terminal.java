@@ -1,21 +1,31 @@
 package users;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import domain.Coordinate;
+import internalService.PoiService;
+import org.apache.http.client.ClientProtocolException;
+import poi.Bank;
+import poi.Poi;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.persistence.*;
+<<<<<<< HEAD
+=======
+import java.io.IOException;
+import java.util.List;
+>>>>>>> b10191c51c514df07d08eede456a3bfcd26cabbd
 
-import org.apache.http.client.ClientProtocolException;
+@Entity
+@Table(name = "Terminal")
+public class Terminal{
+    @Id
+    @GeneratedValue
+    public long id;
 
-import domain.Coordinate;
-import internalService.PoiService;
-import poi.Bank;
-import poi.Poi;
+    @Column(name="NOMBRE")
+    public String nombre;
 
+<<<<<<< HEAD
 @Entity
 @Table(name = "TERMINAL")
 public class Terminal {
@@ -27,15 +37,29 @@ public class Terminal {
     public String nombre;
     @Column(name="CONTRASENIA")
     public String contrasenia;
+=======
+    @Column(name="CONTRASENIA")
+    public String contrasenia;
+
+
+
+>>>>>>> b10191c51c514df07d08eede456a3bfcd26cabbd
     @Transient
     private Coordinate coordinates;
     @Transient
     private PoiService poiService;
+<<<<<<< HEAD
 
+=======
+>>>>>>> b10191c51c514df07d08eede456a3bfcd26cabbd
     @Transient
     private List<List<String>> actions;
 
     public Terminal(String nombre,String contrasenia, Coordinate coordinate, List<List<String>> actions) {
+<<<<<<< HEAD
+=======
+        this.contrasenia=contrasenia;
+>>>>>>> b10191c51c514df07d08eede456a3bfcd26cabbd
         this.nombre = nombre;
         this.contrasenia=contrasenia;
         this.coordinates = coordinate;
@@ -43,14 +67,7 @@ public class Terminal {
         this.poiService = PoiService.getInstance();
     }
 
-
-    public long getId() {
-        return id;
-    }
-
-
-    public void setId(long id) {
-        this.id = id;
+    public Terminal() {
     }
 
 
@@ -120,5 +137,16 @@ public class Terminal {
     public boolean isNearBy(Poi poi) throws ClientProtocolException, IOException {
         return poiService.isNearby(poi, coordinates);
     }
+    public long getId() {
+        return id;
+    }
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
+
 
 }
