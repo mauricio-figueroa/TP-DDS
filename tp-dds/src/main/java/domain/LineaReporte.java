@@ -7,17 +7,17 @@ public class LineaReporte {
 	
 	private Date fechaBusqueda;
 	private int cantPoisBusqueda ;
-	private List<String> palabraBuscada;
+	private String palabraBuscada;
 	
 	
 	
-	public List<String> getPalabraBuscada() {
+	public String getPalabraBuscada() {
 		return palabraBuscada;
 	}
-	public void setPalabraBuscada(List<String> palabraBuscada) {
+	public void setPalabraBuscada(String palabraBuscada) {
 		this.palabraBuscada = palabraBuscada;
 	}
-	public LineaReporte(Date fechaBusqueda, int cantPoisBusqueda,List<String> palabraBscada) {
+	public LineaReporte(Date fechaBusqueda, int cantPoisBusqueda,String palabraBscada) {
 		super();
 		this.fechaBusqueda = fechaBusqueda;
 		this.cantPoisBusqueda = cantPoisBusqueda;

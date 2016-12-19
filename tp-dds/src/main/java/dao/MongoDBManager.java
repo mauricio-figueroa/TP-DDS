@@ -6,6 +6,7 @@ import com.mongodb.util.JSON;
 import domain.Search;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public  class MongoDBManager {
@@ -21,8 +22,15 @@ public  class MongoDBManager {
         return database;
     }
 
-    public static List<DBObject> getSearchCollection() {
-        List<DBObject> searchs = new ArrayList<>();
+    public static void removeAllDocuments(){
+        DB database = getMongoDBConnection();
+        DBCollection collection = database.getCollection("search");
+        BasicDBObject document = new BasicDBObject();
+        collection.remove(document);
+    }
+
+    public static List<Search> getSearchCollection() {
+        List<Search> searchs = new ArrayList<>();
         //Recuperamos los valores de la colección, previamente hemos introducido
         //unos valores desde la consola de mongo con db.things.save({name:"mongoDB"}
         DB database = getMongoDBConnection();
@@ -30,8 +38,12 @@ public  class MongoDBManager {
         //Recuperamos el elemento
         DBCursor cursor = collection.find();
         while (cursor.hasNext()) {
+
             DBObject obj = cursor.next();
-            searchs.add(obj);
+
+
+
+            searchs.add(new Search(null, new Date((String)obj.get("date")), (String) obj.get("user"), (String)obj.get ("palabraBuscada"), (Integer) obj.get("cantPoisEncontrados")));
         }
         return searchs;
     }

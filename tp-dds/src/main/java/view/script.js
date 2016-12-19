@@ -50,7 +50,7 @@ function log(){
  $.get(url, function(dataReceived){
 
    if(dataReceived){
-    $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+    $(location).attr('href', 'file:///home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
     // $(location).attr('href', 'C:/Users/Mauricio/Desktop/tpDDS/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
    }else{
      alert("Datos incorrectos");
