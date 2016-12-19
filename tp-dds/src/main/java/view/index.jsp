@@ -40,6 +40,13 @@
 
 <div id="modal" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modal">
 
+	<div class="modal-inner">
+		<p>
+			Los datos se ingresaron incorrectamente o el usuario no existe
+		</p>
+
+	</div>
+
 </div>
  <!-- <footer> P.O.I Todos los derechos reservados. 2016 ®</footer> -->
 </body>
