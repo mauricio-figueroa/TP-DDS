@@ -125,13 +125,9 @@ public class TerminalController {
     public ResponseEntity validarUsuario(@RequestParam(value = "user", required = true) String user,
                                          @RequestParam(value = "pw", required = true) String pw) {
 
-        if (this.usuarioService.existeUsuario(user, pw)) {
-            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<Boolean>(false, HttpStatus.OK);
-        }
+
+        return new ResponseEntity<Integer>(this.usuarioService.existeUsuario2(user,pw),HttpStatus.OK);
 
     }
-
 
 }

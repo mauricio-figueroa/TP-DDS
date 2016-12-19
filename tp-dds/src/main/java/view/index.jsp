@@ -19,110 +19,47 @@
 
 </script>
 
-<link rel="stylesheet" href="stylesheet_java.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+<body class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bg-fit">
 
-<button class="icon-login" type="button" name="button" onclick="openModal()" >Iniciar Sesión</button>
+<div class="welcome">
+			<img id="icono" src="icon.png" alt="icono" />
+			<h1>Bienvenido a P.O.I</h1>
+</div>
 
+<div class="eleccion">
+	<h2>Ingrese el usuario y contraseña para iniciar sesión</h2>
+	<input id="userid" class="log-input" type="text" name="name" value="" placeholder="Usuario"><br>
 
-	<div class="busqueda col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-			<div class="">
-					<h1>BUSQUEDA</h1>
-			</div>
-
-			<div class="first-block col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<h2>Criterio de búsqueda</h2>
-
-					<p>	</p>
-
-					<div id="content" class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-						<input id="searchPoi" class="dataSearch" type="text" name="name" value="">
-					</div>
-
-					<button  type="button" name="button" onclick="addInput()" >Agregar</button>
-					<button  type="button" name="button" onclick="search()">Buscar</button>
-
-
-
-
-
-			</div>
-
-			<div class="second-block col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-					<h2>Resultado</h2>
-
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<div   class="col-lg-4 col-md-4 col-sm-4 col-xs-4 nombre">
-										<p class=" namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											Ícono
-										</p>
-										<div id="testName" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-										</div>
-
-								</div>
-								<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 direccion">
-										<p class="namecol col-lg-12 col-md-12 col-sm-12 col-xs-12">
-											Información
-										</p>
-
-										<div id="testInfo" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-										</div>
-
-								</div>
-
-					</div>
-
-
-
-
-
-
-			</div>
-
-	</div>
+<input  id="psw"  class="log-input"  type="password" name="name" value="" placeholder="Contraseña"><br>
+	<button class="log-button icon-login" type="button" name="button" onclick="log()">Iniciar Sesión</button>
+</div>
 
 
 <div id="modal" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 modal">
 
 	<div class="modal-inner">
 		<p>
-			Modo Administrador
+			Los datos se ingresaron incorrectamente o el usuario no existe
 		</p>
-		<form class="" action="" method="post">
-
-			<input id="userid" class="log-input" type="text" name="name" value="" placeholder="Usuario">
-
-		<input  id="psw"  class="log-input"  type="password" name="name" value="" placeholder="Contraseña">
-			<button class="log-button" type="button" name="button" onclick="log()">Enviar</button>
-		</form>
-
-		<div class="modal-footer">
-						 <button type="button" class="btn btn-default" onclick="closeModal()" data-dismiss="modal">X</button>
-		</div>
-
-
-
 
 	</div>
 
 </div>
-
  <!-- <footer> P.O.I Todos los derechos reservados. 2016 ®</footer> -->
 </body>
 
 <script>
 
 $( document ).ready(function() {
-   ejecutarControllers();
+closeModal();
 });
 
-
 </script>
+
+
+
 
 </html>

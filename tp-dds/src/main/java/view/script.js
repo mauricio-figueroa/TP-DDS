@@ -23,19 +23,31 @@ permisosObj["8"]="Remover Poi";
 
 
 
+$( document ).ready(function() {
+fitBackground();
+});
 
+$( window ).resize(function() {
+  fitBackground();
+});
 
 function openModal(){
-var modal = document.getElementById("modal");
-  modal.style.display = "block";
+  var wd= parseInt($(window).width());
+  var wh= parseInt($(window).height());
+  $('.modal-inner').css('margin-left', wd/2-150+'px');
+  $('.modal-inner').css('margin-top', wh/2-60+'px');
+  $('.modal').fadeIn();
 
 }
 
 function closeModal(){
-  var modalC = document.getElementById("modal");
-  modalC.style.display="none";
+
+$('.modal').click(function(){
+  $(this).fadeOut();
+})
 
 }
+
 function addInput(){
   var d = document.getElementById("content");
  d.innerHTML += '<br />	<input id="searchPoi" class="dataSearch" type="text" name="name" value="">';
@@ -49,12 +61,16 @@ function log(){
 
  $.get(url, function(dataReceived){
 
-   if(dataReceived){
-    $(location).attr('href', 'file:///home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
-    // $(location).attr('href', 'C:/Users/Mauricio/Desktop/tpDDS/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
-   }else{
-     alert("Datos incorrectos");
+   if(dataReceived==2){
+   // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+    $(location).attr('href', 'C:/Users/Mauricio/Desktop/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+   }else if(dataReceived==1){
+      // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+       $(location).attr('href', 'C:/Users/Mauricio/Desktop/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+   }else {
+       openModal();
    };
+
 
  });
 
@@ -92,28 +108,29 @@ console.log(url);
 
                    switch (dataReceived[i].type) {
                      case "CGP":
-                     $( "#testName" ).append( "<br /> <img class='img-poi' src='"+dataReceived[i].icon+"' alt='' />");
+
+                     $( "#testName" ).append( "<br /> <img class='img-poi' src='img/"+dataReceived[i].icon+".png' alt='' />");
                      $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
                                                            '<br /> Zona:'+dataReceived[i].zone+ '<br /> Servicios:'+dataReceived[i].cgp_services+ '</p>' );
 
                      break;//1
 
                      case "Bank":
-
-                     $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+                     var x = Math.floor((Math.random() * 4) + 1);
+                     $( "#testName" ).append( '<br /><img class="img-poi" src="img/'+dataReceived[i].icon+'-'+x+'.png" alt="" />' );
                      $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
                                                            '<br /> Zona:'+dataReceived[i].zone+ '<br /> Servicios:'+dataReceived[i].bank_services+ '</p>' );
                      break;//2
 
                      case "BusStation":
-
-                     $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+                     var x = Math.floor((Math.random() * 4) + 1);
+                     $( "#testName" ).append( '<br /><img class="img-poi" src="img/'+dataReceived[i].icon+'-'+x+'.png" alt="" />' );
                      $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Número de línea:' +dataReceived[i].number_line+'</p>' );
                      break;//3
 
                      case "ComercialShop":
-
-                     $( "#testName" ).append( '<br /><img class="img-poi" src="'+dataReceived[i].icon+'" alt="" />' );
+                     var x = Math.floor((Math.random() * 3) + 1);
+                     $( "#testName" ).append( '<br /><img class="img-poi" src="img/'+dataReceived[i].icon+'-'+x+'.png" alt="" />' );
                      $( "#testInfo" ).append( '<br />	<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Dirección:' +dataReceived[i].direccion+
                                                            '<br /> Nombre:'+dataReceived[i].name+ '<br /> Rubro:'+dataReceived[i].activity+ '</p>' );
                      break;//4
@@ -162,7 +179,7 @@ console.log(url);
 
 
    $.get('http://localhost:8080/diseno-de-sistemas/crearUsuario?user=mauri&pw=mauri', function(dataReceived){
-     console.log("Se creo un usuario: User-> mauri, Psw -> mauri");});
+     console.log("Se creo un usuario administrador: User-> mauri, Psw -> mauri");});
 
 
    //
@@ -338,6 +355,10 @@ console.log(target);
 
    }
 
+   function cerrarSesion(){
+     $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/index.jsp');
+   }
+
    function cancel(){
 
      for (var i = 0; i <= remaining.length; i++) {
@@ -438,6 +459,104 @@ function checkDateFormat(string){
   }
 
 }
+
+
+function fitBackground(){
+	var img = new Image ;
+	try{
+		img.src = $('.bg-fit').css('background-image').replace("url(", "").replace(")", "").replace("\"", "").replace("\"", "");
+	}catch(err){
+
+	}
+	$(img).load(function() {
+    var bgWidth = img.width;
+    var bgHeight = img.height;
+
+
+    var wdHeight = $(window).height();
+	var wdWidth = $(window).width();
+	var docHeight = $(document).height();
+	var docWidth = $(document).width();
+
+if( (wdWidth-wdHeight) > 0 ){
+
+
+  if( (wdWidth- wdHeight) > (bgWidth-bgHeight)){
+
+
+					if(docHeight > wdHeight){
+
+						if(bgHeight < wdHeight){
+							$(".bg-fit").css("background-size","auto 100%  ");
+
+						}else{
+							$(".bg-fit").css("background-size","100% auto ");
+
+						}
+					}else {
+								$(".bg-fit").css("background-size","100% auto");
+
+					};
+
+
+    }else{
+
+
+			 		if(docHeight > wdHeight) {
+
+						if(bgHeight < wdHeight){
+							$(".bg-fit").css("background-size","auto 100%  ");
+
+						}else{
+							$(".bg-fit").css("background-size","100% auto ");
+
+						}
+
+
+					}else{
+
+						if(docHeight > bgHeight){
+								$(".bg-fit").css("background-size","auto  100% ");
+
+						}else{
+								if(bgHeight < wdHeight){
+									$(".bg-fit").css("background-size","auto 100%  ");
+
+								}else{
+									$(".bg-fit").css("background-size","130% auto ");
+
+
+								}
+
+						};
+
+				 };
+	};
+
+//  ELSE QUE CALCULA EL ALTO
+
+
+   }else{
+
+
+       if( (wdHeight- wdWidth) > (bgHeight-bgWidth) ){
+
+
+    	$(".bg-fit").css("background-size"," auto 100%");
+
+     }else{
+
+
+         $(".bg-fit").css("background-size","100%  auto");
+
+     };
+
+   }
+
+   }) ;
+
+
+ };
 
 
 // [{"user":"terminalGabo1","date":"Mon Sep 26 19:35:18 ART 2016","palabraBuscada":"bank","cantPoisEncontrados":3},{"user":"terminalGabo1","date":"Mon Sep 26 19:35:45 ART 2016","palabraBuscada":"cgp","cantPoisEncontrados":1}]

@@ -14,7 +14,7 @@ import domain.Schedule;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "busStation")
+@Table(name = "bank")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Bank extends Poi {
 

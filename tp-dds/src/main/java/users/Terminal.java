@@ -1,43 +1,48 @@
 package users;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-
-import org.apache.http.client.ClientProtocolException;
-
 import domain.Coordinate;
 import internalService.PoiService;
+import org.apache.http.client.ClientProtocolException;
 import poi.Bank;
 import poi.Poi;
 
-public class Terminal {
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.persistence.*;
+import java.io.IOException;
+import java.util.List;
 
-    private long id;
-    private String nombre;
+@Entity
+@Table(name = "Terminal")
+public class Terminal{
+    @Id
+    @GeneratedValue
+    public long id;
+
+    @Column(name="NOMBRE")
+    public String nombre;
+
+    @Column(name="CONTRASENIA")
+    public String contrasenia;
+
+
+
+    @Transient
     private Coordinate coordinates;
+    @Transient
     private PoiService poiService;
+    @Transient
     private List<List<String>> actions;
 
-    public Terminal(String nombre, Coordinate coordinate, List<List<String>> actions) {
+    public Terminal(String nombre,String contrasenia, Coordinate coordinate, List<List<String>> actions) {
+        this.contrasenia=contrasenia;
         this.nombre = nombre;
         this.coordinates = coordinate;
         this.actions = actions;
         this.poiService = PoiService.getInstance();
     }
 
-
-    public long getId() {
-        return id;
-    }
-
-
-    public void setId(long id) {
-        this.id = id;
+    public Terminal() {
     }
 
 
@@ -107,5 +112,16 @@ public class Terminal {
     public boolean isNearBy(Poi poi) throws ClientProtocolException, IOException {
         return poiService.isNearby(poi, coordinates);
     }
+    public long getId() {
+        return id;
+    }
+
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
+
 
 }
