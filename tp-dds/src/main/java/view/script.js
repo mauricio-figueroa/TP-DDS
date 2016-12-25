@@ -592,7 +592,7 @@ var i ;
 
       for (i = 0; i < dataReceived.length; i++) {
 
-          $("#usuarios").preppend('<option  id="'+i+'" value="'+(i+1)+'">'+dataReceived[i]+'</option>');
+          $("#usuarios").append('<option  id="'+i+'" value="'+(i+1)+'">'+dataReceived[i]+'</option>');
 
         users.push(dataReceived[i]);
 
@@ -617,7 +617,7 @@ var i ;
 
        for (var i = 0; i < dataReceived.length; i++) {
 
-           $("#usuarios").preppend('<option  id="'+(i+1)+'"  value="'+(i+1)+'">'+dataReceived[i]+'</option>');
+           $("#usuarios").append('<option  id="'+(i+1)+'"  value="'+(i+1)+'">'+dataReceived[i]+'</option>');
 
        }
 
