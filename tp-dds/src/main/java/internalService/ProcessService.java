@@ -14,6 +14,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import com.sun.deploy.util.StringUtils;
 import org.apache.http.client.ClientProtocolException;
 
 import json.JsonFactory;
@@ -185,7 +186,7 @@ public class ProcessService {
 		}else{
 			ProcessSearchInterfaz searchAdmin= new ProcessSearchAdmin();
 			List<Admin> admins =(List<Admin>) searchAdmin.search(nombre);
-			admins.get(0).getActions().add(actions);
+			admins.get(0).getActions().add(StringUtils.join(actions,","));
 		}
 		
 		endDate=Calendar.getInstance();

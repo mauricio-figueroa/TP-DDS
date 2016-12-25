@@ -16,19 +16,19 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Admin")
-public class Admin  {
+public class Admin {
     @Id
     @GeneratedValue
     private long id;
 
-    @Column(name="NOMBRE")
+    @Column(name = "NOMBRE", unique = true)
     private String nombre;
 
-    @Column(name="CONTRASENIA")
+    @Column(name = "CONTRASENIA")
     private String contrasenia;
 
     @Transient
-    private List<List<String>> actions;
+    private List<String> actions;
 
     @Transient
     private PoiService poiService;
@@ -40,7 +40,7 @@ public class Admin  {
     private ErrorProcessResolution errorResolution;
 
 
-    public Admin(List<List<String>> actions, String nombre, String contrasenia, String mail, String resolutionType) {
+    public Admin(List<String> actions, String nombre, String contrasenia, String mail, String resolutionType) {
         this.contrasenia = contrasenia;
         this.actions = actions;
         this.nombre = nombre;
@@ -120,12 +120,11 @@ public class Admin  {
         this.id = id;
     }
 
-
-    public List<List<String>> getActions() {
+    public List<String> getActions() {
         return actions;
     }
 
-    public void setActions(List<List<String>> actions) {
+    public void setActions(List<String> actions) {
         this.actions = actions;
     }
 

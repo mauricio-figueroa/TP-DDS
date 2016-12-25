@@ -19,7 +19,7 @@ public class Terminal{
     @GeneratedValue
     private long id;
 
-    @Column(name="NOMBRE")
+    @Column(name="NOMBRE",unique = true)
     private String nombre;
 
     @Column(name="CONTRASENIA")

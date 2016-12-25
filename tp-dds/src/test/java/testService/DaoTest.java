@@ -126,7 +126,7 @@ public class DaoTest {
     public void persistirUsuario() {
         AdminDAO adminDAO = new AdminDAO(entityManager);
         AdminController adminCon = new AdminController();
-        ResponseEntity response = adminCon.registerAdmin("gabo", "123", "gabriel.dyck@gmail.com");
+        ResponseEntity response = adminCon.registerAdmin("gabo1", "123", "gabriel.dyck@gmail.com");
         long id = (long) response.getBody();
         Admin admin = adminDAO.getById(id);
         admin.setNombre("f3r");
@@ -164,14 +164,14 @@ public class DaoTest {
         AdminDAO adminDAO = new AdminDAO(entityManager);
         TerminalDao terminalDao = new TerminalDao(entityManager);
         AdminController adminCon = new AdminController();
-        Admin admin=new Admin(null,"mauri","123","mauri@gmial.com","Mauri");
+        Admin admin=new Admin(null,"mauri1","123","mauri@gmial.com","Mauri");
         Admin admin2=new Admin(null,"mel","123","mel@gmial.com","Mel");
         Admin admin3=new Admin(null,"gabi","123","gaby@gmial.com","Gabi");
         Admin admin4=new Admin(null,"juani","123","juani@gmial.com","Juani");
-        Terminal terminal=new Terminal("terminalMauri","terminal1",null,null);
-        Terminal terminal2=new Terminal("terminalMel","terminal2",null,null);
-        Terminal terminal3=new Terminal("terminalGabi","terminal3",null,null);
-        Terminal termina4=new Terminal("terminalMel","terminal4",null,null);
+        Terminal terminal=new Terminal("terminalMauri1","terminal1",null,null);
+        Terminal terminal2=new Terminal("terminalMel1","terminal2",null,null);
+        Terminal terminal3=new Terminal("terminalGabi1","terminal3",null,null);
+        Terminal termina4=new Terminal("terminalMel2","terminal4",null,null);
         adminDAO.saveOrUpdate(admin);
         adminDAO.saveOrUpdate(admin2);
         adminDAO.saveOrUpdate(admin3);
