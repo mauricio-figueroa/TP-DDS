@@ -107,7 +107,7 @@
 				<div class="">
 					<select class="black" id="usuarios">
 								<option value="" selected disabled>Elegir  usuario</option>
-								<option  id="0" class="8" value="">terminalMel</option>
+								<option  id="0" value="3">terminalMel</option>
 								<option id="1"value="1">terminalMau</option>
 								<option id="2" value="2">terminalGabi</option>
 
@@ -119,7 +119,7 @@
 
         <select class="black"  id="listPermisos">
               <option value="" selected disabled>Elegir permisos</option>
-              <option  id="1" class="8" value="">Buscar poi</option>
+              <option  id="1"  value="8">Buscar poi</option>
 							<option id="2"value="1">Consultar cercanía</option>
 							<option id="3" value="2">Consultar disponibilidad</option>
 							<option id="4" value="3">Agregar Poi</option>
@@ -161,6 +161,7 @@
 $( document ).ready(function() {
    initialize();
 	 mostrarPoi();
+	 
 });
 
 </script>
