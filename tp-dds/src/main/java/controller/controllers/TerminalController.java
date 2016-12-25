@@ -1,6 +1,7 @@
 package controller.controllers;
 
 import controller.response.PoiDTO;
+import dao.AdminDAO;
 import dao.EntityManagerProvider;
 import dao.MongoDBManager;
 import dao.SearchDao;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import poi.*;
+import users.Admin;
 import users.Terminal;
 
 import javax.mail.MessagingException;
@@ -114,8 +116,14 @@ public class TerminalController {
     public ResponseEntity addUser(@RequestParam(value = "user", required = true) String user,
                                   @RequestParam(value = "pw", required = true) String pw) {
 
-        this.usuarioService.addUser(user, pw);
-
+        this.usuarioService.getUsers().put(user.toLowerCase(), pw.toLowerCase());
+        EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+        AdminDAO adminDAO=new AdminDAO(entityManager);
+        List actions=new ArrayList<String>();
+        actions.add(new ArrayList<String>());
+        Admin admin= new Admin(actions,user.toLowerCase(),pw.toLowerCase(),"","");
+        Admin adminDao= adminDAO.saveOrUpdate(admin);
+        System.out.println(adminDao.getId());
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 
     }

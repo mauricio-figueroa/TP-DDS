@@ -1,10 +1,7 @@
 package observers.busqueda;
 
-import com.sun.deploy.util.StringUtils;
 import internalService.ReportService;
-import org.eclipse.jetty.util.StringUtil;
-
-import java.util.Arrays;
+import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 
 public class AlmacenarResultado implements ObserverBusqueda {

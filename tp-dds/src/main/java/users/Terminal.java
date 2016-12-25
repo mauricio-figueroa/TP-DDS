@@ -17,13 +17,13 @@ import java.util.List;
 public class Terminal{
     @Id
     @GeneratedValue
-    public long id;
+    private long id;
 
     @Column(name="NOMBRE")
-    public String nombre;
+    private String nombre;
 
     @Column(name="CONTRASENIA")
-    public String contrasenia;
+    private String contrasenia;
 
 
 
@@ -122,6 +122,11 @@ public class Terminal{
     }
 
 
+    public String getContrasenia() {
+        return contrasenia;
+    }
 
-
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
 }

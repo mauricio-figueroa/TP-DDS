@@ -18,7 +18,9 @@ public class AdminDAO extends GenericDao<Admin,Long> {
         AdminDAO adminDAO=new AdminDAO(entityManager);
         List<Admin> admin= adminDAO.getAll();
         return (admin.stream().filter(x->x.getNombre().equalsIgnoreCase(user)
-                &&x.contrasenia.equalsIgnoreCase(pw)).collect(Collectors.toList())).size()>0;
+                &&x.getContrasenia().equalsIgnoreCase(pw)).collect(Collectors.toList())).size()>0;
     }
+
+
 
 }

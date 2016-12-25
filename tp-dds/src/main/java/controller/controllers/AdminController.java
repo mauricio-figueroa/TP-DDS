@@ -1,11 +1,8 @@
 package controller.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 import controller.response.BusquedaDTO;
@@ -450,13 +447,24 @@ public class AdminController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @RequestMapping(value = ("/get-admins"), method = RequestMethod.GET)
+    @RequestMapping(value = ("/get-users"), method = RequestMethod.GET)
     @ResponseBody
-    public List<String> getAdmins(){
+    public List<String> getUsers(){
         EntityManager entityManager= EntityManagerProvider.getInstance().getEntityManager();
+        List<String> users= new ArrayList<>();
         AdminDAO adminDAO = new AdminDAO(entityManager);
+        TerminalDao terminalDao= new TerminalDao(entityManager);
+        List<String> terminales= terminalDao.getAll().stream().map(Terminal::getNombre).collect(Collectors.toList());
         List<String> admins= adminDAO.getAll().stream().map(Admin::getNombre).collect(Collectors.toList());
-        return admins;
+        users.addAll(admins);
+        users.addAll(terminales);
+        return users;
+    }
+
+    @RequestMapping(value = ("/get-actions"), method = RequestMethod.GET)
+    @ResponseBody
+    public List<EnumActions> getActions(){
+        return Arrays.asList(EnumActions.values());
     }
 
 

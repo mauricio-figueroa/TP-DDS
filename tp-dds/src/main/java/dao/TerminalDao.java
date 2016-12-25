@@ -16,7 +16,7 @@ public class TerminalDao  extends GenericDao<Terminal,Long> {
         TerminalDao temrminalDao=new TerminalDao(entityManager);
         List<Terminal> terminales= temrminalDao.getAll();
         return (terminales.stream().filter(x->x.getNombre().equalsIgnoreCase(user)
-                &&x.contrasenia.equalsIgnoreCase(pw)).collect(Collectors.toList())).size()>0;
+                &&x.getContrasenia().equalsIgnoreCase(pw)).collect(Collectors.toList())).size()>0;
     }
 
 

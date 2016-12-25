@@ -60,10 +60,35 @@ public class UsuarioService {
     }
 
 
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
 
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
+    public AdminDAO getAdminDAO() {
+        return adminDAO;
+    }
 
+    public void setAdminDAO(AdminDAO adminDAO) {
+        this.adminDAO = adminDAO;
+    }
 
+    public TerminalDao getTerminalDao() {
+        return terminalDao;
+    }
 
+    public void setTerminalDao(TerminalDao terminalDao) {
+        this.terminalDao = terminalDao;
+    }
 
+    public Map<String, String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Map<String, String> users) {
+        this.users = users;
+    }
 }
