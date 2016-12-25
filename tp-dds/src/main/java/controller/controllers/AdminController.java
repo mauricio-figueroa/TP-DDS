@@ -6,6 +6,7 @@ import java.util.Map;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import controller.response.BusquedaDTO;
 import dao.AdminDAO;
@@ -447,6 +448,15 @@ public class AdminController {
         Poi poi = new ComercialShop(name, new Address(mainStreet), new Coordinate(lat, lon), categoryShop);
         admin.addPoi(poi);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = ("/get-admins"), method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> getAdmins(){
+        EntityManager entityManager= EntityManagerProvider.getInstance().getEntityManager();
+        AdminDAO adminDAO = new AdminDAO(entityManager);
+        List<String> admins= adminDAO.getAll().stream().map(Admin::getNombre).collect(Collectors.toList());
+        return admins;
     }
 
 

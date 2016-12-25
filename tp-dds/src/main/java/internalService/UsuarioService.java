@@ -4,9 +4,11 @@ import dao.AdminDAO;
 import dao.EntityManagerProvider;
 import dao.TerminalDao;
 import org.springframework.stereotype.Component;
+import users.Admin;
 import users.Terminal;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Map;
 
 
@@ -22,6 +24,12 @@ public class UsuarioService {
     private TerminalDao terminalDao=new TerminalDao(entityManager);
 
     private Map<String, String> users;
+
+
+    public List<Admin> getAdmins(){
+
+        return null;
+    }
 
     public UsuarioService() {
         this.users = new HashMap<>();

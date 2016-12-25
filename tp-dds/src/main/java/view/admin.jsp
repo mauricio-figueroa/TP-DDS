@@ -92,12 +92,6 @@
 
           </div>
 
-          <div class=" col col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                <h2>Detalle de POIS</h2>
-								<div id="detallePoi" class="detallePoi col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-								</div>
-          </div>
         </div>
 
 
@@ -111,11 +105,11 @@
         </div>
 
 				<div class="">
-					<select id="usuarios">
+					<select class="black" id="usuarios">
 								<option value="" selected disabled>Elegir  usuario</option>
-								<option  id="0" class="8" value="">Usuario 1</option>
-								<option id="1"value="1">Usuario 2</option>
-								<option id="2" value="2">Usuario 3</option>
+								<option  id="0" class="8" value="">terminalMel</option>
+								<option id="1"value="1">terminalMau</option>
+								<option id="2" value="2">terminalGabi</option>
 
 					</select>
 
@@ -123,7 +117,7 @@
 
 				</div>
 
-        <select id="listPermisos">
+        <select class="black"  id="listPermisos">
               <option value="" selected disabled>Elegir permisos</option>
               <option  id="1" class="8" value="">Buscar poi</option>
 							<option id="2"value="1">Consultar cercanía</option>

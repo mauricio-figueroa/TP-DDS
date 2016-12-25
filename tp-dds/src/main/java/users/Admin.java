@@ -27,11 +27,8 @@ public class Admin  {
     @Column(name="CONTRASENIA")
     public String contrasenia;
 
-
-
     @Transient
     private List<List<String>> actions;
-
 
     @Transient
     private PoiService poiService;

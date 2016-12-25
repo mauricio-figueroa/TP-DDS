@@ -1,9 +1,5 @@
 package mainApplication;
 
-import controller.controllers.AdminController;
-import dao.AdminDAO;
-import dao.EntityManagerProvider;
-import dao.TerminalDao;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
@@ -12,10 +8,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.DispatcherServlet;
-import users.Admin;
-import users.Terminal;
-
-import javax.persistence.EntityManager;
 
 
 public class Application {

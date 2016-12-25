@@ -1,4 +1,3 @@
-
 var termimal;
 var user1;
 var user2;
@@ -69,10 +68,15 @@ function log( ) {
 
         if (dataReceived == 2) {
             // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
-            $(location).attr('href', 'C:/Users/Mauricio/Desktop/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+            //$(location).attr('href', 'C:/Users/Mauricio/Desktop/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+            $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+
         } else if (dataReceived == 1) {
             // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
-            $(location).attr('href', 'C:/Users/Mauricio/Desktop/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+            //$(location).attr('href', 'C:/Users/Mauricio/Desktop/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+
+            $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+
         } else {
             openModal();
         }
@@ -370,7 +374,9 @@ function eliminarPermiso(target) {
 }
 
 function cerrarSesion() {
-    $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/index.jsp');
+    $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/index.jsp');
+
+    //  $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/index.jsp');
 }
 
 function cancel() {
