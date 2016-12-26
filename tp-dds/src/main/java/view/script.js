@@ -1,7 +1,7 @@
 var termimal;
 var users;
-var usuarios=[];
-var permisosActuales=[];
+var usuarios = [];
+var permisosActuales = [];
 
 var remaining;
 
@@ -67,13 +67,14 @@ function log() {
             //$(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
 
 
-            $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+            // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+            $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
 
         } else if (dataReceived == 1) {
             // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
-           // $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+            $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
 
-            $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+            // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
 
         } else {
             openModal();
@@ -339,10 +340,9 @@ function addPermiso() {
 
         $("#permisos").append(' </br><p id="' + id + '" class="permisoAdded">' + $("#listPermisos option:selected").text() + '</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso(' + id + ')"> Eliminar</button>');
 
-        var accion=[];
-        accion.action=id;
+        var accion = [];
+        accion.action = id;
         users[userSelected].actions.push(accion);
-
 
 
         remaining.push(id);
@@ -354,6 +354,29 @@ function addPermiso() {
 
 
 function eliminarPermiso(target) {
+
+
+    var i = -2;
+    var result;
+
+    var currentUser=users[userSelected];
+    var actionsSize=currentUser.actions.length;
+
+    var j=0;
+    var currenAction;
+    for(j;j<actionsSize;j++){
+        currenAction=currentUser.actions[j];
+
+        if(target.toString().indexOf(currenAction.action.toString()) != -1){
+            i=1
+            break;
+        }
+    }
+
+    if(i==1){
+    users[userSelected].remove(result);
+    }
+
 
     console.log(target);
 
@@ -396,29 +419,28 @@ function cancel() {
 function Ok() {
 
     $('#permisos').empty();
-    var fulltext="";
-    var sizeActions=  users[userSelected].actions.length;
+    var fulltext = "";
+    var sizeActions = users[userSelected].actions.length;
     var i;
     var text;
-    var res='';
+    var res = '';
 
 
-    for(i=0;i<sizeActions;i++){
-        text=users[userSelected].actions[i].action;
-        res=res+fulltext.concat(text);
-        if(i!=sizeActions-1){
-           res=res+ fulltext.concat(",")
+    for (i = 0; i < sizeActions; i++) {
+        text = users[userSelected].actions[i].action;
+        res = res + fulltext.concat(text);
+        if (i != sizeActions - 1) {
+            res = res + fulltext.concat(",")
         }
     }
 
 
-    var urltoPost = 'http://localhost:8080/diseno-de-sistemas/addActionToUser?adminName='+localStorage["terminal"]+"&user="+users[userSelected].nombre+"&actions="+res;
+    var urltoPost = 'http://localhost:8080/diseno-de-sistemas/addActionToUser?adminName=' + localStorage["terminal"] + "&user=" + users[userSelected].nombre + "&actions=" + res;
 
-        console.log(urltoPost);
+    console.log(urltoPost);
 
     $.get(urltoPost, function (dataReceived) {
-        })
-
+    })
 
 
 }
@@ -438,16 +460,15 @@ function selectUser() {
     }
 
 
-
 }
 
 function agregarGraficaPermiso(id, pathOuter, pathInner) {
 
     var ar = $(pathOuter + " option:selected").attr('id');
 
-    permisosActuales= id.split(",");
-    permisosActuales.forEach(function(value){
-            $(pathInner).append(' </br><p id="' + ar + '" class="permisoAdded">' + value + '</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso(' + id + ')"> Eliminar</button>');
+    permisosActuales = id.split(",");
+    permisosActuales.forEach(function (value) {
+        $(pathInner).append(' </br><p id="' + value + '" class="permisoAdded">' + value + '</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso(' + value + ')"> Eliminar</button>');
     });
 
 
