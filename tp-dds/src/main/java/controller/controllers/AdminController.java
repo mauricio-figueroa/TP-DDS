@@ -451,13 +451,12 @@ public class AdminController {
 
     @RequestMapping(value = ("/get-users"), method = RequestMethod.GET)
     @ResponseBody
-    public List<String> getUsers(){
+    public List<Terminal> getUsers(){
         EntityManager entityManager= EntityManagerProvider.getInstance().getEntityManager();
         List<String> users= new ArrayList<>();
         TerminalDao terminalDao= new TerminalDao(entityManager);
-        List<String> terminales= terminalDao.getAll().stream().map(Terminal::getNombre).collect(Collectors.toList());
-        users.addAll(terminales);
-        return users;
+        List<Terminal> terminales= terminalDao.getAll();
+        return terminales;
     }
 
     @RequestMapping(value = ("/get-actions"), method = RequestMethod.GET)

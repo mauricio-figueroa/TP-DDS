@@ -15,54 +15,22 @@ import java.util.List;
 
 @Entity
 @Table(name = "Terminal")
-public class Terminal{
-    @Id
-    @GeneratedValue
-    private long id;
+public class Terminal extends User{
 
-    @Column(name="NOMBRE",unique = true)
-    private String nombre;
-
-    @Column(name="CONTRASENIA")
-    private String contrasenia;
     @Transient
     private Coordinate coordinates;
     @Transient
     private PoiService poiService;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_action_terminal")
-    private List<Action> actions;
+
 
     public Terminal(String nombre,String contrasenia, Coordinate coordinate, List<Action> actions) {
-        this.contrasenia=contrasenia;
-        this.nombre = nombre;
+        super(nombre,contrasenia,actions);
         this.coordinates = coordinate;
-        this.actions = actions;
         this.poiService = PoiService.getInstance();
     }
 
     public Terminal() {
-    }
-
-
-    public List<Action> getActions() {
-        return actions;
-    }
-
-
-    public void setActions(List<Action> actions) {
-        this.actions = actions;
-    }
-
-
-    public String getNombre() {
-        return nombre;
-    }
-
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
 
@@ -111,23 +79,6 @@ public class Terminal{
 
     public boolean isNearBy(Poi poi) throws ClientProtocolException, IOException {
         return poiService.isNearby(poi, coordinates);
-    }
-    public long getId() {
-        return id;
-    }
-
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
     }
 
 
