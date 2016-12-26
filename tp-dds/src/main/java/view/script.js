@@ -1,11 +1,7 @@
 var termimal;
-var user1;
-var user2;
-var user3;
 var users;
-// user1.lista=[];
-// user2.lista=[];
-// user3.lista=[];
+var usuarios=[];
+
 
 var remaining;
 
@@ -53,14 +49,14 @@ function addInput() {
 }
 
 
-function log( ) {
+function log() {
 
 
     url = "http://localhost:8080/diseno-de-sistemas/validarUsuario?user=" + $('#userid').val() + "&pw=" + $('#psw').val();
 
-    localStorage["terminal"]=$('#userid').val();
+    localStorage["terminal"] = $('#userid').val();
 
-    terminal=localStorage["terminal"];
+    terminal = localStorage["terminal"];
 
 //    console.log(userSelected);
 
@@ -70,13 +66,13 @@ function log( ) {
             // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
             $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
 
-           // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+            // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
 
         } else if (dataReceived == 1) {
             // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
             $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
 
-           // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+            // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
 
         } else {
             openModal();
@@ -108,8 +104,7 @@ function search() {
 //var url='http://localhost:8080/diseno-de-sistemas/poi-show';
     var searchName = infoArray.join(",");
 
-    var url = 'http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName=' + searchName + '&terminalName=' +  localStorage["terminal"];
-
+    var url = 'http://localhost:8080/diseno-de-sistemas/search-poi-from?searchName=' + searchName + '&terminalName=' + localStorage["terminal"];
 
 
     console.log(url);
@@ -178,7 +173,6 @@ function ejecutarControllers() {
     $.get('http://localhost:8080/diseno-de-sistemas/terminal-add?name=terminalMau&password=123&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL', function (dataReceived) {
         console.log('Se agregó una terminal');
     });
-
 
 
     $.get('http://localhost:8080/diseno-de-sistemas/poi-addBusStation?name=114Parada&type=busStation&mainStreet=Avenida Siempre Viva%201231&lat=-34.638473&lon=-58.391618&busNumber=114',
@@ -375,7 +369,7 @@ function eliminarPermiso(target) {
 }
 
 function cerrarSesion() {
-    $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/index.jsp');
+    $(location).attr('href', '/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/index.jsp');
 
     //  $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/index.jsp');
 }
@@ -430,15 +424,16 @@ function agregarGraficaPermiso(id, pathOuter, pathInner) {
 
 
 function initialize() {
-  users = [];
-  remaining = [];
+    users = [];
+    remaining = [];
 
     cargarPermisos();
     cargarUsuarios();
 
-    for(var i=0; i< users.length; i++){
-      users[i]={};
-      users[i].lista=[];
+    console.log(usuarios);
+    for (var i = 0; i < users.length; i++) {
+        users[i] = {};
+        users[i].lista = [];
     }
 }
 
@@ -582,47 +577,40 @@ function fitBackground() {
 };
 
 
+function cargarUsuarios() {
+    var url = "http://localhost:8080/diseno-de-sistemas/get-users";
+    var i;
 
-function cargarUsuarios(){
-  var url="http://localhost:8080/diseno-de-sistemas/get-users";
-var i ;
+    $.get(url, function (dataReceived) {
 
-  $.get(url, function (dataReceived) {
+        console.log(dataReceived);
 
-      console.log(dataReceived);
+        for (i = 0; i < dataReceived.length; i++) {
 
-      for (i = 0; i < dataReceived.length; i++) {
-
-          $("#usuarios").append('<option  id="'+i+'" value="'+(i+1)+'">'+dataReceived[i]+'</option>');
-
-        users.push(dataReceived[i]);
-
-      }
+            $("#usuarios").append('<option  id="' + i + '" value="' + (i + 1) + '">' + dataReceived[i].nombre + '</option>');
 
 
-  });
-
-
-
+            users.push(dataReceived[i]);
+        }
+        usuarios=dataReceived;
+    });
 }
 
+function cargarPermisos() {
 
- function cargarPermisos(){
+    var url = "http://localhost:8080/diseno-de-sistemas/get-actions";
 
-   var url="http://localhost:8080/diseno-de-sistemas/get-actions";
+    $.get(url, function (dataReceived) {
 
+        console.log(dataReceived);
 
-   $.get(url, function (dataReceived) {
+        for (var i = 0; i < dataReceived.length; i++) {
 
-       console.log(dataReceived);
+            $("#listPermisos").append('<option  id="' + (i + 1) + '"  value="' + (i + 1) + '">' + dataReceived[i] + '</option>');
 
-       for (var i = 0; i < dataReceived.length; i++) {
-
-           $("#listPermisos").append('<option  id="'+(i+1)+'"  value="'+(i+1)+'">'+dataReceived[i]+'</option>');
-
-       }
+        }
 
 
-   });
+    });
 
- }
+}
