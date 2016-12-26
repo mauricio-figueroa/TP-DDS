@@ -69,13 +69,13 @@ public class Admin {
 
     }
 
-    public void addActionsToUser(String nombre, String type, List actions) {
+    public void addActionsToUser(String nombre, List actions) {
         Admin admin = this;
         new Thread(() ->
-                errorResolution.errorResolution(poiService.getProcessService().addActionsToUser(nombre, type, actions, this), this, new Callable<String>() {
+                errorResolution.errorResolution(poiService.getProcessService().addActionsToUser(nombre, actions, this), this, new Callable<String>() {
                     @Override
                     public String call() {
-                        return poiService.getProcessService().addActionsToUser(nombre, type, actions, admin);
+                        return poiService.getProcessService().addActionsToUser(nombre, actions, admin);
                     }
                 })).start();
 

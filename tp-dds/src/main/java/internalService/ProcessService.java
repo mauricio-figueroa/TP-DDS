@@ -172,7 +172,7 @@ public class ProcessService {
 		
 	}
 
-	public String addActionsToUser(String nombre,String type,List<String> actions,Admin admin){
+	public String addActionsToUser(String nombre,List<String> actions,Admin admin){
         EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
         UserDao userDAO= new UserDao(entityManager);
 		Calendar initDate= Calendar.getInstance();
@@ -182,25 +182,11 @@ public class ProcessService {
 		String result=null;
 		String errorMessage=null;
 
-		System.out.println("ADD");
-		if (type =="Terminal"){
-			ProcessSearchInterfaz searchProcess= new ProcessSearchTerminal();
-			List<User> terminales = (List<User>) searchProcess.search(nombre);
+			User userSelect = userDAO.getByName(nombre);
 			Action action= new Action(StringUtils.join(actions,","));
-			if(!terminales.isEmpty()) {
-                User terminal= terminales.get(0);
-                terminal.getActions().add(action);
-                userDAO.saveOrUpdate(terminal);
-			}
-		}else{
-			ProcessSearchInterfaz searchProcess= new ProcessSearchAdmin();
-			List<User> admins =(List<User>) searchProcess.search(nombre);
-			Action action= new Action(StringUtils.join(actions,","));
-            if(!admins.isEmpty()) {
-                User adminUser= admins.get(0);
-                admin.getActions().add(action);
-                userDAO.saveOrUpdate(adminUser);
-            }
+			if(userSelect!=null) {
+                userSelect.getActions().add(action);
+                userDAO.saveOrUpdate(userSelect);
 		}
 		
 		endDate=Calendar.getInstance();

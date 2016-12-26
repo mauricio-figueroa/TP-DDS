@@ -504,7 +504,7 @@ public class AdminController {
 
 
         Admin admin= new Admin(userSelected.getActions(), userSelected.getNombre(), userSelected.getContrasenia(), userSelected.getMail(), userSelected.getResolutionType());
-        admin.addActionsToUser(user,"Terminal",actions2);
+        admin.addActionsToUser(user,actions2);
     }
 
 
