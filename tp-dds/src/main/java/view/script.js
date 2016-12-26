@@ -338,7 +338,7 @@ function addPermiso() {
 
         $("#permisos").append(' </br><p id="' + id + '" class="permisoAdded">' + $("#listPermisos option:selected").text() + '</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso(' + id + ')"> Eliminar</button>');
 
-        users[userSelected].lista.push(id);
+        users[userSelected].actions.push(id);
 
         remaining.push(id);
 
@@ -403,13 +403,13 @@ function selectUser() {
     userSelected = id;
 
 
-    for (var i = 0; i < users[id].lista.length; i++) {
-        var idn = users[userSelected].lista[i];
+    for (var i = 0; i < users[id].actions.length; i++) {
+        var idn = users[userSelected].actions[i].action;
         agregarGraficaPermiso(idn, "#usuarios", "#permisos");
 
     }
 
-    console.log(users[userSelected].lista);
+    console.log(users[userSelected].actions[0].action[0]);
 
 
 }
@@ -592,7 +592,6 @@ function cargarUsuarios() {
 
             users.push(dataReceived[i]);
         }
-        usuarios=dataReceived;
     });
 }
 
