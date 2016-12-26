@@ -140,6 +140,10 @@ public class Admin {
     }
 
 
+    public Admin(String name){
+        poiService = PoiService.getInstance();
+        this.nombre=name;
+    }
 
     public Admin() {
         poiService = PoiService.getInstance();
