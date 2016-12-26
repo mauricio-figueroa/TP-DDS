@@ -1,6 +1,9 @@
 package dao;
+import org.hibernate.exception.ConstraintViolationException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -79,11 +82,19 @@ public class GenericDao<E,PK> {
 
 
     public E saveOrUpdate(E object) {
-        EntityTransaction tx = entityManager.getTransaction();
-        tx.begin();
-        E newEntity = entityManager.merge(object);
-        tx.commit();
-        return newEntity;
+        try{
+            EntityTransaction tx = entityManager.getTransaction();
+            tx.begin();
+            E newEntity = entityManager.merge(object);
+            tx.commit();
+            return newEntity;
+        }catch(PersistenceException e){
+            e.printStackTrace();
+            return object;
+        }
+
+
+
     }
 
 

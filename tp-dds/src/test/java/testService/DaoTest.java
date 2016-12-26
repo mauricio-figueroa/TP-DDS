@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import poi.*;
 import users.Admin;
 import users.Terminal;
+import users.User;
 
 import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
@@ -105,9 +106,10 @@ public class DaoTest {
         String name = bankDao.saveOrUpdate(bank2).getName();
         SearchDao searchDao = new SearchDao(entityManager);
         Coordinate corCoordinate = new Coordinate(1234.5, 1234.5);
-        PoiService.getInstance();
         String nameTerminal = "TerminalTest";
-        Terminal terminal = new Terminal(nameTerminal, "asda", corCoordinate, null);
+        Terminal terminal = new Terminal(nameTerminal, "asda", corCoordinate, null,"TERMINAL");
+        poiService.addTerminal(terminal);
+
 
         TerminalController terminalController = new TerminalController();
         terminalController.searchPoiFrom(Arrays.asList(name), nameTerminal);
@@ -124,62 +126,60 @@ public class DaoTest {
 
     @Test
     public void persistirUsuario() {
-        AdminDAO adminDAO = new AdminDAO(entityManager);
+        UserDao userDao = new UserDao(entityManager);
         AdminController adminCon = new AdminController();
         ResponseEntity response = adminCon.registerAdmin("gabo1", "123", "gabriel.dyck@gmail.com");
         long id = (long) response.getBody();
-        Admin admin = adminDAO.getById(id);
+        User admin = userDao.getById(id);
         admin.setNombre("f3r");
-        adminDAO.saveOrUpdate(admin);
-        admin = adminDAO.getById(id);
+        userDao.saveOrUpdate(admin);
+        admin = userDao.getById(id);
         Assert.assertTrue(admin.getNombre().equalsIgnoreCase("f3r"));
     }
 
 
     @Test
     public void persistirUsuario2() {
-        AdminDAO adminDAO = new AdminDAO(entityManager);
+        UserDao userDao = new UserDao(entityManager);
         AdminController adminCon = new AdminController();
         ResponseEntity response = adminCon.registerAdmin("gabo", "123", "gabriel.dyck@gmail.com");
         long id = (long) response.getBody();
-        Admin admin=new Admin(null,"mauri","mauripw","mauri@gmial.com","Mauri");
+        User admin=new User(null,"mauri","mauripw","mauri@gmial.com","Mauri");
 
-        Admin admin2= adminDAO.saveOrUpdate(admin);
+        User admin2= userDao.saveOrUpdate(admin);
     }
 
 
     @Test
     public void peristirTerminal() {
-        TerminalDao terminalDao = new TerminalDao(entityManager);
-        AdminController adminCon = new AdminController();
-        Terminal terminal=new Terminal("terminal1","terminal1",null,null);
+        UserDao userDao = new UserDao(entityManager);
+        User terminal=new User("terminal1","terminal1",new Coordinate(),null);
 
-        Terminal terminal2= terminalDao.saveOrUpdate(terminal);
+        User terminal2= userDao.saveOrUpdate(terminal);
     }
 
 
     @Test
     public void test(){
         EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
-        AdminDAO adminDAO = new AdminDAO(entityManager);
-        TerminalDao terminalDao = new TerminalDao(entityManager);
+        UserDao userDao = new UserDao(entityManager);
         AdminController adminCon = new AdminController();
-        Admin admin=new Admin(null,"mauri1","123","mauri@gmial.com","Mauri");
-        Admin admin2=new Admin(null,"mel","123","mel@gmial.com","Mel");
-        Admin admin3=new Admin(null,"gabi","123","gaby@gmial.com","Gabi");
-        Admin admin4=new Admin(null,"juani","123","juani@gmial.com","Juani");
-        Terminal terminal=new Terminal("terminalMauri1","terminal1",null,null);
-        Terminal terminal2=new Terminal("terminalMel1","terminal2",null,null);
-        Terminal terminal3=new Terminal("terminalGabi1","terminal3",null,null);
-        Terminal termina4=new Terminal("terminalMel2","terminal4",null,null);
-        adminDAO.saveOrUpdate(admin);
-        adminDAO.saveOrUpdate(admin2);
-        adminDAO.saveOrUpdate(admin3);
-        adminDAO.saveOrUpdate(admin4);
-        terminalDao.saveOrUpdate(terminal);
-        terminalDao.saveOrUpdate(terminal2);
-        terminalDao.saveOrUpdate(terminal3);
-        terminalDao.saveOrUpdate(termina4);
+        User admin=new User(null,"mauri1","123","mauri@gmial.com","Mauri");
+        User admin2=new User(null,"mel","123","mel@gmial.com","Mel");
+        User admin3=new User(null,"gabi","123","gaby@gmial.com","Gabi");
+        User admin4=new User(null,"juani","123","juani@gmial.com","Juani");
+        User terminal=new User("terminalMauri1","terminal1",new Coordinate(),null);
+        User terminal2=new User("terminalMel1","terminal2",new Coordinate(),null);
+        User terminal3=new User("terminalGabi1","terminal3",new Coordinate(),null);
+        User termina4=new User("terminalMel2","terminal4",new Coordinate(),null);
+        userDao.saveOrUpdate(admin);
+        userDao.saveOrUpdate(admin2);
+        userDao.saveOrUpdate(admin3);
+        userDao.saveOrUpdate(admin4);
+        userDao.saveOrUpdate(terminal);
+        userDao.saveOrUpdate(terminal2);
+        userDao.saveOrUpdate(terminal3);
+        userDao.saveOrUpdate(termina4);
 
     }
 
