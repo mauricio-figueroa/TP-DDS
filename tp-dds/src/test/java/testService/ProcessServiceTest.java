@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.sun.deploy.util.StringUtils;
+import dao.model.Action;
 import internalService.PoiService;
 import internalService.ProcessService;
 
@@ -79,8 +81,9 @@ public class ProcessServiceTest {
 	public void addActionToUser(){
 	List<String> actionInitialize= new ArrayList<String>();
 	actionInitialize.add(EnumActions.ADDPOI.toString());
-	List<List<String>> actions= new ArrayList<List<String>>();
-	actions.add(actionInitialize);
+	List<Action> actions= new ArrayList<>();
+		Action action= new Action(StringUtils.join(actions,","));
+		actions.add(action);
 	poiService.getTerminales().add(new Terminal("Terminal Gabo","asdf", new Coordinate(43.23,54.23),actions));
 	List<String> actionValidate= new ArrayList<String>();
 	actionValidate.add(EnumActions.ADDTERMINAL.toString());
@@ -101,8 +104,9 @@ public class ProcessServiceTest {
 	public void multiplyProcess(){
 		List<String> actionInitialize= new ArrayList<String>();
 		actionInitialize.add(EnumActions.ADDPOI.toString());
-		List<List<String>> actions= new ArrayList<List<String>>();
-		actions.add(actionInitialize);
+		List<Action> actions= new ArrayList<>();
+		Action action= new Action(StringUtils.join(actions,","));
+		actions.add(action);
 		poiService.getTerminales().add(new Terminal("Terminal Gabo","asdfs", new Coordinate(43.23,54.23),actions));
 
 		List<String> actionValidate= new ArrayList<String>();

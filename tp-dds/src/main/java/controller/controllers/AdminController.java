@@ -9,6 +9,7 @@ import controller.response.BusquedaDTO;
 import dao.AdminDAO;
 import dao.EntityManagerProvider;
 import dao.TerminalDao;
+import dao.model.Action;
 import domain.*;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -56,8 +57,9 @@ public class AdminController {
             @RequestParam(value = "action", required = false) List<String> actions) {
 
         if (actions.stream().allMatch(action -> EnumUtils.isValidEnum(EnumActions.class, action))) {
-            List<List<String>> listOfActions = new ArrayList<List<String>>();
-            listOfActions.add(actions);
+            List<Action> listOfActions = new ArrayList<>();
+            Action action= new Action(com.sun.deploy.util.StringUtils.join(actions,","));
+            listOfActions.add(action);
             Terminal terminal=new Terminal(name,password, new Coordinate(lat, lon), listOfActions);
             boolean state = admin.addTerminal(terminal);
             EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();

@@ -1,5 +1,6 @@
 package users;
 
+import dao.model.Action;
 import domain.Coordinate;
 import internalService.PoiService;
 import org.apache.http.client.ClientProtocolException;
@@ -24,17 +25,16 @@ public class Terminal{
 
     @Column(name="CONTRASENIA")
     private String contrasenia;
-
-
-
     @Transient
     private Coordinate coordinates;
     @Transient
     private PoiService poiService;
-    @Transient
-    private List<List<String>> actions;
 
-    public Terminal(String nombre,String contrasenia, Coordinate coordinate, List<List<String>> actions) {
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_action_terminal")
+    private List<Action> actions;
+
+    public Terminal(String nombre,String contrasenia, Coordinate coordinate, List<Action> actions) {
         this.contrasenia=contrasenia;
         this.nombre = nombre;
         this.coordinates = coordinate;
@@ -46,12 +46,12 @@ public class Terminal{
     }
 
 
-    public List<List<String>> getActions() {
+    public List<Action> getActions() {
         return actions;
     }
 
 
-    public void setActions(List<List<String>> actions) {
+    public void setActions(List<Action> actions) {
         this.actions = actions;
     }
 
@@ -129,4 +129,6 @@ public class Terminal{
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
+
+
 }
