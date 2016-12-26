@@ -68,14 +68,15 @@ function log( ) {
 
         if (dataReceived == 2) {
             // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
-            //$(location).attr('href', 'C:/Users/Mauricio/Desktop/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
-            $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+            $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+
+           // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
 
         } else if (dataReceived == 1) {
             // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
-            //$(location).attr('href', 'C:/Users/Mauricio/Desktop/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+            $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
 
-            $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+           // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
 
         } else {
             openModal();
@@ -617,7 +618,7 @@ var i ;
 
        for (var i = 0; i < dataReceived.length; i++) {
 
-           $("#usuarios").append('<option  id="'+(i+1)+'"  value="'+(i+1)+'">'+dataReceived[i]+'</option>');
+           $("#listPermisos").append('<option  id="'+(i+1)+'"  value="'+(i+1)+'">'+dataReceived[i]+'</option>');
 
        }
 
