@@ -3,11 +3,13 @@ package users;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import dao.model.Action;
 import domain.EmailErrorProcessResolution;
 import domain.ErrorProcessResolution;
 import domain.RepeatErrorProcessResolution;
 import domain.Schedule;
 import internalService.PoiService;
+import org.hibernate.annotations.Fetch;
 import poi.CGP;
 import poi.CGPService;
 import poi.Poi;
@@ -28,7 +30,7 @@ public class Admin {
     private String contrasenia;
 
     @Transient
-    private List<String> actions;
+    private List<Action> actions;
 
     @Transient
     private PoiService poiService;
@@ -40,7 +42,7 @@ public class Admin {
     private ErrorProcessResolution errorResolution;
 
 
-    public Admin(List<String> actions, String nombre, String contrasenia, String mail, String resolutionType) {
+    public Admin(List<Action> actions, String nombre, String contrasenia, String mail, String resolutionType) {
         this.contrasenia = contrasenia;
         this.actions = actions;
         this.nombre = nombre;
@@ -120,11 +122,11 @@ public class Admin {
         this.id = id;
     }
 
-    public List<String> getActions() {
+    public List<Action> getActions() {
         return actions;
     }
 
-    public void setActions(List<String> actions) {
+    public void setActions(List<Action> actions) {
         this.actions = actions;
     }
 
@@ -136,6 +138,7 @@ public class Admin {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
 
 
     public Admin() {
@@ -251,4 +254,6 @@ public class Admin {
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
+
+
 }

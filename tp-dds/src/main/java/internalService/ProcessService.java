@@ -7,14 +7,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.sun.deploy.util.StringUtils;
+import dao.model.Action;
 import org.apache.http.client.ClientProtocolException;
 
 import json.JsonFactory;
@@ -177,16 +174,18 @@ public class ProcessService {
 		String userRan= admin.getNombre();
 		String result=null;
 		String errorMessage=null;
-		
+
 		System.out.println("ADD");
 		if (type =="Terminal"){
-			ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
-			List<Terminal> terminales = (List<Terminal>) searchTerminal.search(nombre);
-			terminales.get(0).getActions().add( actions);
+			ProcessSearchInterfaz searchProcess= new ProcessSearchTerminal();
+			List<Terminal> terminales = (List<Terminal>) searchProcess.search(nombre);
+			Action action= new Action(StringUtils.join(actions,","));
+			terminales.get(0).getActions().add(action);
 		}else{
-			ProcessSearchInterfaz searchAdmin= new ProcessSearchAdmin();
-			List<Admin> admins =(List<Admin>) searchAdmin.search(nombre);
-			admins.get(0).getActions().add(StringUtils.join(actions,","));
+			ProcessSearchInterfaz searchProcess= new ProcessSearchAdmin();
+			List<Admin> admins =(List<Admin>) searchProcess.search(nombre);
+			Action action= new Action(StringUtils.join(actions,","));
+			admins.get(0).getActions().add(action);
 		}
 		
 		endDate=Calendar.getInstance();
