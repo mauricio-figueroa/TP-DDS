@@ -472,10 +472,15 @@ public class AdminController {
     public void addActionToUser(
             @RequestParam(value = "adminName", required = true) String adminName,
             @RequestParam(value = "user", required = true) String user,
-            @RequestParam(value = "mainStreet", required = true) List<String> actions ){
+            @RequestParam(value = "actions", required = true) String actions ){
+
+        String[] parts = actions.split(",");
+
+        List<String> actions2 =new ArrayList<>(Arrays.asList(parts));
+
 
         Admin admin= new Admin(adminName);
-        admin.addActionsToUser(user,"Terminal",actions);
+        admin.addActionsToUser(user,"Terminal",actions2);
     }
 
 
