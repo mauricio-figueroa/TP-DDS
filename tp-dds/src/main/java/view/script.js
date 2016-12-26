@@ -1,7 +1,7 @@
 var termimal;
 var users;
 var usuarios=[];
-
+var permisosActuales=[];
 
 var remaining;
 
@@ -64,15 +64,16 @@ function log() {
 
         if (dataReceived == 2) {
             // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
-            $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+            //$(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
 
-            // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+
+            $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
 
         } else if (dataReceived == 1) {
             // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
-            $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+           // $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
 
-            // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+            $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
 
         } else {
             openModal();
@@ -162,15 +163,15 @@ function search() {
 
 function ejecutarControllers() {
 
-    $.get('http://localhost:8080/diseno-de-sistemas/terminal-add?name=terminalGabi&password=1231&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL', function (dataReceived) {
+    $.get('http://localhost:8080/diseno-de-sistemas/add-user?name=terminalGabi&password=1231&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL&type=TERMINAL', function (dataReceived) {
         console.log('Se agregó una terminal');
     });
 
-    $.get('http://localhost:8080/diseno-de-sistemas/terminal-add?name=terminalMel&password=123&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL', function (dataReceived) {
+    $.get('http://localhost:8080/diseno-de-sistemas/add-user?name=terminalMel&password=123&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL&type=TERMINAL', function (dataReceived) {
         console.log('Se agregó una terminal');
     });
 
-    $.get('http://localhost:8080/diseno-de-sistemas/terminal-add?name=terminalMau&password=123&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL', function (dataReceived) {
+    $.get('http://localhost:8080/diseno-de-sistemas/add-user?name=terminalMau&password=123&lat=-34.638800&lon=-58.393426&action=ADDTERMINAL&type=TERMINAL', function (dataReceived) {
         console.log('Se agregó una terminal');
     });
 
@@ -196,7 +197,7 @@ function ejecutarControllers() {
     });
 
 
-    $.get('http://localhost:8080/diseno-de-sistemas/crearUsuario?user=mauri&pw=mauri', function (dataReceived) {
+    $.get('http://localhost:8080/diseno-de-sistemas/add-user?name=mauri&password=mauri&type=ADMIN&action=ADDTERMINAL,ADDPOI', function (dataReceived) {
         console.log("Se creo un usuario administrador: User-> mauri, Psw -> mauri");
     });
 
@@ -353,6 +354,8 @@ function eliminarPermiso(target) {
 
     console.log(target);
 
+    permisosActuales
+
     $('#permisos > #' + target).empty();
 
     //var ind = target.toString();
@@ -418,7 +421,11 @@ function agregarGraficaPermiso(id, pathOuter, pathInner) {
 
     var ar = $(pathOuter + " option:selected").attr('id');
 
-    $(pathInner).append(' </br><p id="' + ar + '" class="permisoAdded">' + permisosObj[id] + '</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso(' + id + ')"> Eliminar</button>');
+    permisosActuales= id.split(",");
+    permisosActuales.forEach(function(value){
+            $(pathInner).append(' </br><p id="' + ar + '" class="permisoAdded">' + value + '</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso(' + id + ')"> Eliminar</button>');
+    });
+
 
 }
 
