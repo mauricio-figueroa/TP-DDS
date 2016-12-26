@@ -31,7 +31,11 @@ public class PoiService {
 	private static List<Terminal> terminales;
 	private static List<Admin> admins;
 	private static ProcessService processService;
-	
+
+
+	public void addTerminal(Terminal terminal){
+		terminales.add(terminal);
+	}
 	
 	public static PoiService getInstance() {
 
@@ -41,7 +45,7 @@ public class PoiService {
 			bankService = BankService.getInstance();
 			reportService=ReportService.getInstance();
 			terminales=new ArrayList<Terminal>();
-			terminales.add(new Terminal("TerminalTest","12356",new Coordinate(14.6,15.3),null));
+			terminales.add(new Terminal("TerminalTest","12356",new Coordinate(14.6,15.3),null,"TERMINAL"));
 			processService= ProcessService.getInstance();
 			
 		}

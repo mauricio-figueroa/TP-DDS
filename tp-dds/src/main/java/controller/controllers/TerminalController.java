@@ -1,10 +1,10 @@
 package controller.controllers;
 
 import controller.response.PoiDTO;
-import dao.AdminDAO;
 import dao.EntityManagerProvider;
 import dao.MongoDBManager;
 import dao.SearchDao;
+import dao.UserDao;
 import domain.Search;
 import internalService.PoiService;
 import internalService.UsuarioService;
@@ -118,11 +118,11 @@ public class TerminalController {
 
         this.usuarioService.getUsers().put(user.toLowerCase(), pw.toLowerCase());
         EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
-        AdminDAO adminDAO=new AdminDAO(entityManager);
+
+        UserDao userDAO=new UserDao(entityManager);
         List actions=new ArrayList<String>();
         actions.add(new ArrayList<String>());
-        Admin admin= new Admin(actions,user.toLowerCase(),pw.toLowerCase(),"","");
-        Admin adminDao= adminDAO.saveOrUpdate(admin);
+        userDAO.saveAdmin(actions,user.toLowerCase(),pw.toLowerCase(),"","");
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 
     }

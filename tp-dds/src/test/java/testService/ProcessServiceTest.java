@@ -1,31 +1,29 @@
 package testService;
 
-import static org.junit.Assert.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.sun.deploy.util.StringUtils;
 import dao.model.Action;
+import domain.Address;
+import domain.Coordinate;
+import domain.EnumActions;
 import internalService.PoiService;
 import internalService.ProcessService;
-
-import org.apache.http.client.ClientProtocolException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import domain.Address;
-import domain.Coordinate;
-import domain.EnumActions;
 import poi.Bank;
 import poi.BusStation;
 import poi.Poi;
 import users.Admin;
 import users.Terminal;
+import users.User;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ProcessServiceTest {
 	
@@ -35,7 +33,9 @@ public class ProcessServiceTest {
 	private Bank santander;
 	private Bank icbc;
 	private BusStation stop114;
+	private User adminUser;
 	private Admin admin;
+
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
 
@@ -71,7 +71,7 @@ public class ProcessServiceTest {
 		admin.turnOffAPoi();
 		toCheck= poiService.getAllPois().stream().filter(poi -> poi.isActived()).collect(Collectors.toList());
 		assertTrue(toCheck.isEmpty() || !processService.getProcessStories().stream().filter(story -> story.getResult()=="Error").collect(Collectors.toList()).isEmpty());
-		admin= new Admin(null,"Gabo","sdaf","gabriel.dyck@despegar.com","Repeat");
+		adminUser= new User(null,"Gabo","sdaf","gabriel.dyck@despegar.com","Repeat");
 		admin.turnOffAPoi();
 		
 	}
@@ -84,7 +84,7 @@ public class ProcessServiceTest {
 	List<Action> actions= new ArrayList<>();
 		Action action= new Action(StringUtils.join(actions,","));
 		actions.add(action);
-	poiService.getTerminales().add(new Terminal("Terminal Gabo","asdf", new Coordinate(43.23,54.23),actions));
+	poiService.getTerminales().add(new Terminal("Terminal Gabo","asdf", new Coordinate(43.23,54.23),actions,"TERMINAL"));
 	List<String> actionValidate= new ArrayList<String>();
 	actionValidate.add(EnumActions.ADDTERMINAL.toString());
 	processService.addActionsToUser("Terminal Gabo", "Terminal",actionValidate,admin);
@@ -107,7 +107,7 @@ public class ProcessServiceTest {
 		List<Action> actions= new ArrayList<>();
 		Action action= new Action(StringUtils.join(actions,","));
 		actions.add(action);
-		poiService.getTerminales().add(new Terminal("Terminal Gabo","asdfs", new Coordinate(43.23,54.23),actions));
+		poiService.getTerminales().add(new Terminal("Terminal Gabo","asdfs", new Coordinate(43.23,54.23),actions,"TERMINAL"));
 
 		List<String> actionValidate= new ArrayList<String>();
 		actionValidate.add(EnumActions.ADDTERMINAL.toString());

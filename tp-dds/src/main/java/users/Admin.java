@@ -15,36 +15,25 @@ import poi.Poi;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "Admin")
+
 public class Admin {
-    @Id
-    @GeneratedValue
-    private long id;
 
-    @Column(name = "NOMBRE", unique = true)
     private String nombre;
-
-    @Column(name = "CONTRASENIA")
     private String contrasenia;
-
-    @Transient
     private List<Action> actions;
-
-    @Transient
     private PoiService poiService;
 
-    @Column(name = "MAIL")
+
     private String mail;
 
-    @Transient
+
     private ErrorProcessResolution errorResolution;
 
 
     public Admin(List<Action> actions, String nombre, String contrasenia, String mail, String resolutionType) {
-        this.contrasenia = contrasenia;
-        this.actions = actions;
-        this.nombre = nombre;
+        this.nombre=nombre;
+        this.contrasenia=contrasenia;
+        actions=actions;
         this.mail = mail;
         this.poiService = PoiService.getInstance();
 
@@ -112,49 +101,24 @@ public class Admin {
         this.errorResolution = errorResolution;
     }
 
-    public long getId() {
-        return id;
-    }
 
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public List<Action> getActions() {
-        return actions;
-    }
-
-    public void setActions(List<Action> actions) {
-        this.actions = actions;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
 
     public Admin(String name){
+        nombre=name;
         poiService = PoiService.getInstance();
-        this.nombre=name;
     }
 
     public Admin() {
         poiService = PoiService.getInstance();
 
     }
-
     public boolean addTerminal(Terminal terminal) {
         poiService.getTerminales().add(terminal);
         return true;
     }
 
-
+    @Transient
     public boolean removeTerminal(String name) {
         int index = 0;
         boolean status = false;
@@ -258,5 +222,19 @@ public class Admin {
         this.contrasenia = contrasenia;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Action> getActions() {
+        return actions;
+    }
+
+    public void setActions(List<Action> actions) {
+        this.actions = actions;
+    }
 }

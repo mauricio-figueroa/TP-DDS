@@ -6,9 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.stream.Collectors;
 
 import controller.response.BusquedaDTO;
-import dao.AdminDAO;
 import dao.EntityManagerProvider;
-import dao.TerminalDao;
+import dao.UserDao;
 import dao.model.Action;
 import domain.*;
 import org.apache.commons.lang3.EnumUtils;
@@ -22,6 +21,7 @@ import internalService.PoiService;
 import poi.*;
 import users.Admin;
 import users.Terminal;
+import users.User;
 
 import javax.persistence.EntityManager;
 
@@ -41,34 +41,56 @@ public class AdminController {
                                         @RequestParam(value="pass",required = true) String pass,
                                         @RequestParam(value="mail",required = true) String mail){
         EntityManager entityManager= EntityManagerProvider.getInstance().getEntityManager();
-        AdminDAO adminDAO = new AdminDAO(entityManager);
-        Admin adminToReg= new Admin(null,user,pass,"asdsa","email");
-        Admin admin= adminDAO.saveOrUpdate(adminToReg);
-        return new ResponseEntity(admin.getId(),HttpStatus.OK);
+        UserDao userDao= new UserDao(entityManager);
+        User adminToReg= new User(new ArrayList<Action>(),user,pass,"email","ADMIN");
+        User userAdded= userDao.saveOrUpdate(adminToReg);
+        return new ResponseEntity(userAdded.getId(),HttpStatus.OK);
     }
 
-    @RequestMapping(value = ("/terminal-add"), method = RequestMethod.GET)
+    @RequestMapping(value = ("/add-user"), method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity addTerminal(
             @RequestParam(value = "name", required = true) String name,
             @RequestParam(value = "password", required = true) String password,
-            @RequestParam(value = "lat", required = true) double lat,
-            @RequestParam(value = "lon", required = true) double lon,
-            @RequestParam(value = "action", required = false) List<String> actions) {
+            @RequestParam(value = "lat", required = false) Double lat,
+            @RequestParam(value = "lon", required = false) Double lon,
+            @RequestParam(value = "action", required = false) List<String> actions,
+            @RequestParam(value = "type", required = true)String type,
+            @RequestParam(value = "mail", required = false)String mail,
+            @RequestParam(value = "resolutionType", required = false)String resolutionType) {
 
+        if(type.equalsIgnoreCase("TERMINAL")){
         if (actions.stream().allMatch(action -> EnumUtils.isValidEnum(EnumActions.class, action))) {
             List<Action> listOfActions = new ArrayList<>();
             Action action= new Action(com.sun.deploy.util.StringUtils.join(actions,","));
             listOfActions.add(action);
-            Terminal terminal=new Terminal(name,password, new Coordinate(lat, lon), listOfActions);
+            User user=new User(name,password, new Coordinate(lat, lon), listOfActions);
+            Terminal terminal=new Terminal(name,password, new Coordinate(lat, lon), listOfActions,"TERMINAL");
             boolean state = admin.addTerminal(terminal);
             EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
-            TerminalDao terminalDao = new TerminalDao(entityManager);
-            terminalDao.saveOrUpdate(terminal);
+            UserDao userDao = new UserDao(entityManager);
+            userDao.saveOrUpdate(user);
             return new ResponseEntity(state, HttpStatus.OK);
         } else {
             String error = "ACTIONS MUST BE " + EnumActions.values();
             return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+        }
+        }else{
+            if (actions.stream().allMatch(action -> EnumUtils.isValidEnum(EnumActions.class, action))) {
+                List<Action> listOfActions = new ArrayList<>();
+                Action action= new Action(com.sun.deploy.util.StringUtils.join(actions,","));
+                listOfActions.add(action);
+                User user=new User(listOfActions,name,password,mail, resolutionType);
+                boolean state=true;
+                EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+                UserDao userDao = new UserDao(entityManager);
+                userDao.saveOrUpdate(user);
+                return new ResponseEntity(state, HttpStatus.OK);
+            } else {
+                String error = "ACTIONS MUST BE " + EnumActions.values();
+                return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+            }
+
         }
     }
 
@@ -451,12 +473,11 @@ public class AdminController {
 
     @RequestMapping(value = ("/get-users"), method = RequestMethod.GET)
     @ResponseBody
-    public List<Terminal> getUsers(){
+    public List<User> getUsers(){
         EntityManager entityManager= EntityManagerProvider.getInstance().getEntityManager();
-        List<String> users= new ArrayList<>();
-        TerminalDao terminalDao= new TerminalDao(entityManager);
-        List<Terminal> terminales= terminalDao.getAll();
-        return terminales;
+        UserDao userDao= new UserDao(entityManager);
+        List<User> users= userDao.getAll();
+        return users;
     }
 
     @RequestMapping(value = ("/get-actions"), method = RequestMethod.GET)

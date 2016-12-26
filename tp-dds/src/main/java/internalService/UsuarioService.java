@@ -1,17 +1,10 @@
 package internalService;
 
-import dao.AdminDAO;
 import dao.EntityManagerProvider;
-import dao.TerminalDao;
+import dao.UserDao;
 import org.springframework.stereotype.Component;
-import users.Admin;
-import users.Terminal;
 
 import javax.persistence.EntityManager;
-import java.util.List;
-import java.util.Map;
-
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,8 +13,7 @@ public class UsuarioService {
     EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
 
 
-    private AdminDAO adminDAO=new AdminDAO(entityManager);
-    private TerminalDao terminalDao=new TerminalDao(entityManager);
+    UserDao userDAO= new UserDao(entityManager);
 
     private Map<String, String> users;
 
@@ -32,10 +24,10 @@ public class UsuarioService {
 
 
     public int existeUsuario2(String user, String password) {
-      if(adminDAO.filterAdmin(user,password)){
+      if(userDAO.filterAdmin(user,password)){
           return 2;
       }
-      if(terminalDao.filterTerminals(user,password)){
+      if(userDAO.filterTerminals(user,password)){
           return 1;
       }
       return 0;
@@ -50,20 +42,12 @@ public class UsuarioService {
         this.entityManager = entityManager;
     }
 
-    public AdminDAO getAdminDAO() {
-        return adminDAO;
+    public UserDao getUserDAO() {
+        return userDAO;
     }
 
-    public void setAdminDAO(AdminDAO adminDAO) {
-        this.adminDAO = adminDAO;
-    }
-
-    public TerminalDao getTerminalDao() {
-        return terminalDao;
-    }
-
-    public void setTerminalDao(TerminalDao terminalDao) {
-        this.terminalDao = terminalDao;
+    public void setUserDAO(UserDao userDAO) {
+        this.userDAO = userDAO;
     }
 
     public Map<String, String> getUsers() {

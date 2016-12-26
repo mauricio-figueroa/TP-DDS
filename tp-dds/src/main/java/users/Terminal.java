@@ -6,26 +6,27 @@ import internalService.PoiService;
 import org.apache.http.client.ClientProtocolException;
 import poi.Bank;
 import poi.Poi;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
-import javax.persistence.*;
 import java.io.IOException;
 import java.util.List;
 
-@Entity
-@Table(name = "Terminal")
+
 public class Terminal extends User{
 
-    @Transient
+
+    private String nombre;
+    private String contrasenia;
+    private List<Action> actions;
     private Coordinate coordinates;
-    @Transient
     private PoiService poiService;
 
 
 
-    public Terminal(String nombre,String contrasenia, Coordinate coordinate, List<Action> actions) {
-        super(nombre,contrasenia,actions);
+    public Terminal(String nombre,String contrasenia, Coordinate coordinate, List<Action> actions,String type) {
+        this.nombre=nombre;
+        this.contrasenia=contrasenia;
+        this.actions=actions;
         this.coordinates = coordinate;
         this.poiService = PoiService.getInstance();
     }
@@ -81,5 +82,33 @@ public class Terminal extends User{
         return poiService.isNearby(poi, coordinates);
     }
 
+    @Override
+    public String getNombre() {
+        return nombre;
+    }
 
+    @Override
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    @Override
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    @Override
+    public List<Action> getActions() {
+        return actions;
+    }
+
+    @Override
+    public void setActions(List<Action> actions) {
+        this.actions = actions;
+    }
 }
