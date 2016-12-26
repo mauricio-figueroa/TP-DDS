@@ -87,7 +87,7 @@ public class ProcessServiceTest {
 	poiService.getTerminales().add(new Terminal("Terminal Gabo","asdf", new Coordinate(43.23,54.23),actions,"TERMINAL"));
 	List<String> actionValidate= new ArrayList<String>();
 	actionValidate.add(EnumActions.ADDTERMINAL.toString());
-	processService.addActionsToUser("Terminal Gabo", "Terminal",actionValidate,admin);
+	processService.addActionsToUser("Terminal Gabo",actionValidate,admin);
 	assertTrue(poiService.searchTerminalByName("Terminal Gabo").getActions().size()==2);
 
 	}
@@ -112,7 +112,7 @@ public class ProcessServiceTest {
 		List<String> actionValidate= new ArrayList<String>();
 		actionValidate.add(EnumActions.ADDTERMINAL.toString());
 		
-		Runnable run1= () -> { processService.addActionsToUser("Terminal Gabo", "Terminal", actionValidate,admin);
+		Runnable run1= () -> { processService.addActionsToUser("Terminal Gabo", actionValidate,admin);
 	};
 		Runnable run2= () -> { processService.undoAddActionToUser("Terminal Gabo", "Terminal",admin);
 	};

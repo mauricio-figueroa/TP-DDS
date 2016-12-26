@@ -44,6 +44,12 @@ public class UserDao  extends GenericDao<User,Long> {
                 equalsIgnoreCase("ADMIN")).collect(Collectors.toList())).get(0);
     }
 
+    public User getByName(String user){
+        UserDao userDao=new UserDao(entityManager);
+        List<User> admin= userDao.getAll();
+        return (admin.stream().filter(x->x.getNombre().equalsIgnoreCase(user)).collect(Collectors.toList())).get(0);
+    }
+
     public User saveAdmin(List<Action> actions, String user, String pw, String mail, String resolution){
         User admin= new User(actions,user,pw,mail,resolution);
         return saveOrUpdate(admin);

@@ -4,6 +4,7 @@ import users.Admin;
 import users.Terminal;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by gabrieldyck on 25/12/16.
@@ -19,8 +20,19 @@ public class Action {
     @Column
     private String action;
 
+    @Column
+    private Date updateDate;
     public Action(String action) {
         this.action = action;
+        this.updateDate= new Date();
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
     public Action() {
