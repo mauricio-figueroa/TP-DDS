@@ -1,7 +1,7 @@
 var termimal;
 var users;
-var usuarios=[];
-var permisosActuales=[];
+var usuarios = [];
+var permisosActuales = [];
 
 var remaining;
 
@@ -67,13 +67,14 @@ function log() {
             //$(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
 
 
-            $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+            // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
+            $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/admin.jsp');
 
         } else if (dataReceived == 1) {
             // $(location).attr('href', 'file:///usr/local/Tomcat/work/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
-           // $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+            $(location).attr('href', 'C:/Users/Mauricio/Desktop/TRABAJO-DISENIO/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
 
-            $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
+            // $(location).attr('href', '/home/gabrieldyck/diseñoDeSistemas/TPIntegrador/TP-DDS/tp-dds/src/main/java/view/terminal.jsp');
 
         } else {
             openModal();
@@ -197,7 +198,7 @@ function ejecutarControllers() {
     });
 
 
-    $.get('http://localhost:8080/diseno-de-sistemas/add-user?name=mauri&password=mauri&type=ADMIN&action=ADDTERMINAL,ADDPOI&resolutionType=Email', function (dataReceived) {
+    $.get('http://localhost:8080/diseno-de-sistemas/add-user?name=mauri&password=mauri&type=ADMIN&action=ADDTERMINAL,ADDPOI', function (dataReceived) {
         console.log("Se creo un usuario administrador: User-> mauri, Psw -> mauri");
     });
 
@@ -339,8 +340,10 @@ function addPermiso() {
 
         $("#permisos").append(' </br><p id="' + id + '" class="permisoAdded">' + $("#listPermisos option:selected").text() + '</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso(' + id + ')"> Eliminar</button>');
 
-        var accion=id;
+        var accion = [];
+        accion.action = id;
         users[userSelected].actions.push(accion);
+
 
         remaining.push(id);
 
@@ -352,35 +355,45 @@ function addPermiso() {
 
 function eliminarPermiso(target) {
 
+<<<<<<< Updated upstream
 
     var i = -2;
     var result;
 
     var currentUser=users[userSelected];
     var actionsSize=currentUser.actions.length;
-    var index;
+
     var j=0;
     var currenAction;
     for(j;j<actionsSize;j++){
         currenAction=currentUser.actions[j];
 
-        if(target.textContent==(currenAction)){
-            i=1;
+        if(target.toString().indexOf(currenAction.action.toString()) != -1){
+            i=1
             break;
         }
     }
 
     if(i==1){
-
-
-
-        var index= currentUser.actions.indexOf(target.textContent);
-        currentUser.actions.splice(index, 1);
-//    users[userSelected].remove(result);
+    users[userSelected].remove(result);
     }
-    $( "#"+target.textContent ).hide();
 
-    console.log(permisosActuales);
+
+    console.log(target);
+
+    $('#permisos > #' + target).empty();
+=======
+>>>>>>> Stashed changes
+
+    //var ind = target.toString();
+
+    var index = users[userSelected].lista.indexOf(target);
+
+    //console.log(ind);
+
+    users[userSelected].lista.splice(index, 1);
+
+    console.log(users[userSelected].lista);
 
 
 }
@@ -410,28 +423,19 @@ function Ok() {
 
     $('#permisos').empty();
     var fulltext = "";
-
+    var sizeActions = users[userSelected].actions.length;
     var i;
     var text;
-    var id = $("#usuarios option:selected").attr('id');
     var res = '';
-    var sizeActions =  users[id].actions.length;
 
 
     for (i = 0; i < sizeActions; i++) {
-        text = users[id].actions[i];
+        text = users[userSelected].actions[i].action;
         res = res + fulltext.concat(text);
         if (i != sizeActions - 1) {
             res = res + fulltext.concat(",")
         }
-
     }
-    var action=[];
-    var actionObj= {};
-    users[id].actions=[];
-    actionObj.action=res;
-    action.push(actionObj);
-    users[id].actions.push(actionObj);
 
 
     var urltoPost = 'http://localhost:8080/diseno-de-sistemas/addActionToUser?adminName=' + localStorage["terminal"] + "&user=" + users[userSelected].nombre + "&actions=" + res;
@@ -444,7 +448,6 @@ function Ok() {
 
 }
 
-
 function selectUser() {
 
     $('#permisos').empty();
@@ -452,32 +455,35 @@ function selectUser() {
     var id = $("#usuarios option:selected").attr('id');
     userSelected = id;
 
-    var idn = users[userSelected].actions[users[userSelected].actions.length-1].action;
 
-    agregarGraficaPermiso(idn, "#usuarios", "#permisos",userSelected);
+    for (var i = 0; i < users[id].actions.length; i++) {
+        var idn = users[userSelected].actions[i].action;
+        agregarGraficaPermiso(idn, "#usuarios", "#permisos");
 
-
-
+    }
 
 
 }
 
-function agregarGraficaPermiso(id, pathOuter, pathInner,userSelected) {
+function agregarGraficaPermiso(id, pathOuter, pathInner) {
 
     var ar = $(pathOuter + " option:selected").attr('id');
 
-
-    var action=[];
-
-    id.split(",").forEach(function (value) {
-        action.push(value);
+<<<<<<< Updated upstream
+    permisosActuales = id.split(",");
+    permisosActuales.forEach(function (value) {
         $(pathInner).append(' </br><p id="' + value + '" class="permisoAdded">' + value + '</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso(' + value + ')"> Eliminar</button>');
+=======
+    var idValue=users[userSelected].actions[users[userSelected].actions.length -1].id;
+    permisosActuales= users[userSelected].actions[users[userSelected].actions.length -1];
+    permisosActuales= permisosActuales.action.split(",");
+    permisosActuales.forEach(function(value){
+            $(pathInner).append(' </br><p id="' + ar + '" class="permisoAdded">' + value + '</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso(' + idValue + ')"> Eliminar</button>');
+>>>>>>> Stashed changes
     });
 
-    users[userSelected].actions=action;
+
 }
-
-
 
 
 function initialize() {

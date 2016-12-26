@@ -224,20 +224,12 @@ public class ProcessService {
 		String userRan= admin.getNombre();
 		String result=null;
 		String errorMessage=null;
-		
-		System.out.println("UNDO AAAAAAAAADD");
-		if (type =="Terminal"){
-			ProcessSearchInterfaz searchTerminal= new ProcessSearchTerminal();
-			List<Terminal> terminales = (List<Terminal>) searchTerminal.search(nombre);
-			int indexToErase=terminales.get(0).getActions().size()-1;
-			terminales.get(0).getActions().remove(indexToErase);
-			
-	}else{
+
 		ProcessSearchInterfaz searchAdmin= new ProcessSearchAdmin();
-		List<Admin> admins =(List<Admin>) searchAdmin.search(nombre);
+		List<User> admins =(List<User>) searchAdmin.search(nombre);
 		int indexToErase=admins.get(0).getActions().size()-1;
 		admins.get(0).getActions().remove(indexToErase);
-	}
+
 		endDate=Calendar.getInstance();
 		result="SUCCESS";
 		ProcessStory story = new ProcessStory(initDate, endDate, processName, userRan, result, errorMessage);

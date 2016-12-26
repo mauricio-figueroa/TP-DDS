@@ -1,6 +1,7 @@
 package testService;
 
 import com.sun.deploy.util.StringUtils;
+import controller.controllers.AdminController;
 import dao.model.Action;
 import domain.Address;
 import domain.Coordinate;
@@ -104,10 +105,12 @@ public class ProcessServiceTest {
 	public void multiplyProcess(){
 		List<String> actionInitialize= new ArrayList<String>();
 		actionInitialize.add(EnumActions.ADDPOI.toString());
+
 		List<Action> actions= new ArrayList<>();
 		Action action= new Action(StringUtils.join(actions,","));
 		actions.add(action);
-		poiService.getTerminales().add(new Terminal("Terminal Gabo","asdfs", new Coordinate(43.23,54.23),actions,"TERMINAL"));
+		AdminController controller= new AdminController();
+		controller.addTerminal("Terminal Gabo","asdfs",43.23,54.23,actionInitialize,"TERMINAL",null,null);
 
 		List<String> actionValidate= new ArrayList<String>();
 		actionValidate.add(EnumActions.ADDTERMINAL.toString());
