@@ -429,15 +429,16 @@ function agregarGraficaPermiso(id, pathOuter, pathInner) {
 
 
 function initialize() {
-    user1 = {};
-    user2 = {};
-    user3 = {};
-    users = [user1, user2, user3];
-    user1.lista = [];
-    user2.lista = [];
-    user3.lista = [];
+  users = [];
+  remaining = [];
 
-    remaining = [];
+    cargarPermisos();
+    cargarUsuarios();
+
+    for(var i=0; i< users.length; i++){
+      users[i]={};
+      users[i].lista=[];
+    }
 }
 
 
@@ -580,6 +581,47 @@ function fitBackground() {
 };
 
 
-// [{"user":"terminalGabo1","date":"Mon Sep 26 19:35:18 ART 2016","palabraBuscada":"bank","cantPoisEncontrados":3},{"user":"terminalGabo1","date":"Mon Sep 26 19:35:45 ART 2016","palabraBuscada":"cgp","cantPoisEncontrados":1}]
 
-//despues haces el http://localhost:8080/diseno-de-sistemas/reportePorNombreTerminal?name=terminalGabo1
+function cargarUsuarios(){
+  var url="http://localhost:8080/diseno-de-sistemas/get-users";
+var i ;
+
+  $.get(url, function (dataReceived) {
+
+      console.log(dataReceived);
+
+      for (i = 0; i < dataReceived.length; i++) {
+
+          $("#usuarios").append('<option  id="'+i+'" value="'+(i+1)+'">'+dataReceived[i]+'</option>');
+
+        users.push(dataReceived[i]);
+
+      }
+
+
+  });
+
+
+
+}
+
+
+ function cargarPermisos(){
+
+   var url="http://localhost:8080/diseno-de-sistemas/get-actions";
+
+
+   $.get(url, function (dataReceived) {
+
+       console.log(dataReceived);
+
+       for (var i = 0; i < dataReceived.length; i++) {
+
+           $("#usuarios").append('<option  id="'+(i+1)+'"  value="'+(i+1)+'">'+dataReceived[i]+'</option>');
+
+       }
+
+
+   });
+
+ }
