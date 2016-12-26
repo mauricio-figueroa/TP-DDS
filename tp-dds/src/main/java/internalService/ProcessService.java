@@ -11,6 +11,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.sun.deploy.util.StringUtils;
+import dao.EntityManagerProvider;
+import dao.UserDao;
 import dao.model.Action;
 import org.apache.http.client.ClientProtocolException;
 
@@ -31,6 +33,9 @@ import domain.ProcessSearchInterfaz;
 import domain.ProcessSearchTerminal;
 import domain.ProcessStory;
 import externalServices.BankService.BankService;
+import users.User;
+
+import javax.persistence.EntityManager;
 
 public class ProcessService {
 
@@ -168,6 +173,8 @@ public class ProcessService {
 	}
 
 	public String addActionsToUser(String nombre,String type,List<String> actions,Admin admin){
+        EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+        UserDao userDAO= new UserDao(entityManager);
 		Calendar initDate= Calendar.getInstance();
 		Calendar endDate=null;
 		String processName="AddActions";
@@ -178,16 +185,22 @@ public class ProcessService {
 		System.out.println("ADD");
 		if (type =="Terminal"){
 			ProcessSearchInterfaz searchProcess= new ProcessSearchTerminal();
-			List<Terminal> terminales = (List<Terminal>) searchProcess.search(nombre);
+			List<User> terminales = (List<User>) searchProcess.search(nombre);
 			Action action= new Action(StringUtils.join(actions,","));
 			if(!terminales.isEmpty()) {
-				terminales.get(0).getActions().add(action);
+                User terminal= terminales.get(0);
+                terminal.getActions().add(action);
+                userDAO.saveOrUpdate(terminal);
 			}
 		}else{
 			ProcessSearchInterfaz searchProcess= new ProcessSearchAdmin();
-			List<Admin> admins =(List<Admin>) searchProcess.search(nombre);
+			List<User> admins =(List<User>) searchProcess.search(nombre);
 			Action action= new Action(StringUtils.join(actions,","));
-			admins.get(0).getActions().add(action);
+            if(!admins.isEmpty()) {
+                User adminUser= admins.get(0);
+                admin.getActions().add(action);
+                userDAO.saveOrUpdate(adminUser);
+            }
 		}
 		
 		endDate=Calendar.getInstance();

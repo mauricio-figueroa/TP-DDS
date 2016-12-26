@@ -37,9 +37,9 @@ public class Admin {
         this.mail = mail;
         this.poiService = PoiService.getInstance();
 
-        if (resolutionType == "Email") {
+        if (resolutionType.equalsIgnoreCase( "Email")) {
             errorResolution = new EmailErrorProcessResolution();
-        } else if (resolutionType == "Repeat") {
+        } else if (resolutionType.equalsIgnoreCase( "Repeat")) {
             errorResolution = new RepeatErrorProcessResolution();
         }
     }

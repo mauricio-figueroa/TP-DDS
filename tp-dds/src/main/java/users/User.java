@@ -103,4 +103,20 @@ public class User {
     public void setActions(List<Action> actions) {
         this.actions = actions;
     }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getResolutionType() {
+        return resolutionType;
+    }
+
+    public void setResolutionType(String resolutionType) {
+        this.resolutionType = resolutionType;
+    }
 }

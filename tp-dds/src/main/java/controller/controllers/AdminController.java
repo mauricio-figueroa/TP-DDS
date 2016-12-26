@@ -496,11 +496,14 @@ public class AdminController {
             @RequestParam(value = "actions", required = true) String actions ){
 
         String[] parts = actions.split(",");
+        EntityManager entityManager = EntityManagerProvider.getInstance().getEntityManager();
+        UserDao userDAO= new UserDao(entityManager);
+        User userSelected= userDAO.getAdminByName(adminName);
 
         List<String> actions2 =new ArrayList<>(Arrays.asList(parts));
 
 
-        Admin admin= new Admin(adminName);
+        Admin admin= new Admin(userSelected.getActions(), userSelected.getNombre(), userSelected.getContrasenia(), userSelected.getMail(), userSelected.getResolutionType());
         admin.addActionsToUser(user,"Terminal",actions2);
     }
 
