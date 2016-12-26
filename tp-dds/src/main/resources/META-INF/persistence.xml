@@ -14,7 +14,7 @@
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
             <property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/poi_system"/>
             <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="despegar.com"/>
+            <property name="hibernate.connection.password" value="vhzg9fbr"/>
 
 
             <!--

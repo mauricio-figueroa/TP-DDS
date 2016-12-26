@@ -467,4 +467,18 @@ public class AdminController {
     }
 
 
+
+    @RequestMapping(value = ("/addActionToUser"), method = RequestMethod.GET)
+    @ResponseBody
+    public void addActionToUser(
+            @RequestParam(value = "adminName", required = true) String adminName,
+            @RequestParam(value = "user", required = true) String user,
+            @RequestParam(value = "mainStreet", required = true) List<String> actions ){
+
+        Admin admin= new Admin(adminName);
+        admin.addActionsToUser(user,"Terminal",actions);
+    }
+
+
+
 }
