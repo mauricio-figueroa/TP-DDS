@@ -9,7 +9,6 @@ import domain.ErrorProcessResolution;
 import domain.RepeatErrorProcessResolution;
 import domain.Schedule;
 import internalService.PoiService;
-import org.hibernate.annotations.Fetch;
 import poi.CGP;
 import poi.CGPService;
 import poi.Poi;

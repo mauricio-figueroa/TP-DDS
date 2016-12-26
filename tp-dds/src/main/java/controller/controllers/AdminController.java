@@ -454,11 +454,8 @@ public class AdminController {
     public List<String> getUsers(){
         EntityManager entityManager= EntityManagerProvider.getInstance().getEntityManager();
         List<String> users= new ArrayList<>();
-        AdminDAO adminDAO = new AdminDAO(entityManager);
         TerminalDao terminalDao= new TerminalDao(entityManager);
         List<String> terminales= terminalDao.getAll().stream().map(Terminal::getNombre).collect(Collectors.toList());
-        List<String> admins= adminDAO.getAll().stream().map(Admin::getNombre).collect(Collectors.toList());
-        users.addAll(admins);
         users.addAll(terminales);
         return users;
     }

@@ -123,7 +123,6 @@ public class TerminalController {
         actions.add(new ArrayList<String>());
         Admin admin= new Admin(actions,user.toLowerCase(),pw.toLowerCase(),"","");
         Admin adminDao= adminDAO.saveOrUpdate(admin);
-        System.out.println(adminDao.getId());
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 
     }
