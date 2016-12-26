@@ -327,7 +327,7 @@ function addPermiso() {
     }
 
 
-    var id = $("#listPermisos option:selected").attr('id');
+    var id = $("#listPermisos option:selected").text();
 
     console.log(id);
 
@@ -339,22 +339,23 @@ function addPermiso() {
 
         $("#permisos").append(' </br><p id="' + id + '" class="permisoAdded">' + $("#listPermisos option:selected").text() + '</p><button id="deletePermiso" type="button" name="button" onclick="eliminarPermiso(' + id + ')"> Eliminar</button>');
 
-        users[userSelected].actions.push(id);
+        var accion=[];
+        accion.action=id;
+        users[userSelected].actions.push(accion);
+
+
 
         remaining.push(id);
 
     }
 
 
-    console.log(users[userSelected].lista);
 }
 
 
 function eliminarPermiso(target) {
 
     console.log(target);
-
-    permisosActuales
 
     $('#permisos > #' + target).empty();
 
@@ -395,6 +396,30 @@ function cancel() {
 function Ok() {
 
     $('#permisos').empty();
+    var fulltext="";
+    var sizeActions=  users[userSelected].actions.length;
+    var i;
+    var text;
+    var res='';
+
+
+    for(i=0;i<sizeActions;i++){
+        text=users[userSelected].actions[i].action;
+        res=res+fulltext.concat(text);
+        if(i!=sizeActions-1){
+           res=res+ fulltext.concat(",")
+        }
+    }
+
+
+    var urltoPost = 'http://localhost:8080/diseno-de-sistemas/addActionToUser?adminName='+localStorage["terminal"]+"&user="+users[userSelected].nombre+"&actions="+res;
+
+        console.log(urltoPost);
+
+    $.get(urltoPost, function (dataReceived) {
+        })
+
+
 
 }
 
@@ -412,7 +437,6 @@ function selectUser() {
 
     }
 
-    console.log(users[userSelected].actions[0].action[0]);
 
 
 }
