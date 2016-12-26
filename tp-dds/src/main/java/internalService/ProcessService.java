@@ -180,7 +180,9 @@ public class ProcessService {
 			ProcessSearchInterfaz searchProcess= new ProcessSearchTerminal();
 			List<Terminal> terminales = (List<Terminal>) searchProcess.search(nombre);
 			Action action= new Action(StringUtils.join(actions,","));
-			terminales.get(0).getActions().add(action);
+			if(!terminales.isEmpty()) {
+				terminales.get(0).getActions().add(action);
+			}
 		}else{
 			ProcessSearchInterfaz searchProcess= new ProcessSearchAdmin();
 			List<Admin> admins =(List<Admin>) searchProcess.search(nombre);

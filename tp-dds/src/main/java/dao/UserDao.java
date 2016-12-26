@@ -22,6 +22,14 @@ public class UserDao  extends GenericDao<User,Long> {
                 &&x.getContrasenia().equalsIgnoreCase(pw)).collect(Collectors.toList())).size()>0;
     }
 
+    public List<User> searchTerminals(String user){
+        UserDao userDao=new UserDao(entityManager);
+        List<User> terminales= userDao.getAll();
+        return (terminales.stream().filter(x->x.getNombre().equalsIgnoreCase(user)&&x.getType().equalsIgnoreCase("TERMINAL")
+               ).collect(Collectors.toList()));
+    }
+
+
     public boolean filterAdmin(String user,String pw){
         UserDao userDao=new UserDao(entityManager);
         List<User> admin= userDao.getAll();
